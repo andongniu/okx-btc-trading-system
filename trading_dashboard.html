@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freqtrade 交易系统面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .positive {
+            color: #10b981;
+        }
+
+        .negative {
+            color: #ef4444;
+        }
+
+        .neutral {
+            color: #60a5fa;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .trade-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .trade-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 4px solid;
+            transition: background 0.3s ease;
+        }
+
+        .trade-item:hover {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .trade-item.buy {
+            border-left-color: #10b981;
+        }
+
+        .trade-item.sell {
+            border-left-color: #ef4444;
+        }
+
+        .trade-time {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .trade-price {
+            font-weight: 600;
+        }
+
+        .trade-position {
+            color: #60a5fa;
+        }
+
+        .strategy-info {
+            line-height: 1.6;
+        }
+
+        .strategy-param {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .param-name {
+            color: #94a3b8;
+        }
+
+        .param-value {
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .status-waiting {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Freqtrade 交易系统面板</h1>
+            <div class="subtitle">OKX BTC永续合约 | 实时监控与数据分析</div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- 系统概览 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📊 系统概览</div>
+                    <div class="card-icon">⚙️</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalReturn">-98.92%</div>
+                        <div class="stat-label">总收益率</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalTrades">162</div>
+                        <div class="stat-label">总交易次数</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="initialBalance">10,000</div>
+                        <div class="stat-label">初始资金 (USDT)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="finalBalance">107.98</div>
+                        <div class="stat-label">最终资金 (USDT)</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <div class="strategy-param">
+                        <span class="param-name">系统状态</span>
+                        <span class="status-badge status-waiting">等待API密钥</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">交易所</span>
+                        <span class="param-value">OKX</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">交易对</span>
+                        <span class="param-value">BTC/USDT:USDT</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">交易模式</span>
+                        <span class="param-value">永续合约 (Futures)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 策略信息 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🎯 策略信息</div>
+                    <div class="card-icon">📈</div>
+                </div>
+                <div class="strategy-info">
+                    <div class="strategy-param">
+                        <span class="param-name">策略名称</span>
+                        <span class="param-value">SampleStrategy</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">时间周期</span>
+                        <span class="param-value">5分钟</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">持仓数量</span>
+                        <span class="param-value">3</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">每单金额</span>
+                        <span class="param-value">100 USDT</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">止损</span>
+                        <span class="param-value">-10%</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">最小ROI</span>
+                        <span class="param-value">10% (0m), 5% (30m), 2% (60m)</span>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(15, 23, 42, 0.6); border-radius: 8px;">
+                        <div style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 8px;">策略逻辑</div>
+                        <div style="font-size: 0.95rem;">
+                            <div>• 买入信号: RSI < 30 且 价格低于20日均线</div>
+                            <div>• 卖出信号: RSI > 70 且 价格高于20日均线</div>
+                            <div>• 技术指标: RSI(14), SMA(20), SMA(50), 布林带(20,2)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 资金曲线 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">💰 资金曲线</div>
+                    <div class="card-icon">📊</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="equityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 交易统计 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📈 交易统计</div>
+                    <div class="card-icon">📋</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value positive" id="winRate">0%</div>
+                        <div class="stat-label">胜率</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avgWin">0</div>
+                        <div class="stat-label">平均盈利</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avgLoss">0</div>
+                        <div class="stat-label">平均亏损</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="profitFactor">0</div>
+                        <div class="stat-label">盈亏比</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <div class="strategy-param">
+                        <span class="param-name">最大回撤</span>
+                        <span class="param-value negative">-99.08%</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">夏普比率</span>
+                        <span class="param-value negative">-2.34</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">交易频率</span>
+                        <span class="param-value">5.4 次/天</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最近交易 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔄 最近交易</div>
+                    <div class="card-icon">💱</div>
+                </div>
+                <div class="trade-list" id="recentTrades">
+                    <!-- 交易记录将通过JavaScript动态加载 -->
+                </div>
+            </div>
+
+            <!-- 风险指标 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">⚠️ 风险指标</div>
+                    <div class="card-icon">🚨</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <div class="strategy-param">
+                        <span class="param-name">策略健康度</span>
+                        <span class="status-badge status-inactive">高风险</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">回测表现</span>
+                        <span class="param-value negative">极差 (-98.92%)</span>
+                    </div>
+                    <div class="strategy-param">
+                        <span class="param-name">建议操作</span>
+                        <span class="param-value">需要策略优化</span>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                        <div style="color: #ef4444; font-size: 0.9rem; margin-bottom: 8px;">⚠️ 风险提示</div>
+                        <div style="font-size: 0.9rem; color: #fca5a5;">
+                            • 当前策略回测表现极差，不建议实盘交易<br>
+                            • 需要优化策略参数或更换策略<br>
+                            • 建议进行更长时间的回测验证
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📅 数据更新时间: <span id="updateTime">2026-02-24 00:02</span> | 🔄 自动刷新: 60秒</p>
+            <p>💡 提示: 此面板为静态展示，需要API密钥后才能启动实时交易系统</p>
+        </div>
+    </div>
+
+    <script>
+        // API配置
+        const API_BASE_URL = window.location.origin;
+        
+        // 默认数据（如果API不可用）
+        const defaultData = {
+            initial_balance: 10000,
+            final_balance: 107.97809292153936,
+            total_return: -98.92021907078461,
+            num_trades: 162,
+            trades: []
+        };
+        
+        let backtestData = { ...defaultData };
+
+        // 格式化时间戳
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleString('zh-CN', {
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // 格式化价格
+        function formatPrice(price) {
+            return new Intl.NumberFormat('zh-CN', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(price);
+        }
+
+        // 计算交易统计
+        function calculateTradeStats(trades) {
+            let wins = 0;
+            let losses = 0;
+            let totalWin = 0;
+            let totalLoss = 0;
+            
+            // 分析交易对
+            for (let i = 0; i < trades.length; i += 2) {
+                if (i + 1 < trades.length) {
+                    const buy = trades[i];
+                    const sell = trades[i + 1];
+                    const profit = (sell.balance - (i === 0 ? backtestData.initial_balance : trades[i-1].balance));
+                    
+                    if (profit > 0) {
+                        wins++;
+                        totalWin += profit;
+                    } else {
+                        losses++;
+                        totalLoss += Math.abs(profit);
+                    }
+                }
+            }
+            
+            const totalTrades = wins + losses;
+            const winRate = totalTrades > 0 ? (wins / totalTrades * 100).toFixed(1) : 0;
+            const avgWin = wins > 0 ? (totalWin / wins).toFixed(2) : 0;
+            const avgLoss = losses > 0 ? (totalLoss / losses).toFixed(2) : 0;
+            const profitFactor = totalLoss > 0 ? (totalWin / totalLoss).toFixed(2) : 0;
+            
+            return {
+                winRate,
+                avgWin,
+                avgLoss,
+                profitFactor,
+                wins,
+                losses,
+                totalTrades
+            };
+        }
+
+        // 生成资金曲线数据
+        function generateEquityData(trades) {
+            const equityData = [];
+            let currentBalance = backtestData.initial_balance;
+            
+            // 添加初始点
+            equityData.push({
+                x: new Date((parseInt(trades[0].timestamp) - 3600) * 1000), // 交易开始前1小时
+                y: currentBalance
+            });
+            
+            // 添加每个交易后的资金
+            for (let i = 0; i < trades.length; i++) {
+                const trade = trades[i];
+                if (trade.type === 'sell') {
+                    currentBalance = trade.balance;
+                    equityData.push({
+                        x: new Date(parseInt(trade.timestamp) * 1000),
+                        y: currentBalance
+                    });
+                }
+            }
+            
+            return equityData;
+        }
+
+        // 初始化图表
+        function initCharts() {
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            
+            // 生成资金曲线数据
+            const equityData = generateEquityData(backtestData.trades);
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: '资金曲线 (USDT)',
+                        data: equityData,
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#e2e8f0',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#e2e8f0',
+                            bodyColor: '#e2e8f0',
+                            borderColor: 'rgba(148, 163, 184, 0.2)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return `资金: ${formatPrice(context.parsed.y)} USDT`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MM-dd'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            },
+                            ticks: {
+                                color: '#94a3b8'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            },
+                            ticks: {
+                                color: '#94a3b8',
+                                callback: function(value) {
+                                    return formatPrice(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 更新交易列表
+        function updateTradeList() {
+            const container = document.getElementById('recentTrades');
+            container.innerHTML = '';
+            
+            // 显示最近10笔交易
+            const recentTrades = backtestData.trades.slice(-20); // 显示最近20笔交易（10对）
+            
+            for (let i = 0; i < recentTrades.length; i++) {
+                const trade = recentTrades[i];
+                const tradeItem = document.createElement('div');
+                tradeItem.className = `trade-item ${trade.type}`;
+                
+                const tradeTime = formatTimestamp(trade.timestamp);
+                const tradePrice = formatPrice(trade.price);
+                const tradePosition = trade.position > 0 ? `${(trade.position * 100).toFixed(2)}%` : '平仓';
+                
+                tradeItem.innerHTML = `
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 4px;">
+                            ${trade.type === 'buy' ? '🟢 买入' : '🔴 卖出'} BTC
+                        </div>
+                        <div class="trade-time">${tradeTime}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="trade-price">${tradePrice} USDT</div>
+                        <div class="trade-position">${tradePosition}</div>
+                    </div>
+                `;
+                
+                container.appendChild(tradeItem);
+            }
+        }
+
+        // 更新统计信息
+        function updateStats() {
+            const stats = calculateTradeStats(backtestData.trades);
+            
+            document.getElementById('totalReturn').textContent = `${backtestData.total_return.toFixed(2)}%`;
+            document.getElementById('totalReturn').className = `stat-value ${backtestData.total_return >= 0 ? 'positive' : 'negative'}`;
+            
+            document.getElementById('totalTrades').textContent = backtestData.num_trades;
+            document.getElementById('initialBalance').textContent = formatPrice(backtestData.initial_balance);
+            document.getElementById('finalBalance').textContent = formatPrice(backtestData.final_balance);
+            
+            document.getElementById('winRate').textContent = `${stats.winRate}%`;
+            document.getElementById('avgWin').textContent = formatPrice(stats.avgWin);
+            document.getElementById('avgLoss').textContent = formatPrice(stats.avgLoss);
+            document.getElementById('profitFactor').textContent = stats.profitFactor;
+            
+            // 更新胜率颜色
+            document.getElementById('winRate').className = `stat-value ${stats.winRate > 50 ? 'positive' : stats.winRate > 30 ? 'neutral' : 'negative'}`;
+            
+            // 更新盈亏比颜色
+            document.getElementById('profitFactor').className = `stat-value ${stats.profitFactor > 1.5 ? 'positive' : stats.profitFactor > 1 ? 'neutral' : 'negative'}`;
+        }
+
+        // 从API获取数据
+        async function fetchData() {
+            try {
+                // 获取系统状态
+                const statusResponse = await fetch(`${API_BASE_URL}/api/system-status`);
+                const statusData = await statusResponse.json();
+                
+                // 获取回测结果
+                const backtestResponse = await fetch(`${API_BASE_URL}/api/backtest-results`);
+                const backtestResult = await backtestResponse.json();
+                
+                // 获取最近交易
+                const tradesResponse = await fetch(`${API_BASE_URL}/api/recent-trades`);
+                const tradesData = await tradesResponse.json();
+                
+                // 获取资金曲线
+                const equityResponse = await fetch(`${API_BASE_URL}/api/equity-curve`);
+                const equityData = await equityResponse.json();
+                
+                // 更新数据
+                backtestData = {
+                    initial_balance: backtestResult.initial_balance || defaultData.initial_balance,
+                    final_balance: backtestResult.final_balance || defaultData.final_balance,
+                    total_return: backtestResult.total_return || defaultData.total_return,
+                    num_trades: backtestResult.num_trades || defaultData.num_trades,
+                    trades: backtestResult.trades || defaultData.trades
+                };
+                
+                // 更新UI
+                updateSystemStatus(statusData);
+                updateStats();
+                updateTradeList(tradesData.recent_trades || []);
+                updateEquityChart(equityData.equity_curve || []);
+                
+                // 更新时间显示
+                document.getElementById('updateTime').textContent = new Date().toLocaleString('zh-CN');
+                
+                return true;
+            } catch (error) {
+                console.error('获取数据失败:', error);
+                // 使用默认数据
+                updateStats();
+                initCharts();
+                updateTradeList();
+                return false;
+            }
+        }
+        
+        // 更新系统状态
+        function updateSystemStatus(statusData) {
+            const system = statusData.system;
+            const performance = statusData.performance;
+            
+            // 更新状态徽章
+            const statusBadge = document.querySelector('.status-badge');
+            if (system.status === 'active') {
+                statusBadge.className = 'status-badge status-active';
+                statusBadge.textContent = '运行中';
+            } else if (system.status === 'waiting') {
+                statusBadge.className = 'status-badge status-waiting';
+                statusBadge.textContent = '等待API密钥';
+            } else {
+                statusBadge.className = 'status-badge status-inactive';
+                statusBadge.textContent = '已停止';
+            }
+            
+            // 更新性能指标
+            document.getElementById('totalReturn').textContent = `${performance.total_return.toFixed(2)}%`;
+            document.getElementById('totalReturn').className = `stat-value ${performance.total_return >= 0 ? 'positive' : 'negative'}`;
+            
+            document.getElementById('totalTrades').textContent = performance.total_trades;
+        }
+        
+        // 更新资金曲线图表
+        function updateEquityChart(equityCurve) {
+            if (!equityCurve || equityCurve.length === 0) return;
+            
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            
+            // 如果图表已存在，销毁它
+            if (window.equityChart) {
+                window.equityChart.destroy();
+            }
+            
+            const chartData = equityCurve.map(point => ({
+                x: new Date(point.timestamp * 1000),
+                y: point.balance
+            }));
+            
+            window.equityChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: '资金曲线 (USDT)',
+                        data: chartData,
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#e2e8f0',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#e2e8f0',
+                            bodyColor: '#e2e8f0',
+                            borderColor: 'rgba(148, 163, 184, 0.2)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return `资金: ${formatPrice(context.parsed.y)} USDT`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MM-dd'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            },
+                            ticks: {
+                                color: '#94a3b8'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            },
+                            ticks: {
+                                color: '#94a3b8',
+                                callback: function(value) {
+                                    return formatPrice(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 更新交易列表
+        function updateTradeList(trades = null) {
+            const container = document.getElementById('recentTrades');
+            container.innerHTML = '';
+            
+            const tradeList = trades || backtestData.trades.slice(-20);
+            
+            if (tradeList.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 20px;">暂无交易记录</div>';
+                return;
+            }
+            
+            for (let i = 0; i < tradeList.length; i++) {
+                const trade = tradeList[i];
+                const tradeItem = document.createElement('div');
+                tradeItem.className = `trade-item ${trade.type}`;
+                
+                const tradeTime = formatTimestamp(trade.timestamp);
+                const tradePrice = formatPrice(trade.price);
+                const tradePosition = trade.position > 0 ? `${(trade.position * 100).toFixed(2)}%` : '平仓';
+                
+                tradeItem.innerHTML = `
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 4px;">
+                            ${trade.type === 'buy' ? '🟢 买入' : '🔴 卖出'} BTC
+                        </div>
+                        <div class="trade-time">${tradeTime}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="trade-price">${tradePrice} USDT</div>
+                        <div class="trade-position">${tradePosition}</div>
+                    </div>
+                `;
+                
+                container.appendChild(tradeItem);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 显示加载状态
+            document.getElementById('updateTime').textContent = '加载中...';
+            
+            // 首次加载数据
+            await fetchData();
+            
+            // 每30秒刷新一次数据
+            setInterval(async () => {
+                await fetchData();
+            }, 30000);
+        });

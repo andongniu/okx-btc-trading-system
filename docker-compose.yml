@@ -1,0 +1,25 @@
+version: '3'
+services:
+  freqtrade:
+    image: freqtradeorg/freqtrade:stable
+    container_name: freqtrade
+    restart: unless-stopped
+    volumes:
+      - "./config:/freqtrade/config"
+      - "./user_data:/freqtrade/user_data"
+      - "./logs:/freqtrade/logs"
+    # 初始命令：下载数据
+    command: >
+      download-data
+      --config /freqtrade/config/config.json
+      --exchange binance
+      -t 5m 1h 1d
+      --days 30
+    environment:
+      - FT_APP_ENV=production
+    networks:
+      - freqtrade-network
+
+networks:
+  freqtrade-network:
+    driver: bridge

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生存交易系统 - 200U→1000U挑战</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    <style>
+        :root {
+            --critical: #dc3545;
+            --stable: #28a745;
+            --growing: #17a2b8;
+            --thriving: #ffc107;
+            --emergency: #6f42c1;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .header h1 {
+            color: #333;
+            margin: 0;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        
+        .status-critical { background: var(--critical); color: white; }
+        .status-stable { background: var(--stable); color: white; }
+        .status-growing { background: var(--growing); color: white; }
+        .status-thriving { background: var(--thriving); color: #333; }
+        .status-emergency { background: var(--emergency); color: white; }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .metric .label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .metric .value {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .positive { color: var(--stable); }
+        .negative { color: var(--critical); }
+        .neutral { color: #666; }
+        
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+        
+        .positions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .positions-table th,
+        .positions-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .positions-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .positions-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .trade-reason {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-start {
+            background: var(--stable);
+            color: white;
+        }
+        
+        .btn-stop {
+            background: var(--critical);
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        .survival-progress {
+            margin-top: 30px;
+        }
+        
+        .progress-bar {
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--stable), var(--growing));
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .signal-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .signal-buy { background: var(--stable); }
+        .signal-sell { background: var(--critical); }
+        .signal-neutral { background: #666; }
+        
+        .refresh-info {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 生存交易系统</h1>
+            <div class="subtitle">200U → 1000U 挑战 (30天生存任务)</div>
+            <div id="statusBadge" class="status-badge status-critical">状态: 初始化</div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- 资金概览 -->
+            <div class="card">
+                <h3>💰 资金概览</h3>
+                <div class="metric">
+                    <span class="label">当前资金</span>
+                    <span id="currentCapital" class="value">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">初始资金</span>
+                    <span class="value neutral">$200.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">目标资金</span>
+                    <span class="value neutral">$1,000.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">今日盈亏</span>
+                    <span id="dailyPnl" class="value neutral">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">总盈亏</span>
+                    <span id="totalPnl" class="value neutral">$0.00</span>
+                </div>
+                
+                <div class="survival-progress">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill" style="width: 0%">0%</div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>$200</span>
+                        <span>$600</span>
+                        <span>$1,000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 风险指标 -->
+            <div class="card">
+                <h3>🛡️ 风险控制</h3>
+                <div class="metric">
+                    <span class="label">风险暴露</span>
+                    <span id="riskExposure" class="value neutral">0%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">最大回撤</span>
+                    <span id="maxDrawdown" class="value neutral">0%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">夏普比率</span>
+                    <span id="sharpeRatio" class="value neutral">0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">胜率</span>
+                    <span id="winRate" class="value neutral">0%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">盈亏比</span>
+                    <span id="profitFactor" class="value neutral">0.00</span>
+                </div>
+            </div>
+            
+            <!-- 当前持仓 -->
+            <div class="card">
+                <h3>📊 当前持仓</h3>
+                <div id="positionsContainer">
+                    <p style="color: #666; text-align: center;">暂无持仓</p>
+                </div>
+            </div>
+            
+            <!-- 交易信号 -->
+            <div class="card">
+                <h3>📡 交易信号</h3>
+                <div id="signalsContainer">
+                    <p style="color: #666; text-align: center;">等待信号...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 资金曲线图 -->
+        <div class="card">
+            <h3>📈 资金曲线</h3>
+            <div class="chart-container">
+                <canvas id="equityChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- 最近交易 -->
+        <div class="card">
+            <h3>📋 最近交易</h3>
+            <div id="tradesContainer">
+                <p style="color: #666; text-align: center;">暂无交易记录</p>
+            </div>
+        </div>
+        
+        <!-- 控制面板 -->
+        <div class="card">
+            <h3>🎮 系统控制</h3>
+            <div class="controls">
+                <button id="btnStart" class="btn btn-start" onclick="startTrading()">▶️ 启动交易</button>
+                <button id="btnStop" class="btn btn-stop" onclick="stopTrading()" disabled>⏸️ 停止交易</button>
+                <button id="btnManual" class="btn" onclick="manualTrade()" disabled>🎯 手动交易</button>
+            </div>
+            <div class="refresh-info">
+                数据每5秒自动刷新 | 最后更新: <span id="lastUpdate">--:--:--</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let equityChart = null;
+        let updateInterval = null;
+        
+        // 初始化图表
+        function initChart() {
+            const ctx = document.getElementById('equityChart').getContext('2d');
+            equityChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '资金曲线',
+                        data: [],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toFixed(0);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 更新仪表盘数据
+        async function updateDashboard() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                // 更新状态徽章
+                const statusMap = {
+                    'critical': 'status-critical',
+                    'stable': 'status-stable', 
+                    'growing': 'status-growing',
+                    'thriving': 'status-thriving',
+                    'emergency': 'status-emergency'
+                };
+                
+                const badge = document.getElementById('statusBadge');
+                badge.className = `status-badge ${statusMap[data.survival_status] || 'status-critical'}`;
+                badge.textContent = `状态: ${data.system_status === 'running' ? '运行中' : '已停止'} | 生存: ${data.survival_status}`;
+                
+                // 更新资金信息
+                document.getElementById('currentCapital').textContent = `$${data.capital.toFixed(2)}`;
+                document.getElementById('dailyPnl').textContent = `$${data.metrics.daily_pnl?.toFixed(2) || '0.00'}`;
+                document.getElementById('totalPnl').textContent = `$${data.metrics.total_pnl?.toFixed(2) || '0.00'}`;
+                
+                // 更新风险指标
+                document.getElementById('riskExposure').textContent = `${(data.risk_indicators.total_exposure * 100).toFixed(1)}%`;
+                document.getElementById('maxDrawdown').textContent = `${(data.metrics.max_drawdown * 100).toFixed(1)}%`;
+                document.getElementById('sharpeRatio').textContent = data.risk_indicators.sharpe_ratio?.toFixed(2) || '0.00';
+                
+                // 计算胜率
+                const totalTrades = data.metrics.total_trades || 0;
+                const winningTrades = data.metrics.winning_trades || 0;
+                const winRate = totalTrades > 0 ? (winningTrades / totalTrades * 100) : 0;
+                document.getElementById('winRate').textContent = `${winRate.toFixed(1)}%`;
+                
+                // 更新进度条
+                const progress = ((data.capital - 200) / 800) * 100;
+                const progressFill = document.getElementById('progressFill');
+                progressFill.style.width = `${Math.max(0, Math.min(100, progress))}%`;
+                progressFill.textContent = `${progress.toFixed(1)}%`;
+                
+                // 更新持仓
+                updatePositions(data.positions);
+                
+                // 更新交易记录
+                updateTrades(data.recent_trades);
+                
+                // 更新信号
+                updateSignals(data.signals);
+                
+                // 更新图表
+                updateChart(data.equity_curve || [data.capital]);
+                
+                // 更新最后刷新时间
+                document.getElementById('lastUpdate').textContent = 
+                    luxon.DateTime.now().toLocaleString(luxon.DateTime.TIME_WITH_SECONDS);
+                    
+            } catch (error) {
+                console.error('更新仪表盘失败:', error);
+            }
+        }
+        
+        function updatePositions(positions) {
+            const container = document.getElementById('positionsContainer');
+            
+            if (!positions || positions.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">暂无持仓</p>';
+                return;
+            }
+            
+            let html = '<table class="positions-table">';
+            html += '<tr><th>方向</th><th>入场价</th><th>当前价</th><th>盈亏</th><th>杠杆</th><th>时长</th></tr>';
+            
+            positions.forEach(pos => {
+                const pnlClass = pos.unrealized_pnl >= 0 ? 'positive' : 'negative';
+                const directionClass = pos.direction === 'LONG' ? 'signal-buy' : 'signal-sell';
+                
+                html += `
+                    <tr>
+                        <td><span class="signal-indicator ${directionClass}"></span>${pos.direction}</td>
+                        <td>$${pos.entry_price.toFixed(0)}</td>
+                        <td>$${pos.current_price.toFixed(0)}</td>
+                        <td class="${pnlClass}">$${pos.unrealized_pnl.toFixed(2)} (${pos.unrealized_pnl_percent.toFixed(2)}%)</

@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "project": "200U_to_1000U_Survival_Trading",
+    "version": "1.0.0",
+    "start_date": "2026-02-25",
+    "target_date": "2026-03-27",
+    "initial_capital": 200,
+    "target_capital": 1000,
+    "daily_target_return": 0.134,
+    "monthly_target_return": 4.0
+  },
+  "exchange": {
+    "name": "okx",
+    "api_key": "9b5ee84f-13fd-43f5-ae6f-b96b2b0ed70d",
+    "secret": "A7EABBD3C6D49A92C5B542E0189F4BEC",
+    "passphrase": "Lhc@930720",
+    "default_type": "swap",
+    "symbol": "BTC/USDT:USDT",
+    "proxies": {
+      "http": "http://127.0.0.1:7897",
+      "https": "http://127.0.0.1:7897"
+    }
+  },
+  "trading": {
+    "base_timeframe": "5m",
+    "analysis_timeframes": ["15m", "5m", "1h"],
+    "position_sizing": {
+      "base_position": 0.1,
+      "max_position": 0.3,
+      "pyramid_factor": 0.5
+    },
+    "leverage": {
+      "min": 5,
+      "max": 20,
+      "default": 10,
+      "volatility_adjusted": true
+    },
+    "fees": {
+      "maker": 0.0002,
+      "taker": 0.0005,
+      "funding_rate_interval": 8
+    }
+  },
+  "strategy": {
+    "primary": "trend_momentum",
+    "secondary": "mean_reversion",
+    "indicators": {
+      "trend": ["ema_20", "ema_50", "macd"],
+      "momentum": ["rsi_14", "stoch_rsi"],
+      "volatility": ["bb_20_2", "atr_14"],
+      "volume": ["vwap", "obv"]
+    },
+    "entry_conditions": {
+      "trend_momentum": {
+        "ema_cross": true,
+        "macd_signal": true,
+        "rsi_range": [30, 70]
+      },
+      "mean_reversion": {
+        "bb_touch": true,
+        "rsi_extreme": true,
+        "volume_confirmation": true
+      }
+    }
+  },
+  "risk_management": {
+    "stop_loss": {
+      "initial": -0.03,
+      "trailing": -0.02,
+      "max_daily": -0.10,
+      "max_total": -0.25
+    },
+    "take_profit": {
+      "initial": 0.06,
+      "trailing": 0.04,
+      "scale_out": [0.5, 0.3, 0.2]
+    },
+    "position_management": {
+      "max_concurrent_trades": 2,
+      "cooldown_period_minutes": 30,
+      "daily_trade_limit": 10
+    }
+  },
+  "monitoring": {
+    "dashboard_port": 8080,
+    "update_interval_seconds": 5,
+    "log_level": "INFO",
+    "alert_channels": ["telegram", "local_log"]
+  },
+  "survival_rules": {
+    "cost_coverage_priority": true,
+    "min_daily_profit_for_survival": 1.67,
+    "emergency_shutdown_at_loss": -50,
+    "profit_lock_at": [250, 500, 750]
+  }
+}

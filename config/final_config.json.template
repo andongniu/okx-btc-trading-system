@@ -1,0 +1,11 @@
+{
+  "exchange": {
+    "api_key": "YOUR_OKX_API_KEY",
+    "secret": "YOUR_OKX_SECRET",
+    "passphrase": "YOUR_OKX_PASSPHRASE",
+    "proxies": {
+      "http": "http://127.0.0.1:7897",
+      "https": "http://127.0.0.1:7897"
+    }
+  }
+}

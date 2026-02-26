@@ -1,0 +1,3168 @@
+{
+  "simple_strategy": {
+    "initial_balance": 10000,
+    "final_balance": 8865.509556574509,
+    "total_return_percent": -11.344904434254913,
+    "total_trades": 98,
+    "completed_trades": 97,
+    "winning_trades": 64,
+    "losing_trades": 33,
+    "win_rate_percent": 65.97938144329896,
+    "average_win_percent": 0.6125811094342538,
+    "average_loss_percent": -1.5105115211679379,
+    "profit_factor": 0.7865124326264058,
+    "average_trade_duration_minutes": 223.96907216494844,
+    "max_consecutive_wins": 7,
+    "max_consecutive_losses": 4,
+    "largest_win_percent": 2.0336655252945044,
+    "largest_loss_percent": -6.400772067792722,
+    "sharpe_ratio": -1.3383303541173146,
+    "calmar_ratio": -2.7534912896928345
+  },
+  "optimized_strategy": {
+    "initial_balance": 10000,
+    "final_balance": 10114.296820048285,
+    "total_return_percent": 1.1429682004828463,
+    "total_trades": 249,
+    "completed_trades": 249,
+    "winning_trades": 143,
+    "losing_trades": 106,
+    "win_rate_percent": 57.42971887550201,
+    "average_win_percent": 0.20109051581967433,
+    "average_loss_percent": -0.2583149804817273,
+    "profit_factor": 1.0502003709458039,
+    "average_trade_duration_minutes": 10.522088353413654,
+    "max_consecutive_wins": 7,
+    "max_consecutive_losses": 6,
+    "largest_win_percent": 3.172744749432664,
+    "largest_loss_percent": -2.540321123571151,
+    "sharpe_ratio": -0.08781896844698527,
+    "calmar_ratio": 0.30102451732243335
+  },
+  "trade_history": {
+    "simple": [
+      {
+        "entry_time": "2026-01-24 21:10:00",
+        "exit_time": "2026-01-24 22:10:00",
+        "entry_price": 89250.0,
+        "exit_price": 89432.9,
+        "position": 0.11204481792717087,
+        "pnl_percent": 0.20492997198878898,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-01-25 00:05:00",
+        "exit_time": "2026-01-25 04:40:00",
+        "entry_price": 89216.1,
+        "exit_price": 89030.0,
+        "position": 0.11231709295966623,
+        "pnl_percent": -0.20859463706663461,
+        "duration_minutes": 275.0
+      },
+      {
+        "entry_time": "2026-01-25 05:40:00",
+        "exit_time": "2026-01-25 10:20:00",
+        "entry_price": 88855.7,
+        "exit_price": 88573.0,
+        "position": 0.11253741500206609,
+        "pnl_percent": -0.3181562916053749,
+        "duration_minutes": 280.0
+      },
+      {
+        "entry_time": "2026-01-25 14:55:00",
+        "exit_time": "2026-01-26 00:15:00",
+        "entry_price": 88663.3,
+        "exit_price": 86990.3,
+        "position": 0.11242280017750297,
+        "pnl_percent": -1.8869137512364191,
+        "duration_minutes": 560.0
+      },
+      {
+        "entry_time": "2026-01-26 03:30:00",
+        "exit_time": "2026-01-26 05:00:00",
+        "entry_price": 87300.0,
+        "exit_price": 87692.7,
+        "position": 0.11202397610860294,
+        "pnl_percent": 0.44982817869415476,
+        "duration_minutes": 90.0
+      },
+      {
+        "entry_time": "2026-01-26 09:30:00",
+        "exit_time": "2026-01-26 11:00:00",
+        "entry_price": 87709.4,
+        "exit_price": 87880.6,
+        "position": 0.11200264657720707,
+        "pnl_percent": 0.19519002524246165,
+        "duration_minutes": 90.0
+      },
+      {
+        "entry_time": "2026-01-26 16:25:00",
+        "exit_time": "2026-01-26 18:20:00",
+        "entry_price": 87651.0,
+        "exit_price": 87921.8,
+        "position": 0.11229603521685895,
+        "pnl_percent": 0.30895255045578823,
+        "duration_minutes": 115.0
+      },
+      {
+        "entry_time": "2026-01-26 20:05:00",
+        "exit_time": "2026-01-26 22:00:00",
+        "entry_price": 87939.2,
+        "exit_price": 88067.3,
+        "position": 0.1122738158765332,
+        "pnl_percent": 0.14566882573415021,
+        "duration_minutes": 115.0
+      },
+      {
+        "entry_time": "2026-01-27 00:45:00",
+        "exit_time": "2026-01-27 01:45:00",
+        "entry_price": 88215.6,
+        "exit_price": 88569.1,
+        "position": 0.11208507140396272,
+        "pnl_percent": 0.40072277465663664,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-01-27 04:50:00",
+        "exit_time": "2026-01-27 11:45:00",
+        "entry_price": 88508.8,
+        "exit_price": 88020.1,
+        "position": 0.11216143363919424,
+        "pnl_percent": -0.5521484869301099,
+        "duration_minutes": 415.0
+      },
+      {
+        "entry_time": "2026-01-27 13:25:00",
+        "exit_time": "2026-01-27 16:05:00",
+        "entry_price": 87776.5,
+        "exit_price": 88420.4,
+        "position": 0.11247270744521873,
+        "pnl_percent": 0.7335676405415962,
+        "duration_minutes": 160.0
+      },
+      {
+        "entry_time": "2026-01-27 17:15:00",
+        "exit_time": "2026-01-27 18:50:00",
+        "entry_price": 87597.8,
+        "exit_price": 87973.6,
+        "position": 0.11352889891514646,
+        "pnl_percent": 0.429006207918467,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-01-27 21:55:00",
+        "exit_time": "2026-01-27 23:25:00",
+        "entry_price": 89039.3,
+        "exit_price": 89454.3,
+        "position": 0.11217008603618323,
+        "pnl_percent": 0.4660863236795438,
+        "duration_minutes": 90.0
+      },
+      {
+        "entry_time": "2026-01-28 00:35:00",
+        "exit_time": "2026-01-28 06:20:00",
+        "entry_price": 89150.7,
+        "exit_price": 89222.2,
+        "position": 0.11255207785588386,
+        "pnl_percent": 0.08020127716327523,
+        "duration_minutes": 345.0
+      },
+      {
+        "entry_time": "2026-01-28 08:55:00",
+        "exit_time": "2026-01-28 09:55:00",
+        "entry_price": 88893.2,
+        "exit_price": 89545.3,
+        "position": 0.11296864103073397,
+        "pnl_percent": 0.7335769215193129,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-01-28 14:40:00",
+        "exit_time": "2026-01-28 17:50:00",
+        "entry_price": 89667.0,
+        "exit_price": 90452.4,
+        "position": 0.11281531501766963,
+        "pnl_percent": 0.8759075245073373,
+        "duration_minutes": 190.0
+      },
+      {
+        "entry_time": "2026-01-28 19:00:00",
+        "exit_time": "2026-01-29 04:55:00",
+        "entry_price": 89524.6,
+        "exit_price": 88263.9,
+        "position": 0.11398449141469785,
+        "pnl_percent": -1.4082162891540555,
+        "duration_minutes": 595.0
+      },
+      {
+        "entry_time": "2026-01-29 08:10:00",
+        "exit_time": "2026-01-29 12:55:00",
+        "entry_price": 87912.1,
+        "exit_price": 88063.8,
+        "position": 0.11444062594088582,
+        "pnl_percent": 0.17255872627317181,
+        "duration_minutes": 285.0
+      },
+      {
+        "entry_time": "2026-01-29 14:30:00",
+        "exit_time": "2026-01-29 17:15:00",
+        "entry_price": 87675.9,
+        "exit_price": 85502.9,
+        "position": 0.11494693974892738,
+        "pnl_percent": -2.4784461864662926,
+        "duration_minutes": 165.0
+      },
+      {
+        "entry_time": "2026-01-29 18:20:00",
+        "exit_time": "2026-01-29 21:35:00",
+        "entry_price": 83982.1,
+        "exit_price": 84395.1,
+        "position": 0.11702847028900874,
+        "pnl_percent": 0.49177146082319917,
+        "duration_minutes": 195.0
+      },
+      {
+        "entry_time": "2026-01-30 00:40:00",
+        "exit_time": "2026-01-30 03:30:00",
+        "entry_price": 84344.1,
+        "exit_price": 82400.0,
+        "position": 0.1170992334127452,
+        "pnl_percent": -2.3049626470612714,
+        "duration_minutes": 170.0
+      },
+      {
+        "entry_time": "2026-01-30 06:25:00",
+        "exit_time": "2026-01-30 07:50:00",
+        "entry_price": 82367.3,
+        "exit_price": 82833.1,
+        "position": 0.11714572206701208,
+        "pnl_percent": 0.5655156840153834,
+        "duration_minutes": 85.0
+      },
+      {
+        "entry_time": "2026-01-30 09:20:00",
+        "exit_time": "2026-01-30 10:55:00",
+        "entry_price": 82487.0,
+        "exit_price": 82779.6,
+        "position": 0.11763724357230859,
+        "pnl_percent": 0.3547225623431642,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-01-30 13:00:00",
+        "exit_time": "2026-01-30 14:30:00",
+        "entry_price": 82624.3,
+        "exit_price": 83106.9,
+        "position": 0.11785835363226407,
+        "pnl_percent": 0.5840896685357592,
+        "duration_minutes": 90.0
+      },
+      {
+        "entry_time": "2026-01-31 02:20:00",
+        "exit_time": "2026-01-31 03:15:00",
+        "entry_price": 83820.7,
+        "exit_price": 84179.9,
+        "position": 0.1168546959102132,
+        "pnl_percent": 0.4285337631396506,
+        "duration_minutes": 55.0
+      },
+      {
+        "entry_time": "2026-01-31 06:25:00",
+        "exit_time": "2026-01-31 22:30:00",
+        "entry_price": 83619.6,
+        "exit_price": 78267.3,
+        "position": 0.11763769040096048,
+        "pnl_percent": -6.400772067792722,
+        "duration_minutes": 965.0
+      },
+      {
+        "entry_time": "2026-02-01 05:45:00",
+        "exit_time": "2026-02-01 08:25:00",
+        "entry_price": 78503.1,
+        "exit_price": 78470.0,
+        "position": 0.11728434171286348,
+        "pnl_percent": -0.042163940022758105,
+        "duration_minutes": 160.0
+      },
+      {
+        "entry_time": "2026-02-01 11:20:00",
+        "exit_time": "2026-02-01 18:30:00",
+        "entry_price": 78356.0,
+        "exit_price": 78134.5,
+        "position": 0.11745497848548161,
+        "pnl_percent": -0.2826841594772576,
+        "duration_minutes": 430.0
+      },
+      {
+        "entry_time": "2026-02-01 19:20:00",
+        "exit_time": "2026-02-02 00:15:00",
+        "entry_price": 77708.5,
+        "exit_price": 77805.6,
+        "position": 0.11809886970503694,
+        "pnl_percent": 0.12495415559431185,
+        "duration_minutes": 295.0
+      },
+      {
+        "entry_time": "2026-02-02 02:30:00",
+        "exit_time": "2026-02-02 06:40:00",
+        "entry_price": 76885.9,
+        "exit_price": 76469.9,
+        "position": 0.11951155435160703,
+        "pnl_percent": -0.5410614950205435,
+        "duration_minutes": 250.0
+      },
+      {
+        "entry_time": "2026-02-02 18:25:00",
+        "exit_time": "2026-02-02 22:00:00",
+        "entry_price": 78375.0,
+        "exit_price": 78594.7,
+        "position": 0.11660652772072669,
+        "pnl_percent": 0.28031897926634397,
+        "duration_minutes": 215.0
+      },
+      {
+        "entry_time": "2026-02-03 02:45:00",
+        "exit_time": "2026-02-03 04:05:00",
+        "entry_price": 78035.2,
+        "exit_price": 78581.2,
+        "position": 0.11744257801930665,
+        "pnl_percent": 0.6996842450586402,
+        "duration_minutes": 80.0
+      },
+      {
+        "entry_time": "2026-02-03 05:50:00",
+        "exit_time": "2026-02-03 07:05:00",
+        "entry_price": 78345.0,
+        "exit_price": 78759.9,
+        "position": 0.11779665213926528,
+        "pnl_percent": 0.52958070074669,
+        "duration_minutes": 75.0
+      },
+      {
+        "entry_time": "2026-02-03 09:25:00",
+        "exit_time": "2026-02-03 19:55:00",
+        "entry_price": 77911.3,
+        "exit_price": 74900.1,
+        "position": 0.11907967833707457,
+        "pnl_percent": -3.8649079145130383,
+        "duration_minutes": 630.0
+      },
+      {
+        "entry_time": "2026-02-03 22:10:00",
+        "exit_time": "2026-02-04 03:55:00",
+        "entry_price": 75799.8,
+        "exit_price": 76665.9,
+        "position": 0.11766627109061922,
+        "pnl_percent": 1.1426151520188592,
+        "duration_minutes": 345.0
+      },
+      {
+        "entry_time": "2026-02-04 05:15:00",
+        "exit_time": "2026-02-04 18:35:00",
+        "entry_price": 76352.7,
+        "exit_price": 73854.1,
+        "position": 0.11814894002184997,
+        "pnl_percent": -3.272444851328102,
+        "duration_minutes": 800.0
+      },
+      {
+        "entry_time": "2026-02-04 21:25:00",
+        "exit_time": "2026-02-05 07:00:00",
+        "entry_price": 73055.1,
+        "exit_price": 71494.1,
+        "position": 0.11944112911032508,
+        "pnl_percent": -2.1367433622019543,
+        "duration_minutes": 575.0
+      },
+      {
+        "entry_time": "2026-02-05 11:00:00",
+        "exit_time": "2026-02-05 14:35:00",
+        "entry_price": 70818.0,
+        "exit_price": 70679.1,
+        "position": 0.12058143450431377,
+        "pnl_percent": -0.19613657544691204,
+        "duration_minutes": 215.0
+      },
+      {
+        "entry_time": "2026-02-05 15:10:00",
+        "exit_time": "2026-02-06 01:20:00",
+        "entry_price": 67958.0,
+        "exit_price": 64313.0,
+        "position": 0.1254096245839172,
+        "pnl_percent": -5.36360693369434,
+        "duration_minutes": 610.0
+      },
+      {
+        "entry_time": "2026-02-06 03:50:00",
+        "exit_time": "2026-02-06 05:00:00",
+        "entry_price": 63928.9,
+        "exit_price": 65229.0,
+        "position": 0.12616311536512384,
+        "pnl_percent": 2.0336655252945044,
+        "duration_minutes": 70.0
+      },
+      {
+        "entry_time": "2026-02-06 07:00:00",
+        "exit_time": "2026-02-06 09:30:00",
+        "entry_price": 64798.4,
+        "exit_price": 65915.7,
+        "position": 0.12700149775537148,
+        "pnl_percent": 1.724270969653565,
+        "duration_minutes": 150.0
+      },
+      {
+        "entry_time": "2026-02-07 00:00:00",
+        "exit_time": "2026-02-07 01:45:00",
+        "entry_price": 70203.8,
+        "exit_price": 70506.2,
+        "position": 0.11924415239052213,
+        "pnl_percent": 0.4307459140388329,
+        "duration_minutes": 105.0
+      },
+      {
+        "entry_time": "2026-02-07 05:25:00",
+        "exit_time": "2026-02-07 12:05:00",
+        "entry_price": 70225.9,
+        "exit_price": 68761.2,
+        "position": 0.11972010408234898,
+        "pnl_percent": -2.08569772690702,
+        "duration_minutes": 400.0
+      },
+      {
+        "entry_time": "2026-02-07 14:35:00",
+        "exit_time": "2026-02-07 16:05:00",
+        "entry_price": 68529.3,
+        "exit_price": 69471.1,
+        "position": 0.12012523140944405,
+        "pnl_percent": 1.3743026705365484,
+        "duration_minutes": 90.0
+      },
+      {
+        "entry_time": "2026-02-07 17:15:00",
+        "exit_time": "2026-02-08 07:50:00",
+        "entry_price": 68876.4,
+        "exit_price": 69573.4,
+        "position": 0.12116242956613048,
+        "pnl_percent": 1.0119576516774977,
+        "duration_minutes": 875.0
+      },
+      {
+        "entry_time": "2026-02-08 09:40:00",
+        "exit_time": "2026-02-08 11:30:00",
+        "entry_price": 70092.9,
+        "exit_price": 70805.0,
+        "position": 0.12026442303252143,
+        "pnl_percent": 1.0159374201952065,
+        "duration_minutes": 110.0
+      },
+      {
+        "entry_time": "2026-02-08 16:45:00",
+        "exit_time": "2026-02-08 18:30:00",
+        "entry_price": 70376.0,
+        "exit_price": 71214.6,
+        "position": 0.12099753428466635,
+        "pnl_percent": 1.1915994088894024,
+        "duration_minutes": 105.0
+      },
+      {
+        "entry_time": "2026-02-08 20:50:00",
+        "exit_time": "2026-02-08 23:00:00",
+        "entry_price": 70683.9,
+        "exit_price": 71367.2,
+        "position": 0.12190599280838778,
+        "pnl_percent": 0.9666982155766772,
+        "duration_minutes": 130.0
+      },
+      {
+        "entry_time": "2026-02-09 00:15:00",
+        "exit_time": "2026-02-09 02:55:00",
+        "entry_price": 70518.8,
+        "exit_price": 70595.5,
+        "position": 0.1233726236117854,
+        "pnl_percent": 0.10876532215522257,
+        "duration_minutes": 160.0
+      },
+      {
+        "entry_time": "2026-02-09 05:00:00",
+        "exit_time": "2026-02-09 12:20:00",
+        "entry_price": 70836.1,
+        "exit_price": 69049.9,
+        "position": 0.12295357946281338,
+        "pnl_percent": -2.5215956270884643,
+        "duration_minutes": 440.0
+      },
+      {
+        "entry_time": "2026-02-09 21:15:00",
+        "exit_time": "2026-02-09 22:40:00",
+        "entry_price": 70322.6,
+        "exit_price": 70487.1,
+        "position": 0.12072836281009686,
+        "pnl_percent": 0.23392195396643467,
+        "duration_minutes": 85.0
+      },
+      {
+        "entry_time": "2026-02-10 00:15:00",
+        "exit_time": "2026-02-10 01:30:00",
+        "entry_price": 70028.9,
+        "exit_price": 70398.3,
+        "position": 0.12151829005212961,
+        "pnl_percent": 0.527496505014371,
+        "duration_minutes": 75.0
+      },
+      {
+        "entry_time": "2026-02-10 02:40:00",
+        "exit_time": "2026-02-10 04:45:00",
+        "entry_price": 70024.2,
+        "exit_price": 69751.0,
+        "position": 0.12216749407457475,
+        "pnl_percent": -0.390150833568962,
+        "duration_minutes": 125.0
+      },
+      {
+        "entry_time": "2026-02-10 05:45:00",
+        "exit_time": "2026-02-10 09:20:00",
+        "entry_price": 69249.5,
+        "exit_price": 69370.0,
+        "position": 0.1230522224593053,
+        "pnl_percent": 0.1740084765954989,
+        "duration_minutes": 215.0
+      },
+      {
+        "entry_time": "2026-02-10 11:50:00",
+        "exit_time": "2026-02-10 14:10:00",
+        "entry_price": 68520.8,
+        "exit_price": 69088.6,
+        "position": 0.12457724766789076,
+        "pnl_percent": 0.8286534891595002,
+        "duration_minutes": 140.0
+      },
+      {
+        "entry_time": "2026-02-10 18:25:00",
+        "exit_time": "2026-02-11 00:25:00",
+        "entry_price": 68866.2,
+        "exit_price": 69152.4,
+        "position": 0.12497956375156227,
+        "pnl_percent": 0.41558848898298023,
+        "duration_minutes": 360.0
+      },
+      {
+        "entry_time": "2026-02-11 03:00:00",
+        "exit_time": "2026-02-11 11:55:00",
+        "entry_price": 68569.4,
+        "exit_price": 67026.2,
+        "position": 0.1260421818533272,
+        "pnl_percent": -2.250566579261299,
+        "duration_minutes": 535.0
+      },
+      {
+        "entry_time": "2026-02-11 15:05:00",
+        "exit_time": "2026-02-11 16:15:00",
+        "entry_price": 65915.0,
+        "exit_price": 66966.0,
+        "position": 0.12816701038212058,
+        "pnl_percent": 1.5944777364787985,
+        "duration_minutes": 70.0
+      },
+      {
+        "entry_time": "2026-02-11 22:30:00",
+        "exit_time": "2026-02-12 00:30:00",
+        "entry_price": 67511.2,
+        "exit_price": 67423.4,
+        "position": 0.12713197243196814,
+        "pnl_percent": -0.13005249499342764,
+        "duration_minutes": 120.0
+      },
+      {
+        "entry_time": "2026-02-12 04:50:00",
+        "exit_time": "2026-02-12 06:25:00",
+        "entry_price": 67054.6,
+        "exit_price": 67263.2,
+        "position": 0.12783119771155985,
+        "pnl_percent": 0.3110897686362923,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-02-12 15:05:00",
+        "exit_time": "2026-02-12 19:35:00",
+        "entry_price": 67137.7,
+        "exit_price": 65942.0,
+        "position": 0.12807015161246502,
+        "pnl_percent": -1.7809665806245927,
+        "duration_minutes": 270.0
+      },
+      {
+        "entry_time": "2026-02-12 20:45:00",
+        "exit_time": "2026-02-12 22:30:00",
+        "entry_price": 65358.6,
+        "exit_price": 65908.0,
+        "position": 0.12921332368853017,
+        "pnl_percent": 0.84059328076183,
+        "duration_minutes": 105.0
+      },
+      {
+        "entry_time": "2026-02-13 00:30:00",
+        "exit_time": "2026-02-13 02:05:00",
+        "entry_price": 65939.5,
+        "exit_price": 66518.0,
+        "position": 0.12915159711043678,
+        "pnl_percent": 0.8773193609293368,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-02-13 04:45:00",
+        "exit_time": "2026-02-13 08:50:00",
+        "entry_price": 66320.3,
+        "exit_price": 66658.1,
+        "position": 0.12953659643566198,
+        "pnl_percent": 0.5093463087470999,
+        "duration_minutes": 245.0
+      },
+      {
+        "entry_time": "2026-02-13 20:25:00",
+        "exit_time": "2026-02-14 07:15:00",
+        "entry_price": 68789.9,
+        "exit_price": 68879.3,
+        "position": 0.1255222554309281,
+        "pnl_percent": 0.1299609390332138,
+        "duration_minutes": 650.0
+      },
+      {
+        "entry_time": "2026-02-14 12:50:00",
+        "exit_time": "2026-02-14 15:30:00",
+        "entry_price": 69714.2,
+        "exit_price": 69928.3,
+        "position": 0.12401899596500464,
+        "pnl_percent": 0.3071110333332461,
+        "duration_minutes": 160.0
+      },
+      {
+        "entry_time": "2026-02-14 16:30:00",
+        "exit_time": "2026-02-14 17:30:00",
+        "entry_price": 69460.0,
+        "exit_price": 69755.6,
+        "position": 0.12485513324992276,
+        "pnl_percent": 0.42556867261734205,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-02-14 23:45:00",
+        "exit_time": "2026-02-15 03:55:00",
+        "entry_price": 69773.9,
+        "exit_price": 69920.1,
+        "position": 0.1248223867797029,
+        "pnl_percent": 0.2095339374752044,
+        "duration_minutes": 250.0
+      },
+      {
+        "entry_time": "2026-02-15 10:15:00",
+        "exit_time": "2026-02-15 15:00:00",
+        "entry_price": 70291.0,
+        "exit_price": 69150.1,
+        "position": 0.12416374451744187,
+        "pnl_percent": -1.6231096441934163,
+        "duration_minutes": 285.0
+      },
+      {
+        "entry_time": "2026-02-15 17:45:00",
+        "exit_time": "2026-02-15 21:05:00",
+        "entry_price": 68261.0,
+        "exit_price": 68675.2,
+        "position": 0.12578097815378558,
+        "pnl_percent": 0.6067886494484362,
+        "duration_minutes": 200.0
+      },
+      {
+        "entry_time": "2026-02-15 23:05:00",
+        "exit_time": "2026-02-16 00:15:00",
+        "entry_price": 68350.1,
+        "exit_price": 68846.2,
+        "position": 0.1263792420333965,
+        "pnl_percent": 0.725821908087905,
+        "duration_minutes": 70.0
+      },
+      {
+        "entry_time": "2026-02-16 02:15:00",
+        "exit_time": "2026-02-16 04:05:00",
+        "entry_price": 68444.6,
+        "exit_price": 68601.6,
+        "position": 0.12712077465394817,
+        "pnl_percent": 0.22938259555903606,
+        "duration_minutes": 110.0
+      },
+      {
+        "entry_time": "2026-02-16 05:35:00",
+        "exit_time": "2026-02-16 07:20:00",
+        "entry_price": 68282.0,
+        "exit_price": 68574.4,
+        "position": 0.12771577479423996,
+        "pnl_percent": 0.4282241293459391,
+        "duration_minutes": 105.0
+      },
+      {
+        "entry_time": "2026-02-16 11:05:00",
+        "exit_time": "2026-02-16 12:25:00",
+        "entry_price": 68670.8,
+        "exit_price": 69472.1,
+        "position": 0.1275364875179862,
+        "pnl_percent": 1.1668715087053054,
+        "duration_minutes": 80.0
+      },
+      {
+        "entry_time": "2026-02-16 13:35:00",
+        "exit_time": "2026-02-16 16:40:00",
+        "entry_price": 68311.2,
+        "exit_price": 67891.3,
+        "position": 0.1297038789319803,
+        "pnl_percent": -0.6146869034653091,
+        "duration_minutes": 185.0
+      },
+      {
+        "entry_time": "2026-02-17 01:55:00",
+        "exit_time": "2026-02-17 06:30:00",
+        "entry_price": 68584.8,
+        "exit_price": 68404.9,
+        "position": 0.12839236909249213,
+        "pnl_percent": -0.26230301757825164,
+        "duration_minutes": 275.0
+      },
+      {
+        "entry_time": "2026-02-17 08:45:00",
+        "exit_time": "2026-02-17 12:35:00",
+        "entry_price": 68174.7,
+        "exit_price": 68166.7,
+        "position": 0.12882590122926854,
+        "pnl_percent": -0.01173455842123251,
+        "duration_minutes": 230.0
+      },
+      {
+        "entry_time": "2026-02-17 14:40:00",
+        "exit_time": "2026-02-17 16:15:00",
+        "entry_price": 67064.1,
+        "exit_price": 67896.4,
+        "position": 0.13094392620381365,
+        "pnl_percent": 1.2410514716517307,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-02-17 17:40:00",
+        "exit_time": "2026-02-17 18:40:00",
+        "entry_price": 66962.9,
+        "exit_price": 67938.1,
+        "position": 0.13276935722772779,
+        "pnl_percent": 1.4563288029640469,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-02-17 20:05:00",
+        "exit_time": "2026-02-18 02:40:00",
+        "entry_price": 67523.7,
+        "exit_price": 67334.3,
+        "position": 0.13358417664128439,
+        "pnl_percent": -0.2804941079946659,
+        "duration_minutes": 395.0
+      },
+      {
+        "entry_time": "2026-02-18 10:40:00",
+        "exit_time": "2026-02-18 12:15:00",
+        "entry_price": 67755.2,
+        "exit_price": 67553.9,
+        "position": 0.13275434247433757,
+        "pnl_percent": -0.29709896804968905,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-02-18 13:50:00",
+        "exit_time": "2026-02-18 15:35:00",
+        "entry_price": 67071.9,
+        "exit_price": 68081.2,
+        "position": 0.13370835739075757,
+        "pnl_percent": 1.5048030546324214,
+        "duration_minutes": 105.0
+      },
+      {
+        "entry_time": "2026-02-18 16:45:00",
+        "exit_time": "2026-02-18 20:45:00",
+        "entry_price": 67136.5,
+        "exit_price": 66438.8,
+        "position": 0.13558981211698024,
+        "pnl_percent": -1.0392260543817402,
+        "duration_minutes": 240.0
+      },
+      {
+        "entry_time": "2026-02-19 05:05:00",
+        "exit_time": "2026-02-19 06:15:00",
+        "entry_price": 66712.9,
+        "exit_price": 67097.9,
+        "position": 0.13503272094718752,
+        "pnl_percent": 0.5770997813016673,
+        "duration_minutes": 70.0
+      },
+      {
+        "entry_time": "2026-02-19 08:25:00",
+        "exit_time": "2026-02-19 17:15:00",
+        "entry_price": 66883.4,
+        "exit_price": 66943.9,
+        "position": 0.135465780849094,
+        "pnl_percent": 0.09045592777879116,
+        "duration_minutes": 530.0
+      },
+      {
+        "entry_time": "2026-02-19 22:00:00",
+        "exit_time": "2026-02-19 23:40:00",
+        "entry_price": 66742.8,
+        "exit_price": 66934.4,
+        "position": 0.1358739472509943,
+        "pnl_percent": 0.28707216358916804,
+        "duration_minutes": 100.0
+      },
+      {
+        "entry_time": "2026-02-20 08:30:00",
+        "exit_time": "2026-02-20 09:40:00",
+        "entry_price": 67714.9,
+        "exit_price": 68098.0,
+        "position": 0.13430782789130535,
+        "pnl_percent": 0.5657543613001066,
+        "duration_minutes": 70.0
+      },
+      {
+        "entry_time": "2026-02-20 11:15:00",
+        "exit_time": "2026-02-20 15:05:00",
+        "entry_price": 67810.1,
+        "exit_price": 67351.4,
+        "position": 0.13487805597900773,
+        "pnl_percent": -0.6764479037783628,
+        "duration_minutes": 230.0
+      },
+      {
+        "entry_time": "2026-02-20 17:30:00",
+        "exit_time": "2026-02-20 18:20:00",
+        "entry_price": 67016.0,
+        "exit_price": 67555.8,
+        "position": 0.1355530902988024,
+        "pnl_percent": 0.8054792885281171,
+        "duration_minutes": 50.0
+      },
+      {
+        "entry_time": "2026-02-21 03:05:00",
+        "exit_time": "2026-02-21 04:55:00",
+        "entry_price": 67682.9,
+        "exit_price": 67787.6,
+        "position": 0.13529853859110402,
+        "pnl_percent": 0.1546919532112419,
+        "duration_minutes": 110.0
+      },
+      {
+        "entry_time": "2026-02-21 12:05:00",
+        "exit_time": "2026-02-21 13:25:00",
+        "entry_price": 67980.5,
+        "exit_price": 68213.5,
+        "position": 0.13491461837730415,
+        "pnl_percent": 0.342745346091894,
+        "duration_minutes": 80.0
+      },
+      {
+        "entry_time": "2026-02-21 20:40:00",
+        "exit_time": "2026-02-22 01:30:00",
+        "entry_price": 68368.3,
+        "exit_price": 68042.6,
+        "position": 0.1346091437212895,
+        "pnl_percent": -0.4763903739013506,
+        "duration_minutes": 290.0
+      },
+      {
+        "entry_time": "2026-02-22 03:15:00",
+        "exit_time": "2026-02-22 06:25:00",
+        "entry_price": 67828.7,
+        "exit_price": 68085.0,
+        "position": 0.135033638011199,
+        "pnl_percent": 0.37786364768896197,
+        "duration_minutes": 190.0
+      },
+      {
+        "entry_time": "2026-02-22 08:50:00",
+        "exit_time": "2026-02-22 09:50:00",
+        "entry_price": 67929.9,
+        "exit_price": 68066.1,
+        "position": 0.1353419516883211,
+        "pnl_percent": 0.2005008103942618,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-02-22 12:10:00",
+        "exit_time": "2026-02-22 18:50:00",
+        "entry_price": 67983.3,
+        "exit_price": 67400.6,
+        "position": 0.13550679090030102,
+        "pnl_percent": -0.8571222638500883,
+        "duration_minutes": 400.0
+      },
+      {
+        "entry_time": "2026-02-23 00:30:00",
+        "exit_time": "2026-02-23 05:30:00",
+        "entry_price": 67274.8,
+        "exit_price": 65060.6,
+        "position": 0.13576018079213656,
+        "pnl_percent": -3.291276971466291,
+        "duration_minutes": 300.0
+      },
+      {
+        "entry_time": "2026-02-23 08:45:00",
+        "exit_time": "2026-02-23 09:30:00",
+        "entry_price": 65587.5,
+        "exit_price": 66114.6,
+        "position": 0.13466954554518587,
+        "pnl_percent": 0.8036592338479219,
+        "duration_minutes": 45.0
+      }
+    ],
+    "optimized": [
+      {
+        "entry_time": "2026-01-25 00:25:00",
+        "exit_time": "2026-01-25 00:30:00",
+        "entry_price": 89142.9,
+        "exit_price": 89168.0,
+        "position": 0.11217943324706736,
+        "pnl_percent": 0.028157037745020437,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 03:15:00",
+        "exit_time": "2026-01-25 03:20:00",
+        "entry_price": 89016.1,
+        "exit_price": 89012.5,
+        "position": 0.11237085992055933,
+        "pnl_percent": -0.004044212226783492,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 03:30:00",
+        "exit_time": "2026-01-25 03:35:00",
+        "entry_price": 88831.0,
+        "exit_price": 88911.1,
+        "position": 0.11260045669505901,
+        "pnl_percent": 0.09017122400964282,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 03:40:00",
+        "exit_time": "2026-01-25 03:45:00",
+        "entry_price": 88889.3,
+        "exit_price": 88868.9,
+        "position": 0.11262807182934348,
+        "pnl_percent": -0.022949893856750735,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 05:40:00",
+        "exit_time": "2026-01-25 05:45:00",
+        "entry_price": 88855.7,
+        "exit_price": 88926.1,
+        "position": 0.11264480334513985,
+        "pnl_percent": 0.079229582345318,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 06:10:00",
+        "exit_time": "2026-01-25 06:15:00",
+        "entry_price": 88663.1,
+        "exit_price": 88713.2,
+        "position": 0.1129789399056681,
+        "pnl_percent": 0.0565060323855034,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 07:55:00",
+        "exit_time": "2026-01-25 08:00:00",
+        "entry_price": 88623.1,
+        "exit_price": 88700.3,
+        "position": 0.11309380163455707,
+        "pnl_percent": 0.08711047119768671,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 08:35:00",
+        "exit_time": "2026-01-25 08:40:00",
+        "entry_price": 88397.6,
+        "exit_price": 88271.0,
+        "position": 0.11348106886528256,
+        "pnl_percent": -0.1432165579156061,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 08:45:00",
+        "exit_time": "2026-01-25 08:50:00",
+        "entry_price": 88221.5,
+        "exit_price": 88262.0,
+        "position": 0.11354474169910232,
+        "pnl_percent": 0.0459071768219765,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 09:00:00",
+        "exit_time": "2026-01-25 09:05:00",
+        "entry_price": 88258.7,
+        "exit_price": 88328.0,
+        "position": 0.11354898714626625,
+        "pnl_percent": 0.07851917148111508,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 15:20:00",
+        "exit_time": "2026-01-25 15:25:00",
+        "entry_price": 88610.0,
+        "exit_price": 88701.1,
+        "position": 0.11318761919259007,
+        "pnl_percent": 0.10281006658391356,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 15:50:00",
+        "exit_time": "2026-01-25 15:55:00",
+        "entry_price": 88364.0,
+        "exit_price": 88415.8,
+        "position": 0.11361941886700298,
+        "pnl_percent": 0.05862115793762494,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 16:00:00",
+        "exit_time": "2026-01-25 16:05:00",
+        "entry_price": 88242.1,
+        "exit_price": 88027.4,
+        "position": 0.1138430728038109,
+        "pnl_percent": -0.24330789951736376,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 16:10:00",
+        "exit_time": "2026-01-25 16:15:00",
+        "entry_price": 87860.8,
+        "exit_price": 87664.7,
+        "position": 0.11405893990186956,
+        "pnl_percent": -0.22319396135706232,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 16:20:00",
+        "exit_time": "2026-01-25 16:25:00",
+        "entry_price": 87885.3,
+        "exit_price": 87997.7,
+        "position": 0.1137726417138637,
+        "pnl_percent": 0.12789397089159868,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 16:30:00",
+        "exit_time": "2026-01-25 16:35:00",
+        "entry_price": 87781.5,
+        "exit_price": 87920.9,
+        "position": 0.11405285616837334,
+        "pnl_percent": 0.15880339251436143,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 18:25:00",
+        "exit_time": "2026-01-25 18:30:00",
+        "entry_price": 87483.7,
+        "exit_price": 87294.4,
+        "position": 0.11462283558987486,
+        "pnl_percent": -0.21638316623554207,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 18:40:00",
+        "exit_time": "2026-01-25 18:45:00",
+        "entry_price": 87020.6,
+        "exit_price": 87229.3,
+        "position": 0.11498348275140335,
+        "pnl_percent": 0.23982827054743025,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 19:20:00",
+        "exit_time": "2026-01-25 19:25:00",
+        "entry_price": 86702.7,
+        "exit_price": 86432.9,
+        "position": 0.11568184972286895,
+        "pnl_percent": -0.311178313939477,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 19:30:00",
+        "exit_time": "2026-01-25 19:35:00",
+        "entry_price": 86409.5,
+        "exit_price": 86596.5,
+        "position": 0.11571317677930966,
+        "pnl_percent": 0.21641138995133635,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-25 22:20:00",
+        "exit_time": "2026-01-25 22:25:00",
+        "entry_price": 86283.3,
+        "exit_price": 86291.0,
+        "position": 0.1161332043740734,
+        "pnl_percent": 0.008924090756840652,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-26 03:30:00",
+        "exit_time": "2026-01-26 03:35:00",
+        "entry_price": 87300.0,
+        "exit_price": 87243.3,
+        "position": 0.11479095462363308,
+        "pnl_percent": -0.06494845360824408,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-26 03:45:00",
+        "exit_time": "2026-01-26 03:50:00",
+        "entry_price": 87242.4,
+        "exit_price": 87100.0,
+        "position": 0.11479213881685979,
+        "pnl_percent": -0.16322338679357076,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-26 09:50:00",
+        "exit_time": "2026-01-26 09:55:00",
+        "entry_price": 87574.3,
+        "exit_price": 87624.0,
+        "position": 0.11417042775047573,
+        "pnl_percent": 0.0567518096062396,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-26 20:50:00",
+        "exit_time": "2026-01-26 20:55:00",
+        "entry_price": 87545.1,
+        "exit_price": 87601.0,
+        "position": 0.11427332382061,
+        "pnl_percent": 0.06385280272681644,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 04:50:00",
+        "exit_time": "2026-01-27 04:55:00",
+        "entry_price": 88508.8,
+        "exit_price": 88532.2,
+        "position": 0.11310126721873143,
+        "pnl_percent": 0.026438049097936223,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 05:20:00",
+        "exit_time": "2026-01-27 05:25:00",
+        "entry_price": 88453.8,
+        "exit_price": 88453.2,
+        "position": 0.11320151321551108,
+        "pnl_percent": -0.0006783202078438922,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 08:20:00",
+        "exit_time": "2026-01-27 08:25:00",
+        "entry_price": 88214.1,
+        "exit_price": 88196.5,
+        "position": 0.11350834037590639,
+        "pnl_percent": -0.019951459007126773,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 08:35:00",
+        "exit_time": "2026-01-27 08:40:00",
+        "entry_price": 88184.5,
+        "exit_price": 88197.1,
+        "position": 0.11352378640195984,
+        "pnl_percent": 0.014288225255011732,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 08:45:00",
+        "exit_time": "2026-01-27 08:50:00",
+        "entry_price": 88081.9,
+        "exit_price": 88170.9,
+        "position": 0.11367226117593165,
+        "pnl_percent": 0.10104232538126448,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 09:05:00",
+        "exit_time": "2026-01-27 09:10:00",
+        "entry_price": 87967.6,
+        "exit_price": 87974.1,
+        "position": 0.11393496665723461,
+        "pnl_percent": 0.0073890841628053965,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 09:15:00",
+        "exit_time": "2026-01-27 09:20:00",
+        "entry_price": 88000.6,
+        "exit_price": 87985.5,
+        "position": 0.11390065692961439,
+        "pnl_percent": -0.01715897391609355,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 09:30:00",
+        "exit_time": "2026-01-27 09:35:00",
+        "entry_price": 87876.0,
+        "exit_price": 87988.5,
+        "position": 0.11404258557832157,
+        "pnl_percent": 0.12802130274477672,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 13:25:00",
+        "exit_time": "2026-01-27 13:30:00",
+        "entry_price": 87776.5,
+        "exit_price": 87881.7,
+        "position": 0.11431802408569659,
+        "pnl_percent": 0.1198498459154752,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 17:15:00",
+        "exit_time": "2026-01-27 17:20:00",
+        "entry_price": 87597.8,
+        "exit_price": 87735.5,
+        "position": 0.11468852296852161,
+        "pnl_percent": 0.15719572865984885,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-27 17:40:00",
+        "exit_time": "2026-01-27 17:45:00",
+        "entry_price": 87320.1,
+        "exit_price": 87371.9,
+        "position": 0.11523412028736484,
+        "pnl_percent": 0.05932196596200457,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 08:55:00",
+        "exit_time": "2026-01-28 09:00:00",
+        "entry_price": 88893.2,
+        "exit_price": 88867.0,
+        "position": 0.1132620271779575,
+        "pnl_percent": -0.02947357053182593,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 14:40:00",
+        "exit_time": "2026-01-28 14:45:00",
+        "entry_price": 89667.0,
+        "exit_price": 89562.2,
+        "position": 0.11225151470689941,
+        "pnl_percent": -0.11687688893350164,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 14:50:00",
+        "exit_time": "2026-01-28 14:55:00",
+        "entry_price": 89685.4,
+        "exit_price": 89569.3,
+        "position": 0.11209731584496771,
+        "pnl_percent": -0.12945250843503098,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 15:05:00",
+        "exit_time": "2026-01-28 15:10:00",
+        "entry_price": 89368.2,
+        "exit_price": 89042.9,
+        "position": 0.11234956183645488,
+        "pnl_percent": -0.36399972249637225,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 15:15:00",
+        "exit_time": "2026-01-28 15:20:00",
+        "entry_price": 89140.0,
+        "exit_price": 89152.1,
+        "position": 0.11222717971334156,
+        "pnl_percent": 0.013574153017731457,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 19:00:00",
+        "exit_time": "2026-01-28 19:05:00",
+        "entry_price": 89524.6,
+        "exit_price": 89345.8,
+        "position": 0.11176021728688873,
+        "pnl_percent": -0.19972164075572849,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-28 19:40:00",
+        "exit_time": "2026-01-28 19:45:00",
+        "entry_price": 89011.3,
+        "exit_price": 89376.4,
+        "position": 0.11218020657681557,
+        "pnl_percent": 0.4101726410017506,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 00:10:00",
+        "exit_time": "2026-01-29 00:15:00",
+        "entry_price": 89054.0,
+        "exit_price": 89037.1,
+        "position": 0.11258632981216003,
+        "pnl_percent": -0.018977249758566916,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 01:55:00",
+        "exit_time": "2026-01-29 02:00:00",
+        "entry_price": 88568.0,
+        "exit_price": 88587.1,
+        "position": 0.11318264278428185,
+        "pnl_percent": 0.021565350916816255,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 02:30:00",
+        "exit_time": "2026-01-29 02:35:00",
+        "entry_price": 88257.4,
+        "exit_price": 88239.8,
+        "position": 0.11360545511872609,
+        "pnl_percent": -0.01994167061344575,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 02:45:00",
+        "exit_time": "2026-01-29 02:50:00",
+        "entry_price": 87804.9,
+        "exit_price": 87751.9,
+        "position": 0.11416814595296354,
+        "pnl_percent": -0.06036109602083711,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 02:55:00",
+        "exit_time": "2026-01-29 03:00:00",
+        "entry_price": 87863.0,
+        "exit_price": 87944.0,
+        "position": 0.11402378392326531,
+        "pnl_percent": 0.09218897601948488,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 08:10:00",
+        "exit_time": "2026-01-29 08:15:00",
+        "entry_price": 87912.1,
+        "exit_price": 87951.2,
+        "position": 0.11406515887287011,
+        "pnl_percent": 0.04447624388450653,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 14:30:00",
+        "exit_time": "2026-01-29 14:35:00",
+        "entry_price": 87675.9,
+        "exit_price": 87767.5,
+        "position": 0.11442332044563641,
+        "pnl_percent": 0.10447568830203718,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 14:40:00",
+        "exit_time": "2026-01-29 14:45:00",
+        "entry_price": 87634.5,
+        "exit_price": 87745.2,
+        "position": 0.11459697695784644,
+        "pnl_percent": 0.12632011365386586,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 14:50:00",
+        "exit_time": "2026-01-29 14:55:00",
+        "entry_price": 87419.2,
+        "exit_price": 86976.4,
+        "position": 0.11502432717940254,
+        "pnl_percent": -0.5065248824056992,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-29 15:00:00",
+        "exit_time": "2026-01-29 16:35:00",
+        "entry_price": 86512.7,
+        "exit_price": 84504.0,
+        "position": 0.115640846840829,
+        "pnl_percent": -2.321855635068605,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-01-29 18:20:00",
+        "exit_time": "2026-01-29 18:40:00",
+        "entry_price": 83982.1,
+        "exit_price": 83977.6,
+        "position": 0.1163594875745833,
+        "pnl_percent": -0.005358284682092969,
+        "duration_minutes": 20.0
+      },
+      {
+        "entry_time": "2026-01-29 18:50:00",
+        "exit_time": "2026-01-29 19:00:00",
+        "entry_price": 83531.6,
+        "exit_price": 83526.5,
+        "position": 0.11698076540786154,
+        "pnl_percent": -0.006105473856607344,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-01-30 00:50:00",
+        "exit_time": "2026-01-30 00:55:00",
+        "entry_price": 84149.9,
+        "exit_price": 84144.9,
+        "position": 0.11611414751342244,
+        "pnl_percent": -0.005941777708589078,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 01:00:00",
+        "exit_time": "2026-01-30 01:05:00",
+        "entry_price": 84043.9,
+        "exit_price": 84094.3,
+        "position": 0.11625368802616466,
+        "pnl_percent": 0.05996865923643326,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 01:15:00",
+        "exit_time": "2026-01-30 01:20:00",
+        "entry_price": 83950.8,
+        "exit_price": 83801.7,
+        "position": 0.11645240446760124,
+        "pnl_percent": -0.17760402521477558,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 01:25:00",
+        "exit_time": "2026-01-30 01:30:00",
+        "entry_price": 83732.4,
+        "exit_price": 83721.2,
+        "position": 0.11654878474130181,
+        "pnl_percent": -0.013375945273271864,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 01:35:00",
+        "exit_time": "2026-01-30 02:55:00",
+        "entry_price": 82835.1,
+        "exit_price": 82123.1,
+        "position": 0.11779552529161523,
+        "pnl_percent": -0.8595390118440129,
+        "duration_minutes": 80.0
+      },
+      {
+        "entry_time": "2026-01-30 06:25:00",
+        "exit_time": "2026-01-30 06:30:00",
+        "entry_price": 82367.3,
+        "exit_price": 82433.1,
+        "position": 0.11744628879513894,
+        "pnl_percent": 0.07988607129285882,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 06:35:00",
+        "exit_time": "2026-01-30 06:40:00",
+        "entry_price": 82324.5,
+        "exit_price": 82115.0,
+        "position": 0.11760122040071386,
+        "pnl_percent": -0.2544807438854776,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 06:45:00",
+        "exit_time": "2026-01-30 06:50:00",
+        "entry_price": 82333.5,
+        "exit_price": 82591.7,
+        "position": 0.11728912548603689,
+        "pnl_percent": 0.3136026040433081,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-30 09:25:00",
+        "exit_time": "2026-01-30 09:30:00",
+        "entry_price": 82365.1,
+        "exit_price": 82501.2,
+        "position": 0.11761180725094865,
+        "pnl_percent": 0.16523988922491595,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 06:25:00",
+        "exit_time": "2026-01-31 06:30:00",
+        "entry_price": 83619.6,
+        "exit_price": 83678.8,
+        "position": 0.11603876641806424,
+        "pnl_percent": 0.0707967988366329,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 08:10:00",
+        "exit_time": "2026-01-31 08:15:00",
+        "entry_price": 83323.0,
+        "exit_price": 83220.7,
+        "position": 0.11653426697723214,
+        "pnl_percent": -0.12277522412779535,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 08:25:00",
+        "exit_time": "2026-01-31 08:30:00",
+        "entry_price": 83065.1,
+        "exit_price": 82924.9,
+        "position": 0.1167525624098706,
+        "pnl_percent": -0.16878327962045628,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 08:35:00",
+        "exit_time": "2026-01-31 08:40:00",
+        "entry_price": 82880.1,
+        "exit_price": 82760.0,
+        "position": 0.11681567182691957,
+        "pnl_percent": -0.14490812631742217,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 08:45:00",
+        "exit_time": "2026-01-31 08:50:00",
+        "entry_price": 82792.5,
+        "exit_price": 83008.2,
+        "position": 0.11676981611131279,
+        "pnl_percent": 0.26053084518524877,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 08:55:00",
+        "exit_time": "2026-01-31 09:00:00",
+        "entry_price": 83025.0,
+        "exit_price": 83136.2,
+        "position": 0.11674618789197318,
+        "pnl_percent": 0.13393556157783448,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 13:30:00",
+        "exit_time": "2026-01-31 13:35:00",
+        "entry_price": 82502.1,
+        "exit_price": 82506.9,
+        "position": 0.11764348332738996,
+        "pnl_percent": 0.005818033722763854,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 14:15:00",
+        "exit_time": "2026-01-31 14:20:00",
+        "entry_price": 82239.4,
+        "exit_price": 81948.2,
+        "position": 0.11802614214773734,
+        "pnl_percent": -0.35408818644104545,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 14:25:00",
+        "exit_time": "2026-01-31 15:30:00",
+        "entry_price": 81561.3,
+        "exit_price": 81294.8,
+        "position": 0.11858601937378643,
+        "pnl_percent": -0.3267481023475594,
+        "duration_minutes": 65.0
+      },
+      {
+        "entry_time": "2026-01-31 16:05:00",
+        "exit_time": "2026-01-31 16:10:00",
+        "entry_price": 80699.1,
+        "exit_price": 80949.7,
+        "position": 0.11946139086790426,
+        "pnl_percent": 0.31053630090049483,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-01-31 17:05:00",
+        "exit_time": "2026-01-31 18:45:00",
+        "entry_price": 79463.6,
+        "exit_price": 77978.7,
+        "position": 0.12169551533456312,
+        "pnl_percent": -1.868654327264318,
+        "duration_minutes": 100.0
+      },
+      {
+        "entry_time": "2026-02-01 06:35:00",
+        "exit_time": "2026-02-01 06:40:00",
+        "entry_price": 78480.7,
+        "exit_price": 78480.0,
+        "position": 0.12091709275808316,
+        "pnl_percent": -0.0008919390372372949,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 06:45:00",
+        "exit_time": "2026-02-01 06:50:00",
+        "entry_price": 78281.3,
+        "exit_price": 78330.0,
+        "position": 0.1212240144153759,
+        "pnl_percent": 0.062211537110391735,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 07:00:00",
+        "exit_time": "2026-02-01 07:05:00",
+        "entry_price": 78109.2,
+        "exit_price": 78208.0,
+        "position": 0.12156669187696705,
+        "pnl_percent": 0.12648958125291632,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 07:10:00",
+        "exit_time": "2026-02-01 07:15:00",
+        "entry_price": 78088.4,
+        "exit_price": 77963.8,
+        "position": 0.12175288312110172,
+        "pnl_percent": -0.15956275195802613,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 14:15:00",
+        "exit_time": "2026-02-01 14:20:00",
+        "entry_price": 78062.5,
+        "exit_price": 78021.9,
+        "position": 0.12159894224598176,
+        "pnl_percent": -0.052009607686156374,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 14:25:00",
+        "exit_time": "2026-02-01 14:30:00",
+        "entry_price": 77825.4,
+        "exit_price": 77464.9,
+        "position": 0.12190596530209628,
+        "pnl_percent": -0.46321637922837533,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 14:35:00",
+        "exit_time": "2026-02-01 14:40:00",
+        "entry_price": 77376.0,
+        "exit_price": 77859.0,
+        "position": 0.12204602734091136,
+        "pnl_percent": 0.6242245657568238,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 19:45:00",
+        "exit_time": "2026-02-01 19:50:00",
+        "entry_price": 77246.5,
+        "exit_price": 77200.0,
+        "position": 0.1230137500435103,
+        "pnl_percent": -0.06019690212501537,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 19:55:00",
+        "exit_time": "2026-02-01 20:00:00",
+        "entry_price": 77142.3,
+        "exit_price": 77016.0,
+        "position": 0.12310576043699753,
+        "pnl_percent": -0.16372340466903748,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 20:05:00",
+        "exit_time": "2026-02-01 20:10:00",
+        "entry_price": 77141.0,
+        "exit_price": 77168.1,
+        "position": 0.1229062787080256,
+        "pnl_percent": 0.035130475363303326,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-01 20:25:00",
+        "exit_time": "2026-02-01 20:30:00",
+        "entry_price": 76659.0,
+        "exit_price": 77084.7,
+        "position": 0.12372251145943453,
+        "pnl_percent": 0.5553164012053341,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-02 02:50:00",
+        "exit_time": "2026-02-02 02:55:00",
+        "entry_price": 76664.5,
+        "exit_price": 76458.9,
+        "position": 0.12440063757145839,
+        "pnl_percent": -0.2681814920856535,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-02 03:00:00",
+        "exit_time": "2026-02-02 03:05:00",
+        "entry_price": 76405.2,
+        "exit_price": 76417.5,
+        "position": 0.12448807028857173,
+        "pnl_percent": 0.016098380738487576,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-02 03:10:00",
+        "exit_time": "2026-02-02 03:55:00",
+        "entry_price": 75867.0,
+        "exit_price": 76281.2,
+        "position": 0.12539137057319955,
+        "pnl_percent": 0.545955421988476,
+        "duration_minutes": 45.0
+      },
+      {
+        "entry_time": "2026-02-02 05:50:00",
+        "exit_time": "2026-02-02 05:55:00",
+        "entry_price": 75354.5,
+        "exit_price": 75454.5,
+        "position": 0.12693341760569507,
+        "pnl_percent": 0.13270607594768727,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-02 20:55:00",
+        "exit_time": "2026-02-02 21:00:00",
+        "entry_price": 77963.9,
+        "exit_price": 78253.5,
+        "position": 0.12284785084800681,
+        "pnl_percent": 0.3714539677979242,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 02:45:00",
+        "exit_time": "2026-02-03 02:50:00",
+        "entry_price": 78035.2,
+        "exit_price": 77935.9,
+        "position": 0.12319151224491641,
+        "pnl_percent": -0.12725026654638283,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 02:55:00",
+        "exit_time": "2026-02-03 03:05:00",
+        "entry_price": 77774.9,
+        "exit_price": 77965.1,
+        "position": 0.12344652811085043,
+        "pnl_percent": 0.244551905563378,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-02-03 05:55:00",
+        "exit_time": "2026-02-03 06:00:00",
+        "entry_price": 78199.2,
+        "exit_price": 78208.2,
+        "position": 0.12307697404596551,
+        "pnl_percent": 0.011509069146487434,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 06:05:00",
+        "exit_time": "2026-02-03 06:10:00",
+        "entry_price": 78021.1,
+        "exit_price": 78036.0,
+        "position": 0.12337212115160745,
+        "pnl_percent": 0.019097398011556077,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 09:25:00",
+        "exit_time": "2026-02-03 09:30:00",
+        "entry_price": 77911.3,
+        "exit_price": 78180.0,
+        "position": 0.12356958292554274,
+        "pnl_percent": 0.3448793692314171,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 11:25:00",
+        "exit_time": "2026-02-03 11:30:00",
+        "entry_price": 78009.3,
+        "exit_price": 78148.5,
+        "position": 0.12383997796569038,
+        "pnl_percent": 0.1784402628917284,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 14:35:00",
+        "exit_time": "2026-02-03 14:40:00",
+        "entry_price": 77732.2,
+        "exit_price": 77838.1,
+        "position": 0.12450321125674758,
+        "pnl_percent": 0.13623697772610158,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 14:55:00",
+        "exit_time": "2026-02-03 15:00:00",
+        "entry_price": 77168.0,
+        "exit_price": 77380.0,
+        "position": 0.12558435372335483,
+        "pnl_percent": 0.27472527472527475,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-03 17:05:00",
+        "exit_time": "2026-02-03 19:10:00",
+        "entry_price": 76104.2,
+        "exit_price": 74540.6,
+        "position": 0.12768963199288866,
+        "pnl_percent": -2.054551522780597,
+        "duration_minutes": 125.0
+      },
+      {
+        "entry_time": "2026-02-04 02:40:00",
+        "exit_time": "2026-02-04 02:45:00",
+        "entry_price": 75972.0,
+        "exit_price": 75797.9,
+        "position": 0.12528381222725632,
+        "pnl_percent": -0.2291633759806321,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-04 05:20:00",
+        "exit_time": "2026-02-04 05:25:00",
+        "entry_price": 76370.7,
+        "exit_price": 76440.8,
+        "position": 0.12434415123627715,
+        "pnl_percent": 0.0917891285532355,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-04 05:40:00",
+        "exit_time": "2026-02-04 05:45:00",
+        "entry_price": 76215.2,
+        "exit_price": 76218.7,
+        "position": 0.12471221483145115,
+        "pnl_percent": 0.004592259811691106,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-04 05:50:00",
+        "exit_time": "2026-02-04 05:55:00",
+        "entry_price": 76092.2,
+        "exit_price": 76260.0,
+        "position": 0.12491954350871606,
+        "pnl_percent": 0.22052194574477138,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-04 13:40:00",
+        "exit_time": "2026-02-04 13:45:00",
+        "entry_price": 75316.3,
+        "exit_price": 75030.1,
+        "position": 0.12648476343068746,
+        "pnl_percent": -0.379997424196352,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-04 13:50:00",
+        "exit_time": "2026-02-04 14:10:00",
+        "entry_price": 75155.0,
+        "exit_price": 75314.4,
+        "position": 0.12627455856138411,
+        "pnl_percent": 0.21209500365909675,
+        "duration_minutes": 20.0
+      },
+      {
+        "entry_time": "2026-02-04 14:30:00",
+        "exit_time": "2026-02-04 14:35:00",
+        "entry_price": 74742.2,
+        "exit_price": 75321.0,
+        "position": 0.12724127217710351,
+        "pnl_percent": 0.7743951877252783,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-04 21:40:00",
+        "exit_time": "2026-02-04 21:55:00",
+        "entry_price": 72612.5,
+        "exit_price": 72766.9,
+        "position": 0.13198746581720247,
+        "pnl_percent": 0.21263556550179952,
+        "duration_minutes": 15.0
+      },
+      {
+        "entry_time": "2026-02-04 22:05:00",
+        "exit_time": "2026-02-04 22:15:00",
+        "entry_price": 72149.9,
+        "exit_price": 72635.2,
+        "position": 0.13311617516273466,
+        "pnl_percent": 0.6726274048889922,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-02-05 02:15:00",
+        "exit_time": "2026-02-05 02:20:00",
+        "entry_price": 72075.7,
+        "exit_price": 72298.5,
+        "position": 0.134149512334674,
+        "pnl_percent": 0.30911943970020817,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-05 02:45:00",
+        "exit_time": "2026-02-05 02:50:00",
+        "entry_price": 71876.2,
+        "exit_price": 71746.4,
+        "position": 0.1349376917189338,
+        "pnl_percent": -0.18058828930856516,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-05 02:55:00",
+        "exit_time": "2026-02-05 03:05:00",
+        "entry_price": 71425.1,
+        "exit_price": 71802.8,
+        "position": 0.13554469794432644,
+        "pnl_percent": 0.5288056999570138,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-02-05 11:00:00",
+        "exit_time": "2026-02-05 11:05:00",
+        "entry_price": 70818.0,
+        "exit_price": 71016.8,
+        "position": 0.13742959187716233,
+        "pnl_percent": 0.2807195910644228,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-05 11:20:00",
+        "exit_time": "2026-02-05 12:00:00",
+        "entry_price": 70000.3,
+        "exit_price": 70463.4,
+        "position": 0.1394252573263552,
+        "pnl_percent": 0.6615685932774449,
+        "duration_minutes": 40.0
+      },
+      {
+        "entry_time": "2026-02-05 12:15:00",
+        "exit_time": "2026-02-05 12:55:00",
+        "entry_price": 69422.1,
+        "exit_price": 69538.0,
+        "position": 0.14151657292259806,
+        "pnl_percent": 0.166949717741172,
+        "duration_minutes": 40.0
+      },
+      {
+        "entry_time": "2026-02-05 15:10:00",
+        "exit_time": "2026-02-05 16:25:00",
+        "entry_price": 67958.0,
+        "exit_price": 68133.0,
+        "position": 0.14480678430636015,
+        "pnl_percent": 0.25751199270137437,
+        "duration_minutes": 75.0
+      },
+      {
+        "entry_time": "2026-02-05 20:15:00",
+        "exit_time": "2026-02-05 21:45:00",
+        "entry_price": 64229.0,
+        "exit_price": 63646.4,
+        "position": 0.1536085044940017,
+        "pnl_percent": -0.907066901243984,
+        "duration_minutes": 90.0
+      },
+      {
+        "entry_time": "2026-02-06 00:00:00",
+        "exit_time": "2026-02-06 01:00:00",
+        "entry_price": 62264.7,
+        "exit_price": 64240.2,
+        "position": 0.15701719144920046,
+        "pnl_percent": 3.172744749432664,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-02-06 03:50:00",
+        "exit_time": "2026-02-06 03:55:00",
+        "entry_price": 63928.9,
+        "exit_price": 64146.0,
+        "position": 0.15778178229462617,
+        "pnl_percent": 0.3395960199534147,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-06 07:00:00",
+        "exit_time": "2026-02-06 07:35:00",
+        "entry_price": 64798.4,
+        "exit_price": 65315.0,
+        "position": 0.15619321166990374,
+        "pnl_percent": 0.7972419072075831,
+        "duration_minutes": 35.0
+      },
+      {
+        "entry_time": "2026-02-07 00:00:00",
+        "exit_time": "2026-02-07 00:20:00",
+        "entry_price": 70203.8,
+        "exit_price": 70311.4,
+        "position": 0.145316344987305,
+        "pnl_percent": 0.15326805671486624,
+        "duration_minutes": 20.0
+      },
+      {
+        "entry_time": "2026-02-07 05:25:00",
+        "exit_time": "2026-02-07 05:30:00",
+        "entry_price": 70225.9,
+        "exit_price": 70271.8,
+        "position": 0.1454932675685238,
+        "pnl_percent": 0.06536050089782934,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-07 06:50:00",
+        "exit_time": "2026-02-07 08:15:00",
+        "entry_price": 69336.3,
+        "exit_price": 68295.1,
+        "position": 0.14745629345554623,
+        "pnl_percent": -1.5016665152308346,
+        "duration_minutes": 85.0
+      },
+      {
+        "entry_time": "2026-02-07 10:35:00",
+        "exit_time": "2026-02-07 10:40:00",
+        "entry_price": 67606.9,
+        "exit_price": 67779.8,
+        "position": 0.14895731511392885,
+        "pnl_percent": 0.2557431268110337,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-07 14:35:00",
+        "exit_time": "2026-02-07 14:40:00",
+        "entry_price": 68529.3,
+        "exit_price": 68775.1,
+        "position": 0.14732817972690623,
+        "pnl_percent": 0.3586786965575351,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-07 23:05:00",
+        "exit_time": "2026-02-07 23:10:00",
+        "entry_price": 68906.5,
+        "exit_price": 69035.2,
+        "position": 0.14704723492756053,
+        "pnl_percent": 0.18677483256296154,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-07 23:20:00",
+        "exit_time": "2026-02-07 23:25:00",
+        "entry_price": 68924.7,
+        "exit_price": 69008.1,
+        "position": 0.1472829808859687,
+        "pnl_percent": 0.12100161480573543,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-08 16:45:00",
+        "exit_time": "2026-02-08 16:50:00",
+        "entry_price": 70376.0,
+        "exit_price": 70336.8,
+        "position": 0.1444202380538396,
+        "pnl_percent": -0.05570080709332313,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-08 20:50:00",
+        "exit_time": "2026-02-08 20:55:00",
+        "entry_price": 70683.9,
+        "exit_price": 70811.1,
+        "position": 0.14371104876705032,
+        "pnl_percent": 0.17995611447587306,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-09 08:20:00",
+        "exit_time": "2026-02-09 08:25:00",
+        "entry_price": 70191.2,
+        "exit_price": 70063.9,
+        "position": 0.1449802460329568,
+        "pnl_percent": -0.18136176614732746,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-09 08:30:00",
+        "exit_time": "2026-02-09 08:35:00",
+        "entry_price": 69590.8,
+        "exit_price": 69825.4,
+        "position": 0.14596586704030534,
+        "pnl_percent": 0.3371135265006168,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-09 09:15:00",
+        "exit_time": "2026-02-09 09:20:00",
+        "entry_price": 69778.1,
+        "exit_price": 69766.8,
+        "position": 0.1460648119171507,
+        "pnl_percent": -0.016194192733827533,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-09 10:15:00",
+        "exit_time": "2026-02-09 10:20:00",
+        "entry_price": 69203.6,
+        "exit_price": 69020.6,
+        "position": 0.14725353189807278,
+        "pnl_percent": -0.2644371102081394,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-09 10:25:00",
+        "exit_time": "2026-02-09 11:00:00",
+        "entry_price": 69007.6,
+        "exit_price": 68896.5,
+        "position": 0.1472812722616657,
+        "pnl_percent": -0.16099675977719238,
+        "duration_minutes": 35.0
+      },
+      {
+        "entry_time": "2026-02-09 21:30:00",
+        "exit_time": "2026-02-09 21:35:00",
+        "entry_price": 69968.3,
+        "exit_price": 69957.0,
+        "position": 0.14502516388672945,
+        "pnl_percent": -0.016150170863095014,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-09 21:45:00",
+        "exit_time": "2026-02-09 21:50:00",
+        "entry_price": 70011.6,
+        "exit_price": 70452.4,
+        "position": 0.14491206300133025,
+        "pnl_percent": 0.6296099503510679,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 00:20:00",
+        "exit_time": "2026-02-10 00:25:00",
+        "entry_price": 69876.3,
+        "exit_price": 69964.1,
+        "position": 0.1461068005517596,
+        "pnl_percent": 0.12565061401362537,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 03:05:00",
+        "exit_time": "2026-02-10 03:10:00",
+        "entry_price": 69786.8,
+        "exit_price": 69816.1,
+        "position": 0.14647799876886983,
+        "pnl_percent": 0.04198501722389178,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 03:15:00",
+        "exit_time": "2026-02-10 03:20:00",
+        "entry_price": 69542.9,
+        "exit_price": 69634.6,
+        "position": 0.1470534390979855,
+        "pnl_percent": 0.1318610526739777,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 03:25:00",
+        "exit_time": "2026-02-10 03:30:00",
+        "entry_price": 69520.1,
+        "exit_price": 69404.3,
+        "position": 0.14729563694834416,
+        "pnl_percent": -0.16657053140027545,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 03:35:00",
+        "exit_time": "2026-02-10 03:40:00",
+        "entry_price": 69346.8,
+        "exit_price": 69346.2,
+        "position": 0.14741776946382473,
+        "pnl_percent": -0.0008652165637142894,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 06:20:00",
+        "exit_time": "2026-02-10 06:25:00",
+        "entry_price": 69130.2,
+        "exit_price": 69176.1,
+        "position": 0.14787838202106002,
+        "pnl_percent": 0.06639645191249083,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 06:40:00",
+        "exit_time": "2026-02-10 06:45:00",
+        "entry_price": 69005.4,
+        "exit_price": 68817.1,
+        "position": 0.1482441916506107,
+        "pnl_percent": -0.27287719511804637,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 06:50:00",
+        "exit_time": "2026-02-10 06:55:00",
+        "entry_price": 68772.0,
+        "exit_price": 68884.8,
+        "position": 0.14834140873086782,
+        "pnl_percent": 0.1640202407956769,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 11:50:00",
+        "exit_time": "2026-02-10 11:55:00",
+        "entry_price": 68520.8,
+        "exit_price": 68490.2,
+        "position": 0.14912943620249738,
+        "pnl_percent": -0.04465797246968193,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 18:25:00",
+        "exit_time": "2026-02-10 18:30:00",
+        "entry_price": 68866.2,
+        "exit_price": 68770.5,
+        "position": 0.14831520994909386,
+        "pnl_percent": -0.1389651236745996,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-10 18:45:00",
+        "exit_time": "2026-02-10 18:55:00",
+        "entry_price": 68699.9,
+        "exit_price": 68864.6,
+        "position": 0.14846762725715992,
+        "pnl_percent": 0.23973834023049764,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-02-11 03:00:00",
+        "exit_time": "2026-02-11 03:05:00",
+        "entry_price": 68569.4,
+        "exit_price": 68673.7,
+        "position": 0.14910679930134166,
+        "pnl_percent": 0.1521086665480563,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 03:10:00",
+        "exit_time": "2026-02-11 03:15:00",
+        "entry_price": 68497.1,
+        "exit_price": 68067.8,
+        "position": 0.1494912281422213,
+        "pnl_percent": -0.6267418620642375,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 03:20:00",
+        "exit_time": "2026-02-11 03:25:00",
+        "entry_price": 68217.3,
+        "exit_price": 68260.1,
+        "position": 0.14916361419961052,
+        "pnl_percent": 0.0627406830818618,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 04:30:00",
+        "exit_time": "2026-02-11 04:40:00",
+        "entry_price": 67555.1,
+        "exit_price": 67481.4,
+        "position": 0.15072027458514362,
+        "pnl_percent": -0.10909613041800197,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-02-11 06:10:00",
+        "exit_time": "2026-02-11 06:15:00",
+        "entry_price": 66890.4,
+        "exit_price": 66864.7,
+        "position": 0.15205194074769937,
+        "pnl_percent": -0.03842105892623918,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 06:45:00",
+        "exit_time": "2026-02-11 06:50:00",
+        "entry_price": 66707.9,
+        "exit_price": 66732.2,
+        "position": 0.1524093458572777,
+        "pnl_percent": 0.03642746961005055,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 15:05:00",
+        "exit_time": "2026-02-11 16:00:00",
+        "entry_price": 65915.0,
+        "exit_price": 66527.3,
+        "position": 0.15429888416319543,
+        "pnl_percent": 0.928923613744979,
+        "duration_minutes": 55.0
+      },
+      {
+        "entry_time": "2026-02-11 23:00:00",
+        "exit_time": "2026-02-11 23:05:00",
+        "entry_price": 67372.2,
+        "exit_price": 67340.7,
+        "position": 0.1523638556613878,
+        "pnl_percent": -0.046755189826070694,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 23:10:00",
+        "exit_time": "2026-02-11 23:15:00",
+        "entry_price": 67286.7,
+        "exit_price": 67235.2,
+        "position": 0.15248613314275802,
+        "pnl_percent": -0.07653815687201186,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 23:20:00",
+        "exit_time": "2026-02-11 23:25:00",
+        "entry_price": 66907.9,
+        "exit_price": 66986.1,
+        "position": 0.15323206466022643,
+        "pnl_percent": 0.11687708028500618,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-11 23:35:00",
+        "exit_time": "2026-02-11 23:40:00",
+        "entry_price": 67033.9,
+        "exit_price": 67058.0,
+        "position": 0.15312279915887925,
+        "pnl_percent": 0.035951958635863084,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-12 04:55:00",
+        "exit_time": "2026-02-12 05:00:00",
+        "entry_price": 66987.0,
+        "exit_price": 67137.9,
+        "position": 0.15328509510794816,
+        "pnl_percent": 0.22526758923372323,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-12 05:05:00",
+        "exit_time": "2026-02-12 05:10:00",
+        "entry_price": 66994.0,
+        "exit_price": 66780.0,
+        "position": 0.1536143443718529,
+        "pnl_percent": -0.3194315908887363,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-12 05:15:00",
+        "exit_time": "2026-02-12 05:20:00",
+        "entry_price": 66670.0,
+        "exit_price": 66856.5,
+        "position": 0.15386779536751666,
+        "pnl_percent": 0.27973601319934,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-12 15:05:00",
+        "exit_time": "2026-02-12 15:10:00",
+        "entry_price": 67137.7,
+        "exit_price": 67387.3,
+        "position": 0.1532233344453024,
+        "pnl_percent": 0.3717732361996402,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-12 16:20:00",
+        "exit_time": "2026-02-12 17:20:00",
+        "entry_price": 66270.0,
+        "exit_price": 66060.0,
+        "position": 0.15580665165634416,
+        "pnl_percent": -0.3168854685377999,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-02-13 00:30:00",
+        "exit_time": "2026-02-13 00:35:00",
+        "entry_price": 65939.5,
+        "exit_price": 66054.4,
+        "position": 0.15609137782995164,
+        "pnl_percent": 0.17425063884317318,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-13 20:55:00",
+        "exit_time": "2026-02-13 21:00:00",
+        "entry_price": 68745.1,
+        "exit_price": 68871.8,
+        "position": 0.1499819231877,
+        "pnl_percent": 0.1843040449428353,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-14 02:20:00",
+        "exit_time": "2026-02-14 02:25:00",
+        "entry_price": 68837.1,
+        "exit_price": 68871.2,
+        "position": 0.15005752737112166,
+        "pnl_percent": 0.049537240819254834,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-14 04:50:00",
+        "exit_time": "2026-02-14 04:55:00",
+        "entry_price": 68763.0,
+        "exit_price": 68758.6,
+        "position": 0.15029364598813305,
+        "pnl_percent": -0.006398790046964471,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-14 12:50:00",
+        "exit_time": "2026-02-14 12:55:00",
+        "entry_price": 69714.2,
+        "exit_price": 69614.1,
+        "position": 0.1482335117815258,
+        "pnl_percent": -0.1435862421142196,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-14 13:00:00",
+        "exit_time": "2026-02-14 13:05:00",
+        "entry_price": 69425.7,
+        "exit_price": 69630.8,
+        "position": 0.14863577194771269,
+        "pnl_percent": 0.2954237407761187,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-14 13:15:00",
+        "exit_time": "2026-02-14 13:30:00",
+        "entry_price": 69455.1,
+        "exit_price": 69436.4,
+        "position": 0.14901177464774787,
+        "pnl_percent": -0.02692386880158785,
+        "duration_minutes": 15.0
+      },
+      {
+        "entry_time": "2026-02-14 16:30:00",
+        "exit_time": "2026-02-14 16:35:00",
+        "entry_price": 69460.0,
+        "exit_price": 69528.2,
+        "position": 0.14896114582710737,
+        "pnl_percent": 0.09818600633457687,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-15 00:10:00",
+        "exit_time": "2026-02-15 00:15:00",
+        "entry_price": 69654.1,
+        "exit_price": 69742.5,
+        "position": 0.14869189809783323,
+        "pnl_percent": 0.1269128450442891,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-15 11:55:00",
+        "exit_time": "2026-02-15 12:00:00",
+        "entry_price": 70271.9,
+        "exit_price": 70275.6,
+        "position": 0.14757171363074195,
+        "pnl_percent": 0.00526526250181316,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-15 12:05:00",
+        "exit_time": "2026-02-15 12:10:00",
+        "entry_price": 70195.7,
+        "exit_price": 70192.4,
+        "position": 0.14773968659659453,
+        "pnl_percent": -0.004701142662588891,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-15 12:15:00",
+        "exit_time": "2026-02-15 12:20:00",
+        "entry_price": 70151.5,
+        "exit_price": 70293.6,
+        "position": 0.14782582236249833,
+        "pnl_percent": 0.20256159882540758,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-15 12:50:00",
+        "exit_time": "2026-02-15 13:00:00",
+        "entry_price": 69578.3,
+        "exit_price": 69406.4,
+        "position": 0.14934554633873656,
+        "pnl_percent": -0.2470597873187599,
+        "duration_minutes": 10.0
+      },
+      {
+        "entry_time": "2026-02-15 13:20:00",
+        "exit_time": "2026-02-15 14:05:00",
+        "entry_price": 69388.0,
+        "exit_price": 68971.1,
+        "position": 0.14938514912383818,
+        "pnl_percent": -0.6008243500316973,
+        "duration_minutes": 45.0
+      },
+      {
+        "entry_time": "2026-02-15 17:45:00",
+        "exit_time": "2026-02-15 17:50:00",
+        "entry_price": 68261.0,
+        "exit_price": 68522.7,
+        "position": 0.15093916084931597,
+        "pnl_percent": 0.3833814330291046,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-15 23:05:00",
+        "exit_time": "2026-02-15 23:10:00",
+        "entry_price": 68350.1,
+        "exit_price": 68466.0,
+        "position": 0.1513203175581224,
+        "pnl_percent": 0.16956814986370783,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-16 02:20:00",
+        "exit_time": "2026-02-16 02:25:00",
+        "entry_price": 68408.6,
+        "exit_price": 68329.7,
+        "position": 0.15144728677292632,
+        "pnl_percent": -0.11533637583579948,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-16 02:55:00",
+        "exit_time": "2026-02-16 03:00:00",
+        "entry_price": 68299.1,
+        "exit_price": 68284.5,
+        "position": 0.15151513959932156,
+        "pnl_percent": -0.02137656279512588,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-16 11:05:00",
+        "exit_time": "2026-02-16 11:10:00",
+        "entry_price": 68670.8,
+        "exit_price": 68487.8,
+        "position": 0.15066280791791958,
+        "pnl_percent": -0.2664888132947337,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-16 11:15:00",
+        "exit_time": "2026-02-16 11:20:00",
+        "entry_price": 68563.6,
+        "exit_price": 68389.8,
+        "position": 0.1504962437229214,
+        "pnl_percent": -0.25348727313035324,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-16 13:35:00",
+        "exit_time": "2026-02-16 14:35:00",
+        "entry_price": 68311.2,
+        "exit_price": 68496.4,
+        "position": 0.1506694071976755,
+        "pnl_percent": 0.271112204148071,
+        "duration_minutes": 60.0
+      },
+      {
+        "entry_time": "2026-02-16 15:30:00",
+        "exit_time": "2026-02-16 16:00:00",
+        "entry_price": 67401.2,
+        "exit_price": 67634.6,
+        "position": 0.1531176297035492,
+        "pnl_percent": 0.3462846358818667,
+        "duration_minutes": 30.0
+      },
+      {
+        "entry_time": "2026-02-17 01:55:00",
+        "exit_time": "2026-02-17 02:00:00",
+        "entry_price": 68584.8,
+        "exit_price": 68516.3,
+        "position": 0.15099627961221246,
+        "pnl_percent": -0.09987635744363181,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 05:20:00",
+        "exit_time": "2026-02-17 05:25:00",
+        "entry_price": 67990.1,
+        "exit_price": 68023.1,
+        "position": 0.15216489448896578,
+        "pnl_percent": 0.04853647810490056,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 05:35:00",
+        "exit_time": "2026-02-17 05:40:00",
+        "entry_price": 68029.0,
+        "exit_price": 68130.0,
+        "position": 0.15215169757474561,
+        "pnl_percent": 0.1484660953416925,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 08:50:00",
+        "exit_time": "2026-02-17 08:55:00",
+        "entry_price": 68137.0,
+        "exit_price": 68139.1,
+        "position": 0.15213606639223062,
+        "pnl_percent": 0.003082025918378885,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 09:10:00",
+        "exit_time": "2026-02-17 09:15:00",
+        "entry_price": 68070.0,
+        "exit_price": 68000.0,
+        "position": 0.1522905045028183,
+        "pnl_percent": -0.1028353165858675,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 09:20:00",
+        "exit_time": "2026-02-17 09:25:00",
+        "entry_price": 68004.0,
+        "exit_price": 67996.6,
+        "position": 0.15228154676477335,
+        "pnl_percent": -0.010881712840412592,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 10:15:00",
+        "exit_time": "2026-02-17 10:20:00",
+        "entry_price": 67813.8,
+        "exit_price": 67914.8,
+        "position": 0.15269203941890278,
+        "pnl_percent": 0.14893723696356787,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-17 14:40:00",
+        "exit_time": "2026-02-17 15:45:00",
+        "entry_price": 67064.1,
+        "exit_price": 67145.7,
+        "position": 0.1546289194774387,
+        "pnl_percent": 0.1216746366535766,
+        "duration_minutes": 65.0
+      },
+      {
+        "entry_time": "2026-02-18 01:00:00",
+        "exit_time": "2026-02-18 01:05:00",
+        "entry_price": 67113.6,
+        "exit_price": 67080.1,
+        "position": 0.1547028774876665,
+        "pnl_percent": -0.049915367377103885,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 01:10:00",
+        "exit_time": "2026-02-18 01:15:00",
+        "entry_price": 67070.8,
+        "exit_price": 67118.6,
+        "position": 0.15472432850302095,
+        "pnl_percent": 0.07126797354437833,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 01:25:00",
+        "exit_time": "2026-02-18 01:30:00",
+        "entry_price": 67017.5,
+        "exit_price": 66894.0,
+        "position": 0.15495773962118645,
+        "pnl_percent": -0.1842802253142836,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 01:40:00",
+        "exit_time": "2026-02-18 01:45:00",
+        "entry_price": 67142.8,
+        "exit_price": 67079.6,
+        "position": 0.15438353828287837,
+        "pnl_percent": -0.09412773968317838,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 10:40:00",
+        "exit_time": "2026-02-18 10:45:00",
+        "entry_price": 67755.2,
+        "exit_price": 67786.3,
+        "position": 0.1528441506275558,
+        "pnl_percent": 0.04590053604742636,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 11:00:00",
+        "exit_time": "2026-02-18 11:05:00",
+        "entry_price": 67745.1,
+        "exit_price": 67147.8,
+        "position": 0.1529371046420285,
+        "pnl_percent": -0.8816873840322074,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 11:10:00",
+        "exit_time": "2026-02-18 11:15:00",
+        "entry_price": 67353.8,
+        "exit_price": 67278.4,
+        "position": 0.1524693501343948,
+        "pnl_percent": -0.11194617081739816,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 13:50:00",
+        "exit_time": "2026-02-18 13:55:00",
+        "entry_price": 67071.9,
+        "exit_price": 67208.6,
+        "position": 0.15293877057429217,
+        "pnl_percent": 0.20381113402186557,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 14:15:00",
+        "exit_time": "2026-02-18 14:20:00",
+        "entry_price": 67112.0,
+        "exit_price": 67112.9,
+        "position": 0.15315890833262863,
+        "pnl_percent": 0.0013410418404967506,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 14:30:00",
+        "exit_time": "2026-02-18 14:35:00",
+        "entry_price": 67036.6,
+        "exit_price": 67133.8,
+        "position": 0.1533332313845999,
+        "pnl_percent": 0.1449954204121287,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 14:45:00",
+        "exit_time": "2026-02-18 14:50:00",
+        "entry_price": 66743.5,
+        "exit_price": 67180.1,
+        "position": 0.15422988739169288,
+        "pnl_percent": 0.65414609662365,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 18:40:00",
+        "exit_time": "2026-02-18 18:45:00",
+        "entry_price": 66309.1,
+        "exit_price": 66489.9,
+        "position": 0.15625576667399596,
+        "pnl_percent": 0.2726624249160196,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-18 19:35:00",
+        "exit_time": "2026-02-18 19:40:00",
+        "entry_price": 65941.4,
+        "exit_price": 66123.1,
+        "position": 0.15755550080188355,
+        "pnl_percent": 0.2755476832460513,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 05:05:00",
+        "exit_time": "2026-02-19 05:10:00",
+        "entry_price": 66712.9,
+        "exit_price": 66746.8,
+        "position": 0.15616257328152466,
+        "pnl_percent": 0.05081475996397808,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 08:25:00",
+        "exit_time": "2026-02-19 08:30:00",
+        "entry_price": 66883.4,
+        "exit_price": 66816.1,
+        "position": 0.1558436330435844,
+        "pnl_percent": -0.10062287503324946,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 09:00:00",
+        "exit_time": "2026-02-19 09:05:00",
+        "entry_price": 66845.3,
+        "exit_price": 66979.4,
+        "position": 0.15577555594489725,
+        "pnl_percent": 0.20061245891632062,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 11:45:00",
+        "exit_time": "2026-02-19 11:50:00",
+        "entry_price": 66652.4,
+        "exit_price": 66482.1,
+        "position": 0.15653979859473405,
+        "pnl_percent": -0.2555046780010748,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 11:55:00",
+        "exit_time": "2026-02-19 12:00:00",
+        "entry_price": 66464.3,
+        "exit_price": 66405.4,
+        "position": 0.156581721979393,
+        "pnl_percent": -0.08861900298356971,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 12:15:00",
+        "exit_time": "2026-02-19 12:20:00",
+        "entry_price": 66485.1,
+        "exit_price": 66606.4,
+        "position": 0.1563940173171189,
+        "pnl_percent": 0.18244689411610773,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 13:20:00",
+        "exit_time": "2026-02-19 13:25:00",
+        "entry_price": 66150.0,
+        "exit_price": 66150.4,
+        "position": 0.1574730532884497,
+        "pnl_percent": 0.0006046863189632339,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 13:30:00",
+        "exit_time": "2026-02-19 13:35:00",
+        "entry_price": 66227.0,
+        "exit_price": 66081.6,
+        "position": 0.15729091555184838,
+        "pnl_percent": -0.21954791852264816,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 13:40:00",
+        "exit_time": "2026-02-19 13:45:00",
+        "entry_price": 65933.2,
+        "exit_price": 65784.3,
+        "position": 0.15764494010803398,
+        "pnl_percent": -0.22583463262816636,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 13:50:00",
+        "exit_time": "2026-02-19 13:55:00",
+        "entry_price": 65950.9,
+        "exit_price": 65890.0,
+        "position": 0.1572467098030344,
+        "pnl_percent": -0.092341423695498,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 22:00:00",
+        "exit_time": "2026-02-19 22:05:00",
+        "entry_price": 66742.8,
+        "exit_price": 66808.5,
+        "position": 0.1552375044037999,
+        "pnl_percent": 0.0984375842787493,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-19 22:30:00",
+        "exit_time": "2026-02-19 22:35:00",
+        "entry_price": 66667.6,
+        "exit_price": 66679.7,
+        "position": 0.15556559427609912,
+        "pnl_percent": 0.01814974590354425,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-20 08:30:00",
+        "exit_time": "2026-02-20 08:35:00",
+        "entry_price": 67714.9,
+        "exit_price": 67774.1,
+        "position": 0.1531873658035677,
+        "pnl_percent": 0.08742536723824688,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-20 11:15:00",
+        "exit_time": "2026-02-20 11:20:00",
+        "entry_price": 67810.1,
+        "exit_price": 67782.9,
+        "position": 0.1531060394942284,
+        "pnl_percent": -0.04011201871109413,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-20 11:35:00",
+        "exit_time": "2026-02-20 11:40:00",
+        "entry_price": 67683.7,
+        "exit_price": 67426.1,
+        "position": 0.15333043797004794,
+        "pnl_percent": -0.38059385051347855,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-20 11:45:00",
+        "exit_time": "2026-02-20 11:50:00",
+        "entry_price": 67456.6,
+        "exit_price": 67478.6,
+        "position": 0.15326111075287296,
+        "pnl_percent": 0.03261356190498779,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-20 11:55:00",
+        "exit_time": "2026-02-20 12:00:00",
+        "entry_price": 67299.9,
+        "exit_price": 67368.1,
+        "position": 0.1536680617363297,
+        "pnl_percent": 0.10133744626665367,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-20 13:35:00",
+        "exit_time": "2026-02-20 13:40:00",
+        "entry_price": 66527.8,
+        "exit_price": 66604.9,
+        "position": 0.15560901382368322,
+        "pnl_percent": 0.11589140178991529,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 03:05:00",
+        "exit_time": "2026-02-21 03:10:00",
+        "entry_price": 67682.9,
+        "exit_price": 67740.0,
+        "position": 0.1531305958347683,
+        "pnl_percent": 0.08436399740555713,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 03:40:00",
+        "exit_time": "2026-02-21 03:45:00",
+        "entry_price": 67594.7,
+        "exit_price": 67612.5,
+        "position": 0.15345976181338486,
+        "pnl_percent": 0.026333425549640594,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 12:05:00",
+        "exit_time": "2026-02-21 12:10:00",
+        "entry_price": 67980.5,
+        "exit_price": 67963.8,
+        "position": 0.15262903546763384,
+        "pnl_percent": -0.024565868153363226,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 12:30:00",
+        "exit_time": "2026-02-21 12:35:00",
+        "entry_price": 67930.2,
+        "exit_price": 68003.8,
+        "position": 0.1527045296600801,
+        "pnl_percent": 0.10834650862209419,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 20:40:00",
+        "exit_time": "2026-02-21 20:45:00",
+        "entry_price": 68368.3,
+        "exit_price": 68373.5,
+        "position": 0.1518903979490225,
+        "pnl_percent": 0.0076058641212332165,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 20:50:00",
+        "exit_time": "2026-02-21 20:55:00",
+        "entry_price": 68321.3,
+        "exit_price": 68190.6,
+        "position": 0.15200644783058126,
+        "pnl_percent": -0.19130198049509756,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 21:00:00",
+        "exit_time": "2026-02-21 21:05:00",
+        "entry_price": 68250.5,
+        "exit_price": 68311.5,
+        "position": 0.151873039485953,
+        "pnl_percent": 0.0893766346034095,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-21 22:55:00",
+        "exit_time": "2026-02-21 23:00:00",
+        "entry_price": 67944.5,
+        "exit_price": 67919.2,
+        "position": 0.15269337675374278,
+        "pnl_percent": -0.03723627372341089,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 00:30:00",
+        "exit_time": "2026-02-22 00:35:00",
+        "entry_price": 67822.8,
+        "exit_price": 67857.2,
+        "position": 0.15291040762712255,
+        "pnl_percent": 0.05072040670688054,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 03:15:00",
+        "exit_time": "2026-02-22 03:20:00",
+        "entry_price": 67828.7,
+        "exit_price": 67861.9,
+        "position": 0.15297465692892803,
+        "pnl_percent": 0.04894683224062541,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 05:10:00",
+        "exit_time": "2026-02-22 05:15:00",
+        "entry_price": 67892.4,
+        "exit_price": 67878.3,
+        "position": 0.1529059345529871,
+        "pnl_percent": -0.020768156671426063,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 12:10:00",
+        "exit_time": "2026-02-22 12:15:00",
+        "entry_price": 67983.3,
+        "exit_price": 68000.1,
+        "position": 0.15266977180231062,
+        "pnl_percent": 0.024711951317460186,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 12:35:00",
+        "exit_time": "2026-02-22 12:40:00",
+        "entry_price": 67883.9,
+        "exit_price": 67862.8,
+        "position": 0.1529311036863572,
+        "pnl_percent": -0.031082480529243707,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 12:45:00",
+        "exit_time": "2026-02-22 12:50:00",
+        "entry_price": 67920.6,
+        "exit_price": 67917.0,
+        "position": 0.15280096028666593,
+        "pnl_percent": -0.005300306534403142,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 13:35:00",
+        "exit_time": "2026-02-22 13:40:00",
+        "entry_price": 67615.1,
+        "exit_price": 67612.6,
+        "position": 0.1534832133619486,
+        "pnl_percent": -0.003697398953783992,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 14:00:00",
+        "exit_time": "2026-02-22 14:05:00",
+        "entry_price": 67500.0,
+        "exit_price": 67554.1,
+        "position": 0.15373924610009015,
+        "pnl_percent": 0.08014814814815677,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 14:40:00",
+        "exit_time": "2026-02-22 14:45:00",
+        "entry_price": 67417.6,
+        "exit_price": 67387.3,
+        "position": 0.15405052100594058,
+        "pnl_percent": -0.04494375355990558,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-22 17:30:00",
+        "exit_time": "2026-02-22 17:35:00",
+        "entry_price": 67263.3,
+        "exit_price": 67242.4,
+        "position": 0.1543345133852133,
+        "pnl_percent": -0.031071921835545874,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-23 00:30:00",
+        "exit_time": "2026-02-23 00:35:00",
+        "entry_price": 67274.8,
+        "exit_price": 67175.0,
+        "position": 0.15426018483672738,
+        "pnl_percent": -0.14834678066676216,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-23 00:40:00",
+        "exit_time": "2026-02-23 00:45:00",
+        "entry_price": 67161.0,
+        "exit_price": 67060.5,
+        "position": 0.15429234103731573,
+        "pnl_percent": -0.14964041631303882,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-23 00:50:00",
+        "exit_time": "2026-02-23 00:55:00",
+        "entry_price": 67121.7,
+        "exit_price": 66704.4,
+        "position": 0.1541516608806528,
+        "pnl_percent": -0.6217065419975998,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-23 01:00:00",
+        "exit_time": "2026-02-23 02:35:00",
+        "entry_price": 66416.8,
+        "exit_price": 64729.6,
+        "position": 0.15481917298104417,
+        "pnl_percent": -2.540321123571151,
+        "duration_minutes": 95.0
+      },
+      {
+        "entry_time": "2026-02-23 12:20:00",
+        "exit_time": "2026-02-23 12:25:00",
+        "entry_price": 66087.6,
+        "exit_price": 66110.8,
+        "position": 0.15163787366153098,
+        "pnl_percent": 0.03510492134681406,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-23 12:30:00",
+        "exit_time": "2026-02-23 12:35:00",
+        "entry_price": 65920.8,
+        "exit_price": 66212.9,
+        "position": 0.1520749314034833,
+        "pnl_percent": 0.44310748655961585,
+        "duration_minutes": 5.0
+      },
+      {
+        "entry_time": "2026-02-23 14:45:00",
+        "exit_time": "2026-02-23 14:50:00",
+        "entry_price": 65621.9,
+        "exit_price": 65915.0,
+        "position": 0.1534445394833996,
+        "pnl_percent": 0.44664967030824443,
+        "duration_minutes": 5.0
+      }
+    ]
+  },
+  "timestamp": "2026-02-24T01:50:36.881943",
+  "data_period": {
+    "start": "2026-01-24T15:55:00",
+    "end": "2026-02-23T15:50:00",
+    "total_candles": 8640
+  }
+}

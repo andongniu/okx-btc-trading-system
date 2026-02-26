@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真实交易系统 - 200U→400U挑战</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .header h1 {
+            color: #333;
+            margin: 0;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        
+        .status-ready { background: #6c757d; color: white; }
+        .status-trading { background: var(--success); color: white; }
+        .status-paused { background: var(--warning); color: white; }
+        .status-stopped { background: var(--danger); color: white; }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .metric .label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .metric .value {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .positive { color: var(--success); }
+        .negative { color: var(--danger); }
+        .neutral { color: #666; }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-start { background: var(--success); color: white; }
+        .btn-stop { background: var(--warning); color: white; }
+        .btn-emergency { background: var(--danger); color: white; }
+        .btn-test { background: var(--info); color: white; }
+        .btn-long { background: #2ecc71; color: white; }
+        .btn-short { background: #e74c3c; color: white; }
+        .btn-close { background: #95a5a6; color: white; }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .position-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--info);
+        }
+        
+        .position-long { border-left-color: var(--success); }
+        .position-short { border-left-color: var(--danger); }
+        
+        .trade-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #666;
+        }
+        
+        .trade-profit { border-left-color: var(--success); }
+        .trade-loss { border-left-color: var(--danger); }
+        
+        .alert-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        .alert-info { background: #d1ecf1; color: #0c5460; }
+        .alert-warning { background: #fff3cd; color: #856404; }
+        .alert-critical { background: #f8d7da; color: #721c24; }
+        .alert-error { background: #f8d7da; color: #721c24; }
+        .alert-success { background: #d4edda; color: #155724; }
+        
+        .progress-bar {
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--success), var(--info));
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .trade-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .trade-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .trade-control label {
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .trade-control input,
+        .trade-control select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .trade-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 真实交易监控系统</h1>
+            <div class="subtitle">200U → 400U 挑战 (基于正确合约规格)</div>
+            <div id="statusBadge" class="status-badge status-ready">状态: 准备就绪</div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- 资金概览 -->
+            <div class="card">
+                <h3>💰 资金概览</h3>
+                <div class="metric">
+                    <span class="label">当前资金</span>
+                    <span id="currentCapital" class="value">$200.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">目标资金</span>
+                    <span class="value neutral">$400.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">今日盈亏</span>
+                    <span id="dailyPnl" class="value neutral">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">总盈亏</span>
+                    <span id="totalPnl" class="value neutral">$0.00</span>
+                </div>
+                
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%">0%</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 5px; color: #666; font-size: 0.9em;">
+                    <span>$200</span>
+                    <span>$300</span>
+                    <span>$400</span>
+                </div>
+            </div>
+            
+            <!-- 市场数据 -->
+            <div class="card">
+                <h3>📈 市场数据</h3>
+                <div class="metric">
+                    <span class="label">BTC价格</span>
+                    <span id="btcPrice" class="value">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">24h涨跌</span>
+                    <span id="btcChange" class="value neutral">0.00%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">更新时间</span>
+                    <span id="updateTime" class="value neutral">--:--:--</span>
+                </div>
+            </div>
+            
+            <!-- 风险指标 -->
+            <div class="card">
+                <h3>🛡️ 风险控制</h3>
+                <div class="metric">
+                    <span class="label">胜率</span>
+                    <span id="winRate" class="value">0.0%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">盈亏比</span>
+                    <span id="profitFactor" class="value">0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">最大回撤</span>
+                    <span id="maxDrawdown" class="value">0.0%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">风险暴露</span>
+                    <span id="riskExposure" class="value">0%</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 当前持仓 -->
+        <div class="card">
+            <h3>📊 当前持仓</h3>
+            <div id="positionsContainer">
+                <div style="color: #666; text-align: center; padding: 20px;">
+                    无持仓
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- 交易控制 -->
+            <div class="card">
+                <h3>🎮 交易控制</h3>
+                <div class="trade-controls">
+                    <div class="trade-control">
+                        <label>合约数量 (张)</label>
+                        <input type="number" id="contractsInput" value="0.01" step="0.01" min="0.01">
+                        <small style="color: #666;">最小: 0.01张 = 0.0001 BTC</small>
+                    </div>
+                    
+                    <div class="trade-control">
+                        <label>杠杆倍数</label>
+                        <select id="leverageSelect">
+                            <option value="5">5倍</option>
+                            <option value="10" selected>10倍</option>
+                            <option value="20">20倍</option>
+                            <option value="30">30倍</option>
+                            <option value="50">50倍</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="controls" style="margin-top: 20px;">
+                    <button id="btnLong" class="btn btn-long" onclick="executeTrade('LONG')">📈 买入开多</button>
+                    <button id="btnShort" class="btn btn-short" onclick="executeTrade('SHORT')">📉 卖出开空</button>
+                    <button id="btnClose" class="btn btn-close" onclick="closePositions()">🔄 平掉所有持仓</button>
+                    <button id="btnTest" class="btn btn-test" onclick="testTrade()">🧪 测试交易</button>
+                </div>
+            </div>
+            
+            <!-- 最近交易 -->
+            <div class="card">
+                <h3>📋 交易记录</h3>
+                <div id="tradesContainer">
+                    <div style="color: #666; text-align: center; padding: 20px;">
+                        无交易记录
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 系统控制 -->
+            <div class="card">
+                <h3>⚙️ 系统控制</h3>
+                <div class="controls">
+                    <button id="btnStart" class="btn btn-start" onclick="startTrading()">▶️ 启动交易</button>
+                    <button id="btnStop" class="btn btn-stop" onclick="stopTrading()">⏸️ 暂停交易</button>
+                    <button id="btnEmergency" class="btn btn-emergency" onclick="emergencyStop()">🛑 紧急停止</button>
+                </div>
+                
+                <div id="alertsContainer" style="margin-top: 20px;">
+                    <div class="alert-item alert-info">
+                        <div><strong>系统启动</strong> - 监控面板已就绪</div>
+                        <div style="font-size: 0.8em;">刚刚</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 30px;">
+            数据每5秒自动刷新 | 最后更新: <span id="lastUpdate">--:--:--</span>
+        </div>
+    </div>
+    
+    <script src="/static/real_trading_dashboard.js"></script>
+</body>
+</html>

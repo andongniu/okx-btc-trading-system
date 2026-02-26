@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>务实交易系统 - 200U→400U挑战</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .status-running { background: #d4edda; color: #155724; }
+        .status-paused { background: #fff3cd; color: #856404; }
+        .status-stopped { background: #f8d7da; color: #721c24; }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-start { background: #28a745; color: white; }
+        .btn-stop { background: #ffc107; color: black; }
+        .btn-test { background: #17a2b8; color: white; }
+        .btn-emergency { background: #dc3545; color: white; }
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .alert-info { background: #d1ecf1; color: #0c5460; }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 务实交易系统监控面板</h1>
+            <p>200U → 400U 挑战 (30天务实增长)</p>
+            <div id="status" class="status status-running">状态: 运行中</div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn-start" onclick="sendCommand('start_trading')">▶️ 启动交易</button>
+            <button class="btn-stop" onclick="sendCommand('stop_trading')">⏸️ 暂停交易</button>
+            <button class="btn-test" onclick="sendCommand('test_trade')">🧪 测试交易</button>
+            <button class="btn-emergency" onclick="sendCommand('emergency_stop')">🛑 紧急停止</button>
+        </div>
+        
+        <div class="data-grid">
+            <div class="card">
+                <h3>💰 资金信息</h3>
+                <p>当前资金: <span id="capital">$200.00</span></p>
+                <p>目标资金: $400.00</p>
+                <p>今日盈亏: <span id="dailyPnl">$0.00</span></p>
+                <p>总盈亏: <span id="totalPnl">$0.00</span></p>
+            </div>
+            
+            <div class="card">
+                <h3>📈 市场数据</h3>
+                <p>BTC价格: <span id="btcPrice">$65,431.30</span></p>
+                <p>24h涨跌: <span id="btcChange">+2.70%</span></p>
+                <p>更新时间: <span id="updateTime">--:--:--</span></p>
+            </div>
+            
+            <div class="card">
+                <h3>🛡️ 风险指标</h3>
+                <p>胜率: <span id="winRate">65.0%</span></p>
+                <p>盈亏比: <span id="profitFactor">1.80</span></p>
+                <p>最大回撤: <span id="maxDrawdown">0.0%</span></p>
+            </div>
+        </div>
+        
+        <div id="alertsContainer">
+            <div class="alert alert-info">
+                系统启动 - 监控面板已就绪
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #666;">
+            数据自动刷新中... <span id="lastUpdate">--:--:--</span>
+        </div>
+    </div>
+    
+    <script>
+        // 发送命令到后端
+        async function sendCommand(command) {
+            try {
+                const response = await fetch(`/api/${command}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                addAlert(`命令执行: ${command} - ${result.status}`, 'success');
+                
+                // 更新状态
+                updateDashboard();
+                
+            } catch (error) {
+                addAlert(`命令执行失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 添加警报
+        function addAlert(message, type = 'info') {
+            const container = document.getElementById('alertsContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <strong>${new Date().toLocaleTimeString()}</strong> - ${message}
+            `;
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            // 限制最多显示5条警报
+            if (container.children.length > 5) {
+                container.removeChild(container.lastChild);
+            }
+        }
+        
+        // 更新仪表盘数据
+        async function updateDashboard() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                // 更新状态
+                const statusDiv = document.getElementById('status');
+                statusDiv.className = `status status-${data.system_status === 'running' ? 'running' : 
+                                      data.system_status === 'paused' ? 'paused' : 'stopped'}`;
+                statusDiv.textContent = `状态: ${data.system_status === 'running' ? '运行中' : 
+                                       data.system_status === 'paused' ? '已暂停' : '紧急停止'}`;
+                
+                // 更新资金信息
+                document.getElementById('capital').textContent = `$${data.capital.toFixed(2)}`;
+                document.getElementById('dailyPnl').textContent = `$${data.daily_pnl.toFixed(2)}`;
+                document.getElementById('totalPnl').textContent = `$${data.total_pnl.toFixed(2)}`;
+                
+                // 更新市场数据
+                document.getElementById('btcPrice').textContent = `$${data.market_data.btc_price.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                document.getElementById('btcChange').textContent = `${data.market_data.btc_change >= 0 ? '+' : ''}${data.market_data.btc_change.toFixed(2)}%`;
+                document.getElementById('updateTime').textContent = new Date(data.market_data.timestamp).toLocaleTimeString();
+                
+                // 更新风险指标
+                document.getElementById('winRate').textContent = `${data.risk_indicators.win_rate.toFixed(1)}%`;
+                document.getElementById('profitFactor').textContent = data.risk_indicators.profit_factor.toFixed(2);
+                document.getElementById('maxDrawdown').textContent = `${data.risk_indicators.max_drawdown.toFixed(1)}%`;
+                
+                // 更新最后刷新时间
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+                
+            } catch (error) {
+                console.error('更新仪表盘失败:', error);
+                addAlert('数据更新失败，请检查网络连接', 'error');
+            }
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始更新
+            updateDashboard();
+            
+            // 每5秒自动更新
+            setInterval(updateDashboard, 5000);
+            
+            addAlert('监控面板加载完成，开始自动更新数据', 'info');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+{
+  "initial_balance": 10000,
+  "final_balance": 107.97809292153936,
+  "total_return": -98.92021907078461,
+  "num_trades": 162,
+  "trades": [
+    {
+      "type": "buy",
+      "timestamp": "1769352900",
+      "price": 88663.3,
+      "position": 0.10714692550356233,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769355900",
+      "price": 88547.1,
+      "position": 0,
+      "balance": 9440.111779620203
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769398200",
+      "price": 87300.0,
+      "position": 0.10272744777364481,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769403600",
+      "price": 87692.7,
+      "position": 0,
+      "balance": 8963.405023083002
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769419800",
+      "price": 87709.4,
+      "position": 0.09708463142979945,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769421000",
+      "price": 87574.3,
+      "position": 0,
+      "balance": 8459.608045031573
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769444700",
+      "price": 87651.0,
+      "position": 0.09168894413959902,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769445600",
+      "price": 87431.5,
+      "position": 0,
+      "balance": 7976.4194099436445
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769457900",
+      "price": 87939.2,
+      "position": 0.08616860785004256,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769461800",
+      "price": 87806.6,
+      "position": 0,
+      "balance": 7528.34161963532
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769474700",
+      "price": 88215.6,
+      "position": 0.08107324031864606,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769478300",
+      "price": 88569.1,
+      "position": 0,
+      "balance": 7144.6810094606635
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769489400",
+      "price": 88508.8,
+      "position": 0.07668669057752031,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769491500",
+      "price": 88453.2,
+      "position": 0,
+      "balance": 6749.267263096562
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769520300",
+      "price": 87776.5,
+      "position": 0.07304693055592025,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769527200",
+      "price": 87710.1,
+      "position": 0,
+      "balance": 6374.918815834057
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769534100",
+      "price": 87597.8,
+      "position": 0.06913612984621022,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769537400",
+      "price": 87631.2,
+      "position": 0,
+      "balance": 6028.18961167032
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769550900",
+      "price": 89039.3,
+      "position": 0.06431744332094709,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769556300",
+      "price": 89454.3,
+      "position": 0,
+      "balance": 5724.704510714672
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769560500",
+      "price": 89150.7,
+      "position": 0.06100310244539794,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769568300",
+      "price": 89060.6,
+      "position": 0,
+      "balance": 5405.808041120365
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769590500",
+      "price": 88893.2,
+      "position": 0.05777177150855573,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769590800",
+      "price": 88867.0,
+      "position": 0,
+      "balance": 5108.3339985575685
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769611200",
+      "price": 89667.0,
+      "position": 0.05412155306444612,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769613600",
+      "price": 89152.1,
+      "position": 0,
+      "balance": 4800.924860402023
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769626800",
+      "price": 89524.6,
+      "position": 0.05094553471762981,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769628900",
+      "price": 89247.0,
+      "position": 0,
+      "balance": 4524.002456259586
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769674200",
+      "price": 87912.1,
+      "position": 0.04888749482092461,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769675700",
+      "price": 88192.9,
+      "position": 0,
+      "balance": 4289.97229228236
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769697000",
+      "price": 87675.9,
+      "position": 0.04648339712130976,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769698500",
+      "price": 86976.4,
+      "position": 0,
+      "balance": 4022.743748674976
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769733600",
+      "price": 84344.1,
+      "position": 0.0453097082219293,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769735400",
+      "price": 84094.9,
+      "position": 0,
+      "balance": 3791.2638050425603
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769754300",
+      "price": 82367.3,
+      "position": 0.0437273118675789,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769756700",
+      "price": 82760.0,
+      "position": 0,
+      "balance": 3600.777968510026
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769778000",
+      "price": 82624.3,
+      "position": 0.04140112618302998,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769783400",
+      "price": 83106.9,
+      "position": 0,
+      "balance": 3423.515657312552
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769924700",
+      "price": 78503.1,
+      "position": 0.04142944513588538,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769926200",
+      "price": 78668.6,
+      "position": 0,
+      "balance": 3242.9004653788284
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769944800",
+      "price": 78356.0,
+      "position": 0.03931741592360364,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769946000",
+      "price": 78808.6,
+      "position": 0,
+      "balance": 3083.0577520341253
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769973600",
+      "price": 77708.5,
+      "position": 0.03769092009796121,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1769976600",
+      "price": 77168.1,
+      "position": 0,
+      "balance": 2893.9940077554234
+    },
+    {
+      "type": "buy",
+      "timestamp": "1769999400",
+      "price": 76885.9,
+      "position": 0.03575810788932239,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770000900",
+      "price": 76458.9,
+      "position": 0,
+      "balance": 2720.3554673224166
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770056700",
+      "price": 78375.0,
+      "position": 0.03297400566451414,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770058800",
+      "price": 78468.0,
+      "position": 0,
+      "balance": 2574.46725510068
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770097800",
+      "price": 78345.0,
+      "position": 0.031217613023749393,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770099900",
+      "price": 78529.9,
+      "position": 0,
+      "balance": 2439.2584488487682
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770110700",
+      "price": 77911.3,
+      "position": 0.029742739838846607,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770111900",
+      "price": 78197.4,
+      "position": 0,
+      "balance": 2314.1758996528524
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770129300",
+      "price": 77732.2,
+      "position": 0.028282579222898743,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770130200",
+      "price": 77575.4,
+      "position": 0,
+      "balance": 2183.0622342668185
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770156600",
+      "price": 75799.8,
+      "position": 0.027360350852554723,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770161700",
+      "price": 75940.0,
+      "position": 0,
+      "balance": 2067.3563185242906
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770172800",
+      "price": 75972.0,
+      "position": 0.025851478210367977,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770177300",
+      "price": 76665.9,
+      "position": 0,
+      "balance": 1972.017209111609
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770182100",
+      "price": 76352.7,
+      "position": 0.024536347092585183,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770185400",
+      "price": 76523.0,
+      "position": 0,
+      "balance": 1868.2069141230663
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770240300",
+      "price": 73055.1,
+      "position": 0.024293944822701124,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770241800",
+      "price": 72386.1,
+      "position": 0,
+      "balance": 1749.7511997338734
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770289200",
+      "price": 70818.0,
+      "position": 0.0234723324542797,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770290400",
+      "price": 70000.3,
+      "position": 0,
+      "balance": 1634.8549619318187
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770336000",
+      "price": 62264.7,
+      "position": 0.024943703476210884,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770336300",
+      "price": 61394.0,
+      "position": 0,
+      "balance": 1523.7367625623986
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770349800",
+      "price": 63928.9,
+      "position": 0.02264312266336944,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770353100",
+      "price": 64893.0,
+      "position": 0,
+      "balance": 1462.0332581990629
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770361200",
+      "price": 64798.4,
+      "position": 0.021434658807765464,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770364200",
+      "price": 64794.7,
+      "position": 0,
+      "balance": 1381.9080256162633
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770422400",
+      "price": 70203.8,
+      "position": 0.018700022282774578,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770424800",
+      "price": 69696.9,
+      "position": 0,
+      "balance": 1296.8169151251097
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770441900",
+      "price": 70225.9,
+      "position": 0.017543044223980817,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770444000",
+      "price": 70166.4,
+      "position": 0,
+      "balance": 1224.7775969463398
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770474900",
+      "price": 68529.3,
+      "position": 0.016978704249117134,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770480000",
+      "price": 69163.7,
+      "position": 0,
+      "balance": 1168.4384570392895
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770484500",
+      "price": 68876.4,
+      "position": 0.016116064924812056,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770487800",
+      "price": 69018.3,
+      "position": 0,
+      "balance": 1106.7418867811552
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770543600",
+      "price": 70092.9,
+      "position": 0.015000161106789667,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770550200",
+      "price": 70805.0,
+      "position": 0,
+      "balance": 1056.7759751304113
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770583800",
+      "price": 70683.9,
+      "position": 0.014203194452681455,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770586200",
+      "price": 70835.4,
+      "position": 0,
+      "balance": 1001.0585155318045
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770613200",
+      "price": 70836.1,
+      "position": 0.013425436885362324,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770618000",
+      "price": 70367.1,
+      "position": 0,
+      "balance": 939.9855145566994
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770671700",
+      "price": 70322.6,
+      "position": 0.012698424671853207,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770673200",
+      "price": 69982.7,
+      "position": 0,
+      "balance": 884.2266940614868
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770691200",
+      "price": 70024.2,
+      "position": 0.011996072205871863,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770693600",
+      "price": 69634.6,
+      "position": 0,
+      "balance": 831.1649811788699
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770747900",
+      "price": 68866.2,
+      "position": 0.011465809528040263,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770750600",
+      "price": 68881.0,
+      "position": 0,
+      "balance": 785.8275439704366
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770778800",
+      "price": 68569.4,
+      "position": 0.010887307848280936,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770779100",
+      "price": 68673.7,
+      "position": 0,
+      "balance": 743.933354415588
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770822300",
+      "price": 65915.0,
+      "position": 0.010721940175905463,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770824100",
+      "price": 66373.3,
+      "position": 0,
+      "balance": 708.0922991180389
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770849000",
+      "price": 67511.2,
+      "position": 0.009964090168181531,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770851700",
+      "price": 67235.2,
+      "position": 0,
+      "balance": 666.5879072993403
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770929100",
+      "price": 65358.6,
+      "position": 0.009688985258778083,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770931200",
+      "price": 65501.6,
+      "position": 0,
+      "balance": 631.4708166422466
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770942600",
+      "price": 65939.5,
+      "position": 0.009097692214986984,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770948300",
+      "price": 66518.0,
+      "position": 0,
+      "balance": 602.1344893027217
+    },
+    {
+      "type": "buy",
+      "timestamp": "1770957900",
+      "price": 66320.3,
+      "position": 0.008625228849049017,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1770959400",
+      "price": 66225.1,
+      "position": 0,
+      "balance": 568.3506098359003
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771035600",
+      "price": 68837.1,
+      "position": 0.007843634890838011,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771038000",
+      "price": 68820.5,
+      "position": 0,
+      "balance": 537.1038606298928
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771073400",
+      "price": 69714.2,
+      "position": 0.007319149722702091,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771076400",
+      "price": 69423.4,
+      "position": 0,
+      "balance": 505.5796575647411
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771086600",
+      "price": 69460.0,
+      "position": 0.006914780804585431,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771090200",
+      "price": 69755.6,
+      "position": 0,
+      "balance": 479.9329604728778
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771196700",
+      "price": 68350.1,
+      "position": 0.006670601980819836,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771200900",
+      "price": 68846.2,
+      "position": 0,
+      "balance": 456.94937010145895
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771220100",
+      "price": 68282.0,
+      "position": 0.006357486623068832,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771223100",
+      "price": 68325.6,
+      "position": 0,
+      "balance": 432.207192573086
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771239900",
+      "price": 68670.8,
+      "position": 0.005979205614969269,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771241700",
+      "price": 68609.5,
+      "position": 0,
+      "balance": 408.1791561020329
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771248900",
+      "price": 68311.2,
+      "position": 0.0056765244688562234,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771251900",
+      "price": 68280.0,
+      "position": 0,
+      "balance": 385.65512527983543
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771293300",
+      "price": 68584.8,
+      "position": 0.005341888713181983,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771298100",
+      "price": 68641.5,
+      "position": 0,
+      "balance": 364.8418778353516
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771317900",
+      "price": 68174.7,
+      "position": 0.005083994266840691,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771318200",
+      "price": 68137.0,
+      "position": 0,
+      "balance": 344.6760767729255
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771319400",
+      "price": 68070.0,
+      "position": 0.004810375685827519,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771319700",
+      "price": 68000.0,
+      "position": 0,
+      "balance": 325.47001890308997
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771339200",
+      "price": 67064.1,
+      "position": 0.004610462497192021,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771339800",
+      "price": 66852.1,
+      "position": 0,
+      "balance": 306.67800440898804
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771350000",
+      "price": 66962.9,
+      "position": 0.004350828655696492,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771350900",
+      "price": 67207.6,
+      "position": 0,
+      "balance": 290.94670820078466
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771358700",
+      "price": 67523.7,
+      "position": 0.0040933682957353555,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771364400",
+      "price": 67559.9,
+      "position": 0,
+      "balance": 275.1648149594358
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771411200",
+      "price": 67755.2,
+      "position": 0.0038581034992364277,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771412400",
+      "price": 67745.1,
+      "position": 0,
+      "balance": 260.06076932929113
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771433100",
+      "price": 67136.5,
+      "position": 0.0036799316446765405,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771435200",
+      "price": 67121.2,
+      "position": 0,
+      "balance": 245.7664207691197
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771477500",
+      "price": 66712.9,
+      "position": 0.0034997444232024648,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771479600",
+      "price": 66740.1,
+      "position": 0,
+      "balance": 232.40542631507995
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771489500",
+      "price": 66883.4,
+      "position": 0.003301045625660866,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771492800",
+      "price": 67127.7,
+      "position": 0,
+      "balance": 220.4836424434465
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771538400",
+      "price": 66742.8,
+      "position": 0.0031383079571320675,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771540200",
+      "price": 66667.6,
+      "position": 0,
+      "balance": 208.17734226508335
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771576200",
+      "price": 67714.9,
+      "position": 0.0029206049946441507,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771580400",
+      "price": 68098.0,
+      "position": 0,
+      "balance": 197.892922130651
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771586100",
+      "price": 67810.1,
+      "position": 0.0027724229285035476,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771587900",
+      "price": 67456.6,
+      "position": 0,
+      "balance": 186.08313339629797
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771608600",
+      "price": 67016.0,
+      "position": 0.002637862252693134,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771611600",
+      "price": 67555.8,
+      "position": 0,
+      "balance": 177.3118802966344
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771643100",
+      "price": 67682.9,
+      "position": 0.0024887569279951464,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771644900",
+      "price": 67743.4,
+      "position": 0,
+      "balance": 167.75387179556665
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771675500",
+      "price": 67980.5,
+      "position": 0.0023442925280895005,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771677000",
+      "price": 67930.2,
+      "position": 0,
+      "balance": 158.45201899016723
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771706400",
+      "price": 68368.3,
+      "position": 0.0022017428843580846,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771708500",
+      "price": 68320.6,
+      "position": 0,
+      "balance": 149.67227293054958
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771730100",
+      "price": 67828.7,
+      "position": 0.0020962904977394835,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771731600",
+      "price": 67965.0,
+      "position": 0,
+      "balance": 141.76201176046968
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771750200",
+      "price": 67929.9,
+      "position": 0.0019825424617502187,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771750500",
+      "price": 67923.2,
+      "position": 0,
+      "balance": 133.98732499726268
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771762200",
+      "price": 67983.3,
+      "position": 0.0018723415713476623,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771765200",
+      "price": 67984.9,
+      "position": 0,
+      "balance": 126.65449972144411
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771806600",
+      "price": 67274.8,
+      "position": 0.0017885118162428116,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771807200",
+      "price": 67161.0,
+      "position": 0,
+      "balance": 119.51765088023005
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771836300",
+      "price": 65587.5,
+      "position": 0.0017311495076991583,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771839000",
+      "price": 66114.6,
+      "position": 0,
+      "balance": 113.88198595551815
+    },
+    {
+      "type": "buy",
+      "timestamp": "1771849200",
+      "price": 66087.6,
+      "position": 0.0016370376085338583,
+      "balance": 0
+    },
+    {
+      "type": "sell",
+      "timestamp": "1771851900",
+      "price": 66290.9,
+      "position": 0,
+      "balance": 107.97809292153936
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 自主交易监控面板</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .header h1 {
+            color: #333;
+            margin: 0;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        
+        .status-autonomous { background: var(--primary); color: white; }
+        .status-waiting { background: var(--info); color: white; }
+        .status-position { background: var(--success); color: white; }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .metric .label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .metric .value {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .positive { color: var(--success); }
+        .negative { color: var(--danger); }
+        .neutral { color: #666; }
+        
+        .position-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--info);
+        }
+        
+        .position-long { border-left-color: var(--success); }
+        .position-short { border-left-color: var(--danger); }
+        
+        .trade-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #666;
+        }
+        
+        .trade-open { border-left-color: var(--info); }
+        .trade-closed { border-left-color: #666; }
+        .trade-profit { border-left-color: var(--success); }
+        .trade-loss { border-left-color: var(--danger); }
+        
+        .strategy-status {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .strategy-waiting { border-left: 4px solid var(--info); }
+        .strategy-position { border-left: 4px solid var(--success); }
+        .strategy-signal { border-left: 4px solid var(--warning); }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .info-item .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .info-item .value {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .alert-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .alert-info { background: #d1ecf1; color: #0c5460; }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-warning { background: #fff3cd; color: #856404; }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 自主交易监控面板</h1>
+            <div class="subtitle">只显示信息，不干扰决策 | 观察模式</div>
+            <div id="statusBadge" class="status-badge status-autonomous">状态: 自主运行中</div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- 系统状态 -->
+            <div class="card">
+                <h3>⚙️ 系统状态</h3>
+                <div id="systemStatus" class="strategy-status strategy-waiting">
+                    <div style="font-weight: bold; margin-bottom: 10px;">等待交易信号</div>
+                    <div style="color: #666; font-size: 0.9em;">系统正在分析市场数据...</div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="label">运行时间</div>
+                        <div id="uptime" class="value">00:00:00</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">总交易次数</div>
+                        <div id="totalTrades" class="value">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">胜率</div>
+                        <div id="winRate" class="value">0%</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">最后更新</div>
+                        <div id="lastUpdate" class="value">--:--:--</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 账户信息 -->
+            <div class="card">
+                <h3>💰 账户信息</h3>
+                <div class="metric">
+                    <span class="label">总余额</span>
+                    <span id="totalBalance" class="value">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">可用余额</span>
+                    <span id="availableBalance" class="value">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">占用余额</span>
+                    <span id="usedBalance" class="value">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">账户权益</span>
+                    <span id="equity" class="value">$0.00</span>
+                </div>
+            </div>
+            
+            <!-- 市场数据 -->
+            <div class="card">
+                <h3>📈 市场数据</h3>
+                <div class="metric">
+                    <span class="label">BTC价格</span>
+                    <span id="btcPrice" class="value">$0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="label">24h涨跌</span>
+                    <span id="btcChange" class="value neutral">0.00%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">市场趋势</span>
+                    <span id="marketTrend" class="value neutral">中性</span>
+                </div>
+                <div class="metric">
+                    <span class="label">更新时间</span>
+                    <span id="marketUpdate" class="value neutral">--:--:--</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 当前持仓 -->
+        <div class="card">
+            <h3>📊 当前持仓</h3>
+            <div id="positionsContainer">
+                <div style="color: #666; text-align: center; padding: 20px;">
+                    无持仓
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- 策略状态 -->
+            <div class="card">
+                <h3>🎯 策略状态</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="label">策略状态</div>
+                        <div id="strategyStatus" class="value">等待</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">今日交易</div>
+                        <div id="dailyTrades" class="value">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">连续盈利</div>
+                        <div id="consecutiveWins" class="value positive">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">连续亏损</div>
+                        <div id="consecutiveLosses" class="value negative">0</div>
+                    </div>
+                </div>
+                
+                <div id="strategyAlerts" style="margin-top: 15px;">
+                    <div class="alert-box alert-info">
+                        <div>系统正在自主运行中...</div>
+                        <div style="font-size: 0.8em;">此面板只显示信息，不干扰决策</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 最近交易 -->
+            <div class="card">
+                <h3>📋 交易记录</h3>
+                <div id="tradesContainer">
+                    <div style="color: #666; text-align: center; padding: 20px;">
+                        无交易记录
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #666; font-size: 0.9em; margin-top: 30px;">
+            数据每5秒自动刷新 | 最后更新: <span id="lastRefresh">--:--:--</span>
+        </div>
+    </div>
+    
+    <script src="/static/autonomous_monitor.js"></script>
+</body>
+</html>

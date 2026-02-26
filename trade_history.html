@@ -1,0 +1,3275 @@
+
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>交易历史记录</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 20px;
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                background-color: #2d2d2d;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+            h1 {
+                color: #4CAF50;
+                text-align: center;
+                margin-bottom: 30px;
+                border-bottom: 2px solid #4CAF50;
+                padding-bottom: 10px;
+            }
+            .summary {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            .summary-card {
+                background: linear-gradient(135deg, #2c3e50, #4CAF50);
+                padding: 15px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .summary-card h3 {
+                margin: 0 0 10px 0;
+                font-size: 14px;
+                color: #b0b0b0;
+            }
+            .summary-card .value {
+                font-size: 24px;
+                font-weight: bold;
+                color: white;
+            }
+            .summary-card .value.positive {
+                color: #4CAF50;
+            }
+            .summary-card .value.negative {
+                color: #f44336;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                background-color: #3d3d3d;
+            }
+            th {
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px;
+                text-align: left;
+                position: sticky;
+                top: 0;
+            }
+            td {
+                padding: 10px;
+                border-bottom: 1px solid #555;
+            }
+            tr:hover {
+                background-color: #4d4d4d;
+            }
+            .profit {
+                color: #4CAF50;
+                font-weight: bold;
+            }
+            .loss {
+                color: #f44336;
+                font-weight: bold;
+            }
+            .win-rate-bar {
+                height: 20px;
+                background-color: #555;
+                border-radius: 10px;
+                margin: 5px 0;
+                overflow: hidden;
+            }
+            .win-rate-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #4CAF50, #8BC34A);
+                border-radius: 10px;
+            }
+            .filter-controls {
+                margin-bottom: 20px;
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            .filter-controls select, .filter-controls input {
+                padding: 8px;
+                border-radius: 5px;
+                border: 1px solid #555;
+                background-color: #3d3d3d;
+                color: white;
+            }
+            .export-btn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: auto;
+            }
+            .export-btn:hover {
+                background-color: #45a049;
+            }
+            @media (max-width: 768px) {
+                .container {
+                    padding: 10px;
+                }
+                table {
+                    font-size: 12px;
+                }
+                th, td {
+                    padding: 6px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>📊 交易历史记录</h1>
+            
+            <div class="summary">
+                <div class="summary-card">
+                    <h3>总交易数</h3>
+                    <div class="value">249</div>
+                </div>
+    
+                <div class="summary-card">
+                    <h3>胜率</h3>
+                    <div class="value">57.4%</div>
+                    <div class="win-rate-bar">
+                        <div class="win-rate-fill" style="width: 57.42971887550201%"></div>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <h3>总收益</h3>
+                    <div class="value positive">1.37%</div>
+                </div>
+                
+                <div class="summary-card">
+                    <h3>平均收益</h3>
+                    <div class="value positive">0.01%</div>
+                </div>
+                
+                <div class="summary-card">
+                    <h3>最大盈利</h3>
+                    <div class="value positive">3.17%</div>
+                </div>
+                
+                <div class="summary-card">
+                    <h3>最大亏损</h3>
+                    <div class="value negative">-2.54%</div>
+                </div>
+            </div>
+            
+            <div class="filter-controls">
+                <select id="filterResult">
+                    <option value="all">所有交易</option>
+                    <option value="profit">盈利交易</option>
+                    <option value="loss">亏损交易</option>
+                </select>
+                <input type="number" id="minProfit" placeholder="最小盈利%" step="0.1">
+                <input type="number" id="maxProfit" placeholder="最大盈利%" step="0.1">
+                <button class="export-btn" onclick="exportToCSV()">📥 导出CSV</button>
+            </div>
+            
+            <table id="tradeTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>入场时间</th>
+                        <th>出场时间</th>
+                        <th>持仓时间(分钟)</th>
+                        <th>入场价格</th>
+                        <th>出场价格</th>
+                        <th>仓位大小</th>
+                        <th>收益率%</th>
+                        <th>结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                    <tr>
+                        <td>1</td>
+                        <td>2026-01-25 00:25:00</td>
+                        <td>2026-01-25 00:30:00</td>
+                        <td>5.0</td>
+                        <td>$89,142.90</td>
+                        <td>$89,168.00</td>
+                        <td>0.112179</td>
+                        <td class="profit">0.03%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>2</td>
+                        <td>2026-01-25 03:15:00</td>
+                        <td>2026-01-25 03:20:00</td>
+                        <td>5.0</td>
+                        <td>$89,016.10</td>
+                        <td>$89,012.50</td>
+                        <td>0.112371</td>
+                        <td class="loss">-0.00%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>3</td>
+                        <td>2026-01-25 03:30:00</td>
+                        <td>2026-01-25 03:35:00</td>
+                        <td>5.0</td>
+                        <td>$88,831.00</td>
+                        <td>$88,911.10</td>
+                        <td>0.112600</td>
+                        <td class="profit">0.09%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>4</td>
+                        <td>2026-01-25 03:40:00</td>
+                        <td>2026-01-25 03:45:00</td>
+                        <td>5.0</td>
+                        <td>$88,889.30</td>
+                        <td>$88,868.90</td>
+                        <td>0.112628</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>5</td>
+                        <td>2026-01-25 05:40:00</td>
+                        <td>2026-01-25 05:45:00</td>
+                        <td>5.0</td>
+                        <td>$88,855.70</td>
+                        <td>$88,926.10</td>
+                        <td>0.112645</td>
+                        <td class="profit">0.08%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>6</td>
+                        <td>2026-01-25 06:10:00</td>
+                        <td>2026-01-25 06:15:00</td>
+                        <td>5.0</td>
+                        <td>$88,663.10</td>
+                        <td>$88,713.20</td>
+                        <td>0.112979</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>7</td>
+                        <td>2026-01-25 07:55:00</td>
+                        <td>2026-01-25 08:00:00</td>
+                        <td>5.0</td>
+                        <td>$88,623.10</td>
+                        <td>$88,700.30</td>
+                        <td>0.113094</td>
+                        <td class="profit">0.09%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>8</td>
+                        <td>2026-01-25 08:35:00</td>
+                        <td>2026-01-25 08:40:00</td>
+                        <td>5.0</td>
+                        <td>$88,397.60</td>
+                        <td>$88,271.00</td>
+                        <td>0.113481</td>
+                        <td class="loss">-0.14%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>9</td>
+                        <td>2026-01-25 08:45:00</td>
+                        <td>2026-01-25 08:50:00</td>
+                        <td>5.0</td>
+                        <td>$88,221.50</td>
+                        <td>$88,262.00</td>
+                        <td>0.113545</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>10</td>
+                        <td>2026-01-25 09:00:00</td>
+                        <td>2026-01-25 09:05:00</td>
+                        <td>5.0</td>
+                        <td>$88,258.70</td>
+                        <td>$88,328.00</td>
+                        <td>0.113549</td>
+                        <td class="profit">0.08%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>11</td>
+                        <td>2026-01-25 15:20:00</td>
+                        <td>2026-01-25 15:25:00</td>
+                        <td>5.0</td>
+                        <td>$88,610.00</td>
+                        <td>$88,701.10</td>
+                        <td>0.113188</td>
+                        <td class="profit">0.10%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>12</td>
+                        <td>2026-01-25 15:50:00</td>
+                        <td>2026-01-25 15:55:00</td>
+                        <td>5.0</td>
+                        <td>$88,364.00</td>
+                        <td>$88,415.80</td>
+                        <td>0.113619</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>13</td>
+                        <td>2026-01-25 16:00:00</td>
+                        <td>2026-01-25 16:05:00</td>
+                        <td>5.0</td>
+                        <td>$88,242.10</td>
+                        <td>$88,027.40</td>
+                        <td>0.113843</td>
+                        <td class="loss">-0.24%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>14</td>
+                        <td>2026-01-25 16:10:00</td>
+                        <td>2026-01-25 16:15:00</td>
+                        <td>5.0</td>
+                        <td>$87,860.80</td>
+                        <td>$87,664.70</td>
+                        <td>0.114059</td>
+                        <td class="loss">-0.22%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>15</td>
+                        <td>2026-01-25 16:20:00</td>
+                        <td>2026-01-25 16:25:00</td>
+                        <td>5.0</td>
+                        <td>$87,885.30</td>
+                        <td>$87,997.70</td>
+                        <td>0.113773</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>16</td>
+                        <td>2026-01-25 16:30:00</td>
+                        <td>2026-01-25 16:35:00</td>
+                        <td>5.0</td>
+                        <td>$87,781.50</td>
+                        <td>$87,920.90</td>
+                        <td>0.114053</td>
+                        <td class="profit">0.16%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>17</td>
+                        <td>2026-01-25 18:25:00</td>
+                        <td>2026-01-25 18:30:00</td>
+                        <td>5.0</td>
+                        <td>$87,483.70</td>
+                        <td>$87,294.40</td>
+                        <td>0.114623</td>
+                        <td class="loss">-0.22%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>18</td>
+                        <td>2026-01-25 18:40:00</td>
+                        <td>2026-01-25 18:45:00</td>
+                        <td>5.0</td>
+                        <td>$87,020.60</td>
+                        <td>$87,229.30</td>
+                        <td>0.114983</td>
+                        <td class="profit">0.24%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>19</td>
+                        <td>2026-01-25 19:20:00</td>
+                        <td>2026-01-25 19:25:00</td>
+                        <td>5.0</td>
+                        <td>$86,702.70</td>
+                        <td>$86,432.90</td>
+                        <td>0.115682</td>
+                        <td class="loss">-0.31%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>20</td>
+                        <td>2026-01-25 19:30:00</td>
+                        <td>2026-01-25 19:35:00</td>
+                        <td>5.0</td>
+                        <td>$86,409.50</td>
+                        <td>$86,596.50</td>
+                        <td>0.115713</td>
+                        <td class="profit">0.22%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>21</td>
+                        <td>2026-01-25 22:20:00</td>
+                        <td>2026-01-25 22:25:00</td>
+                        <td>5.0</td>
+                        <td>$86,283.30</td>
+                        <td>$86,291.00</td>
+                        <td>0.116133</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>22</td>
+                        <td>2026-01-26 03:30:00</td>
+                        <td>2026-01-26 03:35:00</td>
+                        <td>5.0</td>
+                        <td>$87,300.00</td>
+                        <td>$87,243.30</td>
+                        <td>0.114791</td>
+                        <td class="loss">-0.06%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>23</td>
+                        <td>2026-01-26 03:45:00</td>
+                        <td>2026-01-26 03:50:00</td>
+                        <td>5.0</td>
+                        <td>$87,242.40</td>
+                        <td>$87,100.00</td>
+                        <td>0.114792</td>
+                        <td class="loss">-0.16%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>24</td>
+                        <td>2026-01-26 09:50:00</td>
+                        <td>2026-01-26 09:55:00</td>
+                        <td>5.0</td>
+                        <td>$87,574.30</td>
+                        <td>$87,624.00</td>
+                        <td>0.114170</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>25</td>
+                        <td>2026-01-26 20:50:00</td>
+                        <td>2026-01-26 20:55:00</td>
+                        <td>5.0</td>
+                        <td>$87,545.10</td>
+                        <td>$87,601.00</td>
+                        <td>0.114273</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>26</td>
+                        <td>2026-01-27 04:50:00</td>
+                        <td>2026-01-27 04:55:00</td>
+                        <td>5.0</td>
+                        <td>$88,508.80</td>
+                        <td>$88,532.20</td>
+                        <td>0.113101</td>
+                        <td class="profit">0.03%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>27</td>
+                        <td>2026-01-27 05:20:00</td>
+                        <td>2026-01-27 05:25:00</td>
+                        <td>5.0</td>
+                        <td>$88,453.80</td>
+                        <td>$88,453.20</td>
+                        <td>0.113202</td>
+                        <td class="loss">-0.00%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>28</td>
+                        <td>2026-01-27 08:20:00</td>
+                        <td>2026-01-27 08:25:00</td>
+                        <td>5.0</td>
+                        <td>$88,214.10</td>
+                        <td>$88,196.50</td>
+                        <td>0.113508</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>29</td>
+                        <td>2026-01-27 08:35:00</td>
+                        <td>2026-01-27 08:40:00</td>
+                        <td>5.0</td>
+                        <td>$88,184.50</td>
+                        <td>$88,197.10</td>
+                        <td>0.113524</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>30</td>
+                        <td>2026-01-27 08:45:00</td>
+                        <td>2026-01-27 08:50:00</td>
+                        <td>5.0</td>
+                        <td>$88,081.90</td>
+                        <td>$88,170.90</td>
+                        <td>0.113672</td>
+                        <td class="profit">0.10%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>31</td>
+                        <td>2026-01-27 09:05:00</td>
+                        <td>2026-01-27 09:10:00</td>
+                        <td>5.0</td>
+                        <td>$87,967.60</td>
+                        <td>$87,974.10</td>
+                        <td>0.113935</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>32</td>
+                        <td>2026-01-27 09:15:00</td>
+                        <td>2026-01-27 09:20:00</td>
+                        <td>5.0</td>
+                        <td>$88,000.60</td>
+                        <td>$87,985.50</td>
+                        <td>0.113901</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>33</td>
+                        <td>2026-01-27 09:30:00</td>
+                        <td>2026-01-27 09:35:00</td>
+                        <td>5.0</td>
+                        <td>$87,876.00</td>
+                        <td>$87,988.50</td>
+                        <td>0.114043</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>34</td>
+                        <td>2026-01-27 13:25:00</td>
+                        <td>2026-01-27 13:30:00</td>
+                        <td>5.0</td>
+                        <td>$87,776.50</td>
+                        <td>$87,881.70</td>
+                        <td>0.114318</td>
+                        <td class="profit">0.12%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>35</td>
+                        <td>2026-01-27 17:15:00</td>
+                        <td>2026-01-27 17:20:00</td>
+                        <td>5.0</td>
+                        <td>$87,597.80</td>
+                        <td>$87,735.50</td>
+                        <td>0.114689</td>
+                        <td class="profit">0.16%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>36</td>
+                        <td>2026-01-27 17:40:00</td>
+                        <td>2026-01-27 17:45:00</td>
+                        <td>5.0</td>
+                        <td>$87,320.10</td>
+                        <td>$87,371.90</td>
+                        <td>0.115234</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>37</td>
+                        <td>2026-01-28 08:55:00</td>
+                        <td>2026-01-28 09:00:00</td>
+                        <td>5.0</td>
+                        <td>$88,893.20</td>
+                        <td>$88,867.00</td>
+                        <td>0.113262</td>
+                        <td class="loss">-0.03%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>38</td>
+                        <td>2026-01-28 14:40:00</td>
+                        <td>2026-01-28 14:45:00</td>
+                        <td>5.0</td>
+                        <td>$89,667.00</td>
+                        <td>$89,562.20</td>
+                        <td>0.112252</td>
+                        <td class="loss">-0.12%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>39</td>
+                        <td>2026-01-28 14:50:00</td>
+                        <td>2026-01-28 14:55:00</td>
+                        <td>5.0</td>
+                        <td>$89,685.40</td>
+                        <td>$89,569.30</td>
+                        <td>0.112097</td>
+                        <td class="loss">-0.13%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>40</td>
+                        <td>2026-01-28 15:05:00</td>
+                        <td>2026-01-28 15:10:00</td>
+                        <td>5.0</td>
+                        <td>$89,368.20</td>
+                        <td>$89,042.90</td>
+                        <td>0.112350</td>
+                        <td class="loss">-0.36%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>41</td>
+                        <td>2026-01-28 15:15:00</td>
+                        <td>2026-01-28 15:20:00</td>
+                        <td>5.0</td>
+                        <td>$89,140.00</td>
+                        <td>$89,152.10</td>
+                        <td>0.112227</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>42</td>
+                        <td>2026-01-28 19:00:00</td>
+                        <td>2026-01-28 19:05:00</td>
+                        <td>5.0</td>
+                        <td>$89,524.60</td>
+                        <td>$89,345.80</td>
+                        <td>0.111760</td>
+                        <td class="loss">-0.20%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>43</td>
+                        <td>2026-01-28 19:40:00</td>
+                        <td>2026-01-28 19:45:00</td>
+                        <td>5.0</td>
+                        <td>$89,011.30</td>
+                        <td>$89,376.40</td>
+                        <td>0.112180</td>
+                        <td class="profit">0.41%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>44</td>
+                        <td>2026-01-29 00:10:00</td>
+                        <td>2026-01-29 00:15:00</td>
+                        <td>5.0</td>
+                        <td>$89,054.00</td>
+                        <td>$89,037.10</td>
+                        <td>0.112586</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>45</td>
+                        <td>2026-01-29 01:55:00</td>
+                        <td>2026-01-29 02:00:00</td>
+                        <td>5.0</td>
+                        <td>$88,568.00</td>
+                        <td>$88,587.10</td>
+                        <td>0.113183</td>
+                        <td class="profit">0.02%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>46</td>
+                        <td>2026-01-29 02:30:00</td>
+                        <td>2026-01-29 02:35:00</td>
+                        <td>5.0</td>
+                        <td>$88,257.40</td>
+                        <td>$88,239.80</td>
+                        <td>0.113605</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>47</td>
+                        <td>2026-01-29 02:45:00</td>
+                        <td>2026-01-29 02:50:00</td>
+                        <td>5.0</td>
+                        <td>$87,804.90</td>
+                        <td>$87,751.90</td>
+                        <td>0.114168</td>
+                        <td class="loss">-0.06%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>48</td>
+                        <td>2026-01-29 02:55:00</td>
+                        <td>2026-01-29 03:00:00</td>
+                        <td>5.0</td>
+                        <td>$87,863.00</td>
+                        <td>$87,944.00</td>
+                        <td>0.114024</td>
+                        <td class="profit">0.09%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>49</td>
+                        <td>2026-01-29 08:10:00</td>
+                        <td>2026-01-29 08:15:00</td>
+                        <td>5.0</td>
+                        <td>$87,912.10</td>
+                        <td>$87,951.20</td>
+                        <td>0.114065</td>
+                        <td class="profit">0.04%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>50</td>
+                        <td>2026-01-29 14:30:00</td>
+                        <td>2026-01-29 14:35:00</td>
+                        <td>5.0</td>
+                        <td>$87,675.90</td>
+                        <td>$87,767.50</td>
+                        <td>0.114423</td>
+                        <td class="profit">0.10%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>51</td>
+                        <td>2026-01-29 14:40:00</td>
+                        <td>2026-01-29 14:45:00</td>
+                        <td>5.0</td>
+                        <td>$87,634.50</td>
+                        <td>$87,745.20</td>
+                        <td>0.114597</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>52</td>
+                        <td>2026-01-29 14:50:00</td>
+                        <td>2026-01-29 14:55:00</td>
+                        <td>5.0</td>
+                        <td>$87,419.20</td>
+                        <td>$86,976.40</td>
+                        <td>0.115024</td>
+                        <td class="loss">-0.51%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>53</td>
+                        <td>2026-01-29 15:00:00</td>
+                        <td>2026-01-29 16:35:00</td>
+                        <td>95.0</td>
+                        <td>$86,512.70</td>
+                        <td>$84,504.00</td>
+                        <td>0.115641</td>
+                        <td class="loss">-2.32%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>54</td>
+                        <td>2026-01-29 18:20:00</td>
+                        <td>2026-01-29 18:40:00</td>
+                        <td>20.0</td>
+                        <td>$83,982.10</td>
+                        <td>$83,977.60</td>
+                        <td>0.116359</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>55</td>
+                        <td>2026-01-29 18:50:00</td>
+                        <td>2026-01-29 19:00:00</td>
+                        <td>10.0</td>
+                        <td>$83,531.60</td>
+                        <td>$83,526.50</td>
+                        <td>0.116981</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>56</td>
+                        <td>2026-01-30 00:50:00</td>
+                        <td>2026-01-30 00:55:00</td>
+                        <td>5.0</td>
+                        <td>$84,149.90</td>
+                        <td>$84,144.90</td>
+                        <td>0.116114</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>57</td>
+                        <td>2026-01-30 01:00:00</td>
+                        <td>2026-01-30 01:05:00</td>
+                        <td>5.0</td>
+                        <td>$84,043.90</td>
+                        <td>$84,094.30</td>
+                        <td>0.116254</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>58</td>
+                        <td>2026-01-30 01:15:00</td>
+                        <td>2026-01-30 01:20:00</td>
+                        <td>5.0</td>
+                        <td>$83,950.80</td>
+                        <td>$83,801.70</td>
+                        <td>0.116452</td>
+                        <td class="loss">-0.18%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>59</td>
+                        <td>2026-01-30 01:25:00</td>
+                        <td>2026-01-30 01:30:00</td>
+                        <td>5.0</td>
+                        <td>$83,732.40</td>
+                        <td>$83,721.20</td>
+                        <td>0.116549</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>60</td>
+                        <td>2026-01-30 01:35:00</td>
+                        <td>2026-01-30 02:55:00</td>
+                        <td>80.0</td>
+                        <td>$82,835.10</td>
+                        <td>$82,123.10</td>
+                        <td>0.117796</td>
+                        <td class="loss">-0.86%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>61</td>
+                        <td>2026-01-30 06:25:00</td>
+                        <td>2026-01-30 06:30:00</td>
+                        <td>5.0</td>
+                        <td>$82,367.30</td>
+                        <td>$82,433.10</td>
+                        <td>0.117446</td>
+                        <td class="profit">0.08%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>62</td>
+                        <td>2026-01-30 06:35:00</td>
+                        <td>2026-01-30 06:40:00</td>
+                        <td>5.0</td>
+                        <td>$82,324.50</td>
+                        <td>$82,115.00</td>
+                        <td>0.117601</td>
+                        <td class="loss">-0.25%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>63</td>
+                        <td>2026-01-30 06:45:00</td>
+                        <td>2026-01-30 06:50:00</td>
+                        <td>5.0</td>
+                        <td>$82,333.50</td>
+                        <td>$82,591.70</td>
+                        <td>0.117289</td>
+                        <td class="profit">0.31%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>64</td>
+                        <td>2026-01-30 09:25:00</td>
+                        <td>2026-01-30 09:30:00</td>
+                        <td>5.0</td>
+                        <td>$82,365.10</td>
+                        <td>$82,501.20</td>
+                        <td>0.117612</td>
+                        <td class="profit">0.17%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>65</td>
+                        <td>2026-01-31 06:25:00</td>
+                        <td>2026-01-31 06:30:00</td>
+                        <td>5.0</td>
+                        <td>$83,619.60</td>
+                        <td>$83,678.80</td>
+                        <td>0.116039</td>
+                        <td class="profit">0.07%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>66</td>
+                        <td>2026-01-31 08:10:00</td>
+                        <td>2026-01-31 08:15:00</td>
+                        <td>5.0</td>
+                        <td>$83,323.00</td>
+                        <td>$83,220.70</td>
+                        <td>0.116534</td>
+                        <td class="loss">-0.12%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>67</td>
+                        <td>2026-01-31 08:25:00</td>
+                        <td>2026-01-31 08:30:00</td>
+                        <td>5.0</td>
+                        <td>$83,065.10</td>
+                        <td>$82,924.90</td>
+                        <td>0.116753</td>
+                        <td class="loss">-0.17%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>68</td>
+                        <td>2026-01-31 08:35:00</td>
+                        <td>2026-01-31 08:40:00</td>
+                        <td>5.0</td>
+                        <td>$82,880.10</td>
+                        <td>$82,760.00</td>
+                        <td>0.116816</td>
+                        <td class="loss">-0.14%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>69</td>
+                        <td>2026-01-31 08:45:00</td>
+                        <td>2026-01-31 08:50:00</td>
+                        <td>5.0</td>
+                        <td>$82,792.50</td>
+                        <td>$83,008.20</td>
+                        <td>0.116770</td>
+                        <td class="profit">0.26%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>70</td>
+                        <td>2026-01-31 08:55:00</td>
+                        <td>2026-01-31 09:00:00</td>
+                        <td>5.0</td>
+                        <td>$83,025.00</td>
+                        <td>$83,136.20</td>
+                        <td>0.116746</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>71</td>
+                        <td>2026-01-31 13:30:00</td>
+                        <td>2026-01-31 13:35:00</td>
+                        <td>5.0</td>
+                        <td>$82,502.10</td>
+                        <td>$82,506.90</td>
+                        <td>0.117643</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>72</td>
+                        <td>2026-01-31 14:15:00</td>
+                        <td>2026-01-31 14:20:00</td>
+                        <td>5.0</td>
+                        <td>$82,239.40</td>
+                        <td>$81,948.20</td>
+                        <td>0.118026</td>
+                        <td class="loss">-0.35%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>73</td>
+                        <td>2026-01-31 14:25:00</td>
+                        <td>2026-01-31 15:30:00</td>
+                        <td>65.0</td>
+                        <td>$81,561.30</td>
+                        <td>$81,294.80</td>
+                        <td>0.118586</td>
+                        <td class="loss">-0.33%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>74</td>
+                        <td>2026-01-31 16:05:00</td>
+                        <td>2026-01-31 16:10:00</td>
+                        <td>5.0</td>
+                        <td>$80,699.10</td>
+                        <td>$80,949.70</td>
+                        <td>0.119461</td>
+                        <td class="profit">0.31%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>75</td>
+                        <td>2026-01-31 17:05:00</td>
+                        <td>2026-01-31 18:45:00</td>
+                        <td>100.0</td>
+                        <td>$79,463.60</td>
+                        <td>$77,978.70</td>
+                        <td>0.121696</td>
+                        <td class="loss">-1.87%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>76</td>
+                        <td>2026-02-01 06:35:00</td>
+                        <td>2026-02-01 06:40:00</td>
+                        <td>5.0</td>
+                        <td>$78,480.70</td>
+                        <td>$78,480.00</td>
+                        <td>0.120917</td>
+                        <td class="loss">-0.00%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>77</td>
+                        <td>2026-02-01 06:45:00</td>
+                        <td>2026-02-01 06:50:00</td>
+                        <td>5.0</td>
+                        <td>$78,281.30</td>
+                        <td>$78,330.00</td>
+                        <td>0.121224</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>78</td>
+                        <td>2026-02-01 07:00:00</td>
+                        <td>2026-02-01 07:05:00</td>
+                        <td>5.0</td>
+                        <td>$78,109.20</td>
+                        <td>$78,208.00</td>
+                        <td>0.121567</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>79</td>
+                        <td>2026-02-01 07:10:00</td>
+                        <td>2026-02-01 07:15:00</td>
+                        <td>5.0</td>
+                        <td>$78,088.40</td>
+                        <td>$77,963.80</td>
+                        <td>0.121753</td>
+                        <td class="loss">-0.16%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>80</td>
+                        <td>2026-02-01 14:15:00</td>
+                        <td>2026-02-01 14:20:00</td>
+                        <td>5.0</td>
+                        <td>$78,062.50</td>
+                        <td>$78,021.90</td>
+                        <td>0.121599</td>
+                        <td class="loss">-0.05%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>81</td>
+                        <td>2026-02-01 14:25:00</td>
+                        <td>2026-02-01 14:30:00</td>
+                        <td>5.0</td>
+                        <td>$77,825.40</td>
+                        <td>$77,464.90</td>
+                        <td>0.121906</td>
+                        <td class="loss">-0.46%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>82</td>
+                        <td>2026-02-01 14:35:00</td>
+                        <td>2026-02-01 14:40:00</td>
+                        <td>5.0</td>
+                        <td>$77,376.00</td>
+                        <td>$77,859.00</td>
+                        <td>0.122046</td>
+                        <td class="profit">0.62%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>83</td>
+                        <td>2026-02-01 19:45:00</td>
+                        <td>2026-02-01 19:50:00</td>
+                        <td>5.0</td>
+                        <td>$77,246.50</td>
+                        <td>$77,200.00</td>
+                        <td>0.123014</td>
+                        <td class="loss">-0.06%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>84</td>
+                        <td>2026-02-01 19:55:00</td>
+                        <td>2026-02-01 20:00:00</td>
+                        <td>5.0</td>
+                        <td>$77,142.30</td>
+                        <td>$77,016.00</td>
+                        <td>0.123106</td>
+                        <td class="loss">-0.16%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>85</td>
+                        <td>2026-02-01 20:05:00</td>
+                        <td>2026-02-01 20:10:00</td>
+                        <td>5.0</td>
+                        <td>$77,141.00</td>
+                        <td>$77,168.10</td>
+                        <td>0.122906</td>
+                        <td class="profit">0.04%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>86</td>
+                        <td>2026-02-01 20:25:00</td>
+                        <td>2026-02-01 20:30:00</td>
+                        <td>5.0</td>
+                        <td>$76,659.00</td>
+                        <td>$77,084.70</td>
+                        <td>0.123723</td>
+                        <td class="profit">0.56%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>87</td>
+                        <td>2026-02-02 02:50:00</td>
+                        <td>2026-02-02 02:55:00</td>
+                        <td>5.0</td>
+                        <td>$76,664.50</td>
+                        <td>$76,458.90</td>
+                        <td>0.124401</td>
+                        <td class="loss">-0.27%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>88</td>
+                        <td>2026-02-02 03:00:00</td>
+                        <td>2026-02-02 03:05:00</td>
+                        <td>5.0</td>
+                        <td>$76,405.20</td>
+                        <td>$76,417.50</td>
+                        <td>0.124488</td>
+                        <td class="profit">0.02%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>89</td>
+                        <td>2026-02-02 03:10:00</td>
+                        <td>2026-02-02 03:55:00</td>
+                        <td>45.0</td>
+                        <td>$75,867.00</td>
+                        <td>$76,281.20</td>
+                        <td>0.125391</td>
+                        <td class="profit">0.55%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>90</td>
+                        <td>2026-02-02 05:50:00</td>
+                        <td>2026-02-02 05:55:00</td>
+                        <td>5.0</td>
+                        <td>$75,354.50</td>
+                        <td>$75,454.50</td>
+                        <td>0.126933</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>91</td>
+                        <td>2026-02-02 20:55:00</td>
+                        <td>2026-02-02 21:00:00</td>
+                        <td>5.0</td>
+                        <td>$77,963.90</td>
+                        <td>$78,253.50</td>
+                        <td>0.122848</td>
+                        <td class="profit">0.37%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>92</td>
+                        <td>2026-02-03 02:45:00</td>
+                        <td>2026-02-03 02:50:00</td>
+                        <td>5.0</td>
+                        <td>$78,035.20</td>
+                        <td>$77,935.90</td>
+                        <td>0.123192</td>
+                        <td class="loss">-0.13%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>93</td>
+                        <td>2026-02-03 02:55:00</td>
+                        <td>2026-02-03 03:05:00</td>
+                        <td>10.0</td>
+                        <td>$77,774.90</td>
+                        <td>$77,965.10</td>
+                        <td>0.123447</td>
+                        <td class="profit">0.24%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>94</td>
+                        <td>2026-02-03 05:55:00</td>
+                        <td>2026-02-03 06:00:00</td>
+                        <td>5.0</td>
+                        <td>$78,199.20</td>
+                        <td>$78,208.20</td>
+                        <td>0.123077</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>95</td>
+                        <td>2026-02-03 06:05:00</td>
+                        <td>2026-02-03 06:10:00</td>
+                        <td>5.0</td>
+                        <td>$78,021.10</td>
+                        <td>$78,036.00</td>
+                        <td>0.123372</td>
+                        <td class="profit">0.02%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>96</td>
+                        <td>2026-02-03 09:25:00</td>
+                        <td>2026-02-03 09:30:00</td>
+                        <td>5.0</td>
+                        <td>$77,911.30</td>
+                        <td>$78,180.00</td>
+                        <td>0.123570</td>
+                        <td class="profit">0.34%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>97</td>
+                        <td>2026-02-03 11:25:00</td>
+                        <td>2026-02-03 11:30:00</td>
+                        <td>5.0</td>
+                        <td>$78,009.30</td>
+                        <td>$78,148.50</td>
+                        <td>0.123840</td>
+                        <td class="profit">0.18%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>98</td>
+                        <td>2026-02-03 14:35:00</td>
+                        <td>2026-02-03 14:40:00</td>
+                        <td>5.0</td>
+                        <td>$77,732.20</td>
+                        <td>$77,838.10</td>
+                        <td>0.124503</td>
+                        <td class="profit">0.14%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>99</td>
+                        <td>2026-02-03 14:55:00</td>
+                        <td>2026-02-03 15:00:00</td>
+                        <td>5.0</td>
+                        <td>$77,168.00</td>
+                        <td>$77,380.00</td>
+                        <td>0.125584</td>
+                        <td class="profit">0.27%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>100</td>
+                        <td>2026-02-03 17:05:00</td>
+                        <td>2026-02-03 19:10:00</td>
+                        <td>125.0</td>
+                        <td>$76,104.20</td>
+                        <td>$74,540.60</td>
+                        <td>0.127690</td>
+                        <td class="loss">-2.05%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>101</td>
+                        <td>2026-02-04 02:40:00</td>
+                        <td>2026-02-04 02:45:00</td>
+                        <td>5.0</td>
+                        <td>$75,972.00</td>
+                        <td>$75,797.90</td>
+                        <td>0.125284</td>
+                        <td class="loss">-0.23%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>102</td>
+                        <td>2026-02-04 05:20:00</td>
+                        <td>2026-02-04 05:25:00</td>
+                        <td>5.0</td>
+                        <td>$76,370.70</td>
+                        <td>$76,440.80</td>
+                        <td>0.124344</td>
+                        <td class="profit">0.09%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>103</td>
+                        <td>2026-02-04 05:40:00</td>
+                        <td>2026-02-04 05:45:00</td>
+                        <td>5.0</td>
+                        <td>$76,215.20</td>
+                        <td>$76,218.70</td>
+                        <td>0.124712</td>
+                        <td class="profit">0.00%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>104</td>
+                        <td>2026-02-04 05:50:00</td>
+                        <td>2026-02-04 05:55:00</td>
+                        <td>5.0</td>
+                        <td>$76,092.20</td>
+                        <td>$76,260.00</td>
+                        <td>0.124920</td>
+                        <td class="profit">0.22%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>105</td>
+                        <td>2026-02-04 13:40:00</td>
+                        <td>2026-02-04 13:45:00</td>
+                        <td>5.0</td>
+                        <td>$75,316.30</td>
+                        <td>$75,030.10</td>
+                        <td>0.126485</td>
+                        <td class="loss">-0.38%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>106</td>
+                        <td>2026-02-04 13:50:00</td>
+                        <td>2026-02-04 14:10:00</td>
+                        <td>20.0</td>
+                        <td>$75,155.00</td>
+                        <td>$75,314.40</td>
+                        <td>0.126275</td>
+                        <td class="profit">0.21%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>107</td>
+                        <td>2026-02-04 14:30:00</td>
+                        <td>2026-02-04 14:35:00</td>
+                        <td>5.0</td>
+                        <td>$74,742.20</td>
+                        <td>$75,321.00</td>
+                        <td>0.127241</td>
+                        <td class="profit">0.77%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>108</td>
+                        <td>2026-02-04 21:40:00</td>
+                        <td>2026-02-04 21:55:00</td>
+                        <td>15.0</td>
+                        <td>$72,612.50</td>
+                        <td>$72,766.90</td>
+                        <td>0.131987</td>
+                        <td class="profit">0.21%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>109</td>
+                        <td>2026-02-04 22:05:00</td>
+                        <td>2026-02-04 22:15:00</td>
+                        <td>10.0</td>
+                        <td>$72,149.90</td>
+                        <td>$72,635.20</td>
+                        <td>0.133116</td>
+                        <td class="profit">0.67%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>110</td>
+                        <td>2026-02-05 02:15:00</td>
+                        <td>2026-02-05 02:20:00</td>
+                        <td>5.0</td>
+                        <td>$72,075.70</td>
+                        <td>$72,298.50</td>
+                        <td>0.134150</td>
+                        <td class="profit">0.31%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>111</td>
+                        <td>2026-02-05 02:45:00</td>
+                        <td>2026-02-05 02:50:00</td>
+                        <td>5.0</td>
+                        <td>$71,876.20</td>
+                        <td>$71,746.40</td>
+                        <td>0.134938</td>
+                        <td class="loss">-0.18%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>112</td>
+                        <td>2026-02-05 02:55:00</td>
+                        <td>2026-02-05 03:05:00</td>
+                        <td>10.0</td>
+                        <td>$71,425.10</td>
+                        <td>$71,802.80</td>
+                        <td>0.135545</td>
+                        <td class="profit">0.53%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>113</td>
+                        <td>2026-02-05 11:00:00</td>
+                        <td>2026-02-05 11:05:00</td>
+                        <td>5.0</td>
+                        <td>$70,818.00</td>
+                        <td>$71,016.80</td>
+                        <td>0.137430</td>
+                        <td class="profit">0.28%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>114</td>
+                        <td>2026-02-05 11:20:00</td>
+                        <td>2026-02-05 12:00:00</td>
+                        <td>40.0</td>
+                        <td>$70,000.30</td>
+                        <td>$70,463.40</td>
+                        <td>0.139425</td>
+                        <td class="profit">0.66%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>115</td>
+                        <td>2026-02-05 12:15:00</td>
+                        <td>2026-02-05 12:55:00</td>
+                        <td>40.0</td>
+                        <td>$69,422.10</td>
+                        <td>$69,538.00</td>
+                        <td>0.141517</td>
+                        <td class="profit">0.17%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>116</td>
+                        <td>2026-02-05 15:10:00</td>
+                        <td>2026-02-05 16:25:00</td>
+                        <td>75.0</td>
+                        <td>$67,958.00</td>
+                        <td>$68,133.00</td>
+                        <td>0.144807</td>
+                        <td class="profit">0.26%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>117</td>
+                        <td>2026-02-05 20:15:00</td>
+                        <td>2026-02-05 21:45:00</td>
+                        <td>90.0</td>
+                        <td>$64,229.00</td>
+                        <td>$63,646.40</td>
+                        <td>0.153609</td>
+                        <td class="loss">-0.91%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>118</td>
+                        <td>2026-02-06 00:00:00</td>
+                        <td>2026-02-06 01:00:00</td>
+                        <td>60.0</td>
+                        <td>$62,264.70</td>
+                        <td>$64,240.20</td>
+                        <td>0.157017</td>
+                        <td class="profit">3.17%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>119</td>
+                        <td>2026-02-06 03:50:00</td>
+                        <td>2026-02-06 03:55:00</td>
+                        <td>5.0</td>
+                        <td>$63,928.90</td>
+                        <td>$64,146.00</td>
+                        <td>0.157782</td>
+                        <td class="profit">0.34%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>120</td>
+                        <td>2026-02-06 07:00:00</td>
+                        <td>2026-02-06 07:35:00</td>
+                        <td>35.0</td>
+                        <td>$64,798.40</td>
+                        <td>$65,315.00</td>
+                        <td>0.156193</td>
+                        <td class="profit">0.80%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>121</td>
+                        <td>2026-02-07 00:00:00</td>
+                        <td>2026-02-07 00:20:00</td>
+                        <td>20.0</td>
+                        <td>$70,203.80</td>
+                        <td>$70,311.40</td>
+                        <td>0.145316</td>
+                        <td class="profit">0.15%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>122</td>
+                        <td>2026-02-07 05:25:00</td>
+                        <td>2026-02-07 05:30:00</td>
+                        <td>5.0</td>
+                        <td>$70,225.90</td>
+                        <td>$70,271.80</td>
+                        <td>0.145493</td>
+                        <td class="profit">0.07%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>123</td>
+                        <td>2026-02-07 06:50:00</td>
+                        <td>2026-02-07 08:15:00</td>
+                        <td>85.0</td>
+                        <td>$69,336.30</td>
+                        <td>$68,295.10</td>
+                        <td>0.147456</td>
+                        <td class="loss">-1.50%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>124</td>
+                        <td>2026-02-07 10:35:00</td>
+                        <td>2026-02-07 10:40:00</td>
+                        <td>5.0</td>
+                        <td>$67,606.90</td>
+                        <td>$67,779.80</td>
+                        <td>0.148957</td>
+                        <td class="profit">0.26%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>125</td>
+                        <td>2026-02-07 14:35:00</td>
+                        <td>2026-02-07 14:40:00</td>
+                        <td>5.0</td>
+                        <td>$68,529.30</td>
+                        <td>$68,775.10</td>
+                        <td>0.147328</td>
+                        <td class="profit">0.36%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>126</td>
+                        <td>2026-02-07 23:05:00</td>
+                        <td>2026-02-07 23:10:00</td>
+                        <td>5.0</td>
+                        <td>$68,906.50</td>
+                        <td>$69,035.20</td>
+                        <td>0.147047</td>
+                        <td class="profit">0.19%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>127</td>
+                        <td>2026-02-07 23:20:00</td>
+                        <td>2026-02-07 23:25:00</td>
+                        <td>5.0</td>
+                        <td>$68,924.70</td>
+                        <td>$69,008.10</td>
+                        <td>0.147283</td>
+                        <td class="profit">0.12%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>128</td>
+                        <td>2026-02-08 16:45:00</td>
+                        <td>2026-02-08 16:50:00</td>
+                        <td>5.0</td>
+                        <td>$70,376.00</td>
+                        <td>$70,336.80</td>
+                        <td>0.144420</td>
+                        <td class="loss">-0.06%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>129</td>
+                        <td>2026-02-08 20:50:00</td>
+                        <td>2026-02-08 20:55:00</td>
+                        <td>5.0</td>
+                        <td>$70,683.90</td>
+                        <td>$70,811.10</td>
+                        <td>0.143711</td>
+                        <td class="profit">0.18%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>130</td>
+                        <td>2026-02-09 08:20:00</td>
+                        <td>2026-02-09 08:25:00</td>
+                        <td>5.0</td>
+                        <td>$70,191.20</td>
+                        <td>$70,063.90</td>
+                        <td>0.144980</td>
+                        <td class="loss">-0.18%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>131</td>
+                        <td>2026-02-09 08:30:00</td>
+                        <td>2026-02-09 08:35:00</td>
+                        <td>5.0</td>
+                        <td>$69,590.80</td>
+                        <td>$69,825.40</td>
+                        <td>0.145966</td>
+                        <td class="profit">0.34%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>132</td>
+                        <td>2026-02-09 09:15:00</td>
+                        <td>2026-02-09 09:20:00</td>
+                        <td>5.0</td>
+                        <td>$69,778.10</td>
+                        <td>$69,766.80</td>
+                        <td>0.146065</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>133</td>
+                        <td>2026-02-09 10:15:00</td>
+                        <td>2026-02-09 10:20:00</td>
+                        <td>5.0</td>
+                        <td>$69,203.60</td>
+                        <td>$69,020.60</td>
+                        <td>0.147254</td>
+                        <td class="loss">-0.26%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>134</td>
+                        <td>2026-02-09 10:25:00</td>
+                        <td>2026-02-09 11:00:00</td>
+                        <td>35.0</td>
+                        <td>$69,007.60</td>
+                        <td>$68,896.50</td>
+                        <td>0.147281</td>
+                        <td class="loss">-0.16%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>135</td>
+                        <td>2026-02-09 21:30:00</td>
+                        <td>2026-02-09 21:35:00</td>
+                        <td>5.0</td>
+                        <td>$69,968.30</td>
+                        <td>$69,957.00</td>
+                        <td>0.145025</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>136</td>
+                        <td>2026-02-09 21:45:00</td>
+                        <td>2026-02-09 21:50:00</td>
+                        <td>5.0</td>
+                        <td>$70,011.60</td>
+                        <td>$70,452.40</td>
+                        <td>0.144912</td>
+                        <td class="profit">0.63%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>137</td>
+                        <td>2026-02-10 00:20:00</td>
+                        <td>2026-02-10 00:25:00</td>
+                        <td>5.0</td>
+                        <td>$69,876.30</td>
+                        <td>$69,964.10</td>
+                        <td>0.146107</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>138</td>
+                        <td>2026-02-10 03:05:00</td>
+                        <td>2026-02-10 03:10:00</td>
+                        <td>5.0</td>
+                        <td>$69,786.80</td>
+                        <td>$69,816.10</td>
+                        <td>0.146478</td>
+                        <td class="profit">0.04%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>139</td>
+                        <td>2026-02-10 03:15:00</td>
+                        <td>2026-02-10 03:20:00</td>
+                        <td>5.0</td>
+                        <td>$69,542.90</td>
+                        <td>$69,634.60</td>
+                        <td>0.147053</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>140</td>
+                        <td>2026-02-10 03:25:00</td>
+                        <td>2026-02-10 03:30:00</td>
+                        <td>5.0</td>
+                        <td>$69,520.10</td>
+                        <td>$69,404.30</td>
+                        <td>0.147296</td>
+                        <td class="loss">-0.17%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>141</td>
+                        <td>2026-02-10 03:35:00</td>
+                        <td>2026-02-10 03:40:00</td>
+                        <td>5.0</td>
+                        <td>$69,346.80</td>
+                        <td>$69,346.20</td>
+                        <td>0.147418</td>
+                        <td class="loss">-0.00%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>142</td>
+                        <td>2026-02-10 06:20:00</td>
+                        <td>2026-02-10 06:25:00</td>
+                        <td>5.0</td>
+                        <td>$69,130.20</td>
+                        <td>$69,176.10</td>
+                        <td>0.147878</td>
+                        <td class="profit">0.07%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>143</td>
+                        <td>2026-02-10 06:40:00</td>
+                        <td>2026-02-10 06:45:00</td>
+                        <td>5.0</td>
+                        <td>$69,005.40</td>
+                        <td>$68,817.10</td>
+                        <td>0.148244</td>
+                        <td class="loss">-0.27%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>144</td>
+                        <td>2026-02-10 06:50:00</td>
+                        <td>2026-02-10 06:55:00</td>
+                        <td>5.0</td>
+                        <td>$68,772.00</td>
+                        <td>$68,884.80</td>
+                        <td>0.148341</td>
+                        <td class="profit">0.16%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>145</td>
+                        <td>2026-02-10 11:50:00</td>
+                        <td>2026-02-10 11:55:00</td>
+                        <td>5.0</td>
+                        <td>$68,520.80</td>
+                        <td>$68,490.20</td>
+                        <td>0.149129</td>
+                        <td class="loss">-0.04%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>146</td>
+                        <td>2026-02-10 18:25:00</td>
+                        <td>2026-02-10 18:30:00</td>
+                        <td>5.0</td>
+                        <td>$68,866.20</td>
+                        <td>$68,770.50</td>
+                        <td>0.148315</td>
+                        <td class="loss">-0.14%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>147</td>
+                        <td>2026-02-10 18:45:00</td>
+                        <td>2026-02-10 18:55:00</td>
+                        <td>10.0</td>
+                        <td>$68,699.90</td>
+                        <td>$68,864.60</td>
+                        <td>0.148468</td>
+                        <td class="profit">0.24%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>148</td>
+                        <td>2026-02-11 03:00:00</td>
+                        <td>2026-02-11 03:05:00</td>
+                        <td>5.0</td>
+                        <td>$68,569.40</td>
+                        <td>$68,673.70</td>
+                        <td>0.149107</td>
+                        <td class="profit">0.15%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>149</td>
+                        <td>2026-02-11 03:10:00</td>
+                        <td>2026-02-11 03:15:00</td>
+                        <td>5.0</td>
+                        <td>$68,497.10</td>
+                        <td>$68,067.80</td>
+                        <td>0.149491</td>
+                        <td class="loss">-0.63%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>150</td>
+                        <td>2026-02-11 03:20:00</td>
+                        <td>2026-02-11 03:25:00</td>
+                        <td>5.0</td>
+                        <td>$68,217.30</td>
+                        <td>$68,260.10</td>
+                        <td>0.149164</td>
+                        <td class="profit">0.06%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>151</td>
+                        <td>2026-02-11 04:30:00</td>
+                        <td>2026-02-11 04:40:00</td>
+                        <td>10.0</td>
+                        <td>$67,555.10</td>
+                        <td>$67,481.40</td>
+                        <td>0.150720</td>
+                        <td class="loss">-0.11%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>152</td>
+                        <td>2026-02-11 06:10:00</td>
+                        <td>2026-02-11 06:15:00</td>
+                        <td>5.0</td>
+                        <td>$66,890.40</td>
+                        <td>$66,864.70</td>
+                        <td>0.152052</td>
+                        <td class="loss">-0.04%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>153</td>
+                        <td>2026-02-11 06:45:00</td>
+                        <td>2026-02-11 06:50:00</td>
+                        <td>5.0</td>
+                        <td>$66,707.90</td>
+                        <td>$66,732.20</td>
+                        <td>0.152409</td>
+                        <td class="profit">0.04%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>154</td>
+                        <td>2026-02-11 15:05:00</td>
+                        <td>2026-02-11 16:00:00</td>
+                        <td>55.0</td>
+                        <td>$65,915.00</td>
+                        <td>$66,527.30</td>
+                        <td>0.154299</td>
+                        <td class="profit">0.93%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>155</td>
+                        <td>2026-02-11 23:00:00</td>
+                        <td>2026-02-11 23:05:00</td>
+                        <td>5.0</td>
+                        <td>$67,372.20</td>
+                        <td>$67,340.70</td>
+                        <td>0.152364</td>
+                        <td class="loss">-0.05%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>156</td>
+                        <td>2026-02-11 23:10:00</td>
+                        <td>2026-02-11 23:15:00</td>
+                        <td>5.0</td>
+                        <td>$67,286.70</td>
+                        <td>$67,235.20</td>
+                        <td>0.152486</td>
+                        <td class="loss">-0.08%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>157</td>
+                        <td>2026-02-11 23:20:00</td>
+                        <td>2026-02-11 23:25:00</td>
+                        <td>5.0</td>
+                        <td>$66,907.90</td>
+                        <td>$66,986.10</td>
+                        <td>0.153232</td>
+                        <td class="profit">0.12%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>158</td>
+                        <td>2026-02-11 23:35:00</td>
+                        <td>2026-02-11 23:40:00</td>
+                        <td>5.0</td>
+                        <td>$67,033.90</td>
+                        <td>$67,058.00</td>
+                        <td>0.153123</td>
+                        <td class="profit">0.04%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>159</td>
+                        <td>2026-02-12 04:55:00</td>
+                        <td>2026-02-12 05:00:00</td>
+                        <td>5.0</td>
+                        <td>$66,987.00</td>
+                        <td>$67,137.90</td>
+                        <td>0.153285</td>
+                        <td class="profit">0.23%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>160</td>
+                        <td>2026-02-12 05:05:00</td>
+                        <td>2026-02-12 05:10:00</td>
+                        <td>5.0</td>
+                        <td>$66,994.00</td>
+                        <td>$66,780.00</td>
+                        <td>0.153614</td>
+                        <td class="loss">-0.32%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>161</td>
+                        <td>2026-02-12 05:15:00</td>
+                        <td>2026-02-12 05:20:00</td>
+                        <td>5.0</td>
+                        <td>$66,670.00</td>
+                        <td>$66,856.50</td>
+                        <td>0.153868</td>
+                        <td class="profit">0.28%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>162</td>
+                        <td>2026-02-12 15:05:00</td>
+                        <td>2026-02-12 15:10:00</td>
+                        <td>5.0</td>
+                        <td>$67,137.70</td>
+                        <td>$67,387.30</td>
+                        <td>0.153223</td>
+                        <td class="profit">0.37%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>163</td>
+                        <td>2026-02-12 16:20:00</td>
+                        <td>2026-02-12 17:20:00</td>
+                        <td>60.0</td>
+                        <td>$66,270.00</td>
+                        <td>$66,060.00</td>
+                        <td>0.155807</td>
+                        <td class="loss">-0.32%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>164</td>
+                        <td>2026-02-13 00:30:00</td>
+                        <td>2026-02-13 00:35:00</td>
+                        <td>5.0</td>
+                        <td>$65,939.50</td>
+                        <td>$66,054.40</td>
+                        <td>0.156091</td>
+                        <td class="profit">0.17%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>165</td>
+                        <td>2026-02-13 20:55:00</td>
+                        <td>2026-02-13 21:00:00</td>
+                        <td>5.0</td>
+                        <td>$68,745.10</td>
+                        <td>$68,871.80</td>
+                        <td>0.149982</td>
+                        <td class="profit">0.18%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>166</td>
+                        <td>2026-02-14 02:20:00</td>
+                        <td>2026-02-14 02:25:00</td>
+                        <td>5.0</td>
+                        <td>$68,837.10</td>
+                        <td>$68,871.20</td>
+                        <td>0.150058</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>167</td>
+                        <td>2026-02-14 04:50:00</td>
+                        <td>2026-02-14 04:55:00</td>
+                        <td>5.0</td>
+                        <td>$68,763.00</td>
+                        <td>$68,758.60</td>
+                        <td>0.150294</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>168</td>
+                        <td>2026-02-14 12:50:00</td>
+                        <td>2026-02-14 12:55:00</td>
+                        <td>5.0</td>
+                        <td>$69,714.20</td>
+                        <td>$69,614.10</td>
+                        <td>0.148234</td>
+                        <td class="loss">-0.14%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>169</td>
+                        <td>2026-02-14 13:00:00</td>
+                        <td>2026-02-14 13:05:00</td>
+                        <td>5.0</td>
+                        <td>$69,425.70</td>
+                        <td>$69,630.80</td>
+                        <td>0.148636</td>
+                        <td class="profit">0.30%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>170</td>
+                        <td>2026-02-14 13:15:00</td>
+                        <td>2026-02-14 13:30:00</td>
+                        <td>15.0</td>
+                        <td>$69,455.10</td>
+                        <td>$69,436.40</td>
+                        <td>0.149012</td>
+                        <td class="loss">-0.03%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>171</td>
+                        <td>2026-02-14 16:30:00</td>
+                        <td>2026-02-14 16:35:00</td>
+                        <td>5.0</td>
+                        <td>$69,460.00</td>
+                        <td>$69,528.20</td>
+                        <td>0.148961</td>
+                        <td class="profit">0.10%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>172</td>
+                        <td>2026-02-15 00:10:00</td>
+                        <td>2026-02-15 00:15:00</td>
+                        <td>5.0</td>
+                        <td>$69,654.10</td>
+                        <td>$69,742.50</td>
+                        <td>0.148692</td>
+                        <td class="profit">0.13%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>173</td>
+                        <td>2026-02-15 11:55:00</td>
+                        <td>2026-02-15 12:00:00</td>
+                        <td>5.0</td>
+                        <td>$70,271.90</td>
+                        <td>$70,275.60</td>
+                        <td>0.147572</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>174</td>
+                        <td>2026-02-15 12:05:00</td>
+                        <td>2026-02-15 12:10:00</td>
+                        <td>5.0</td>
+                        <td>$70,195.70</td>
+                        <td>$70,192.40</td>
+                        <td>0.147740</td>
+                        <td class="loss">-0.00%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>175</td>
+                        <td>2026-02-15 12:15:00</td>
+                        <td>2026-02-15 12:20:00</td>
+                        <td>5.0</td>
+                        <td>$70,151.50</td>
+                        <td>$70,293.60</td>
+                        <td>0.147826</td>
+                        <td class="profit">0.20%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>176</td>
+                        <td>2026-02-15 12:50:00</td>
+                        <td>2026-02-15 13:00:00</td>
+                        <td>10.0</td>
+                        <td>$69,578.30</td>
+                        <td>$69,406.40</td>
+                        <td>0.149346</td>
+                        <td class="loss">-0.25%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>177</td>
+                        <td>2026-02-15 13:20:00</td>
+                        <td>2026-02-15 14:05:00</td>
+                        <td>45.0</td>
+                        <td>$69,388.00</td>
+                        <td>$68,971.10</td>
+                        <td>0.149385</td>
+                        <td class="loss">-0.60%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>178</td>
+                        <td>2026-02-15 17:45:00</td>
+                        <td>2026-02-15 17:50:00</td>
+                        <td>5.0</td>
+                        <td>$68,261.00</td>
+                        <td>$68,522.70</td>
+                        <td>0.150939</td>
+                        <td class="profit">0.38%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>179</td>
+                        <td>2026-02-15 23:05:00</td>
+                        <td>2026-02-15 23:10:00</td>
+                        <td>5.0</td>
+                        <td>$68,350.10</td>
+                        <td>$68,466.00</td>
+                        <td>0.151320</td>
+                        <td class="profit">0.17%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>180</td>
+                        <td>2026-02-16 02:20:00</td>
+                        <td>2026-02-16 02:25:00</td>
+                        <td>5.0</td>
+                        <td>$68,408.60</td>
+                        <td>$68,329.70</td>
+                        <td>0.151447</td>
+                        <td class="loss">-0.12%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>181</td>
+                        <td>2026-02-16 02:55:00</td>
+                        <td>2026-02-16 03:00:00</td>
+                        <td>5.0</td>
+                        <td>$68,299.10</td>
+                        <td>$68,284.50</td>
+                        <td>0.151515</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>182</td>
+                        <td>2026-02-16 11:05:00</td>
+                        <td>2026-02-16 11:10:00</td>
+                        <td>5.0</td>
+                        <td>$68,670.80</td>
+                        <td>$68,487.80</td>
+                        <td>0.150663</td>
+                        <td class="loss">-0.27%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>183</td>
+                        <td>2026-02-16 11:15:00</td>
+                        <td>2026-02-16 11:20:00</td>
+                        <td>5.0</td>
+                        <td>$68,563.60</td>
+                        <td>$68,389.80</td>
+                        <td>0.150496</td>
+                        <td class="loss">-0.25%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>184</td>
+                        <td>2026-02-16 13:35:00</td>
+                        <td>2026-02-16 14:35:00</td>
+                        <td>60.0</td>
+                        <td>$68,311.20</td>
+                        <td>$68,496.40</td>
+                        <td>0.150669</td>
+                        <td class="profit">0.27%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>185</td>
+                        <td>2026-02-16 15:30:00</td>
+                        <td>2026-02-16 16:00:00</td>
+                        <td>30.0</td>
+                        <td>$67,401.20</td>
+                        <td>$67,634.60</td>
+                        <td>0.153118</td>
+                        <td class="profit">0.35%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>186</td>
+                        <td>2026-02-17 01:55:00</td>
+                        <td>2026-02-17 02:00:00</td>
+                        <td>5.0</td>
+                        <td>$68,584.80</td>
+                        <td>$68,516.30</td>
+                        <td>0.150996</td>
+                        <td class="loss">-0.10%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>187</td>
+                        <td>2026-02-17 05:20:00</td>
+                        <td>2026-02-17 05:25:00</td>
+                        <td>5.0</td>
+                        <td>$67,990.10</td>
+                        <td>$68,023.10</td>
+                        <td>0.152165</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>188</td>
+                        <td>2026-02-17 05:35:00</td>
+                        <td>2026-02-17 05:40:00</td>
+                        <td>5.0</td>
+                        <td>$68,029.00</td>
+                        <td>$68,130.00</td>
+                        <td>0.152152</td>
+                        <td class="profit">0.15%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>189</td>
+                        <td>2026-02-17 08:50:00</td>
+                        <td>2026-02-17 08:55:00</td>
+                        <td>5.0</td>
+                        <td>$68,137.00</td>
+                        <td>$68,139.10</td>
+                        <td>0.152136</td>
+                        <td class="profit">0.00%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>190</td>
+                        <td>2026-02-17 09:10:00</td>
+                        <td>2026-02-17 09:15:00</td>
+                        <td>5.0</td>
+                        <td>$68,070.00</td>
+                        <td>$68,000.00</td>
+                        <td>0.152291</td>
+                        <td class="loss">-0.10%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>191</td>
+                        <td>2026-02-17 09:20:00</td>
+                        <td>2026-02-17 09:25:00</td>
+                        <td>5.0</td>
+                        <td>$68,004.00</td>
+                        <td>$67,996.60</td>
+                        <td>0.152282</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>192</td>
+                        <td>2026-02-17 10:15:00</td>
+                        <td>2026-02-17 10:20:00</td>
+                        <td>5.0</td>
+                        <td>$67,813.80</td>
+                        <td>$67,914.80</td>
+                        <td>0.152692</td>
+                        <td class="profit">0.15%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>193</td>
+                        <td>2026-02-17 14:40:00</td>
+                        <td>2026-02-17 15:45:00</td>
+                        <td>65.0</td>
+                        <td>$67,064.10</td>
+                        <td>$67,145.70</td>
+                        <td>0.154629</td>
+                        <td class="profit">0.12%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>194</td>
+                        <td>2026-02-18 01:00:00</td>
+                        <td>2026-02-18 01:05:00</td>
+                        <td>5.0</td>
+                        <td>$67,113.60</td>
+                        <td>$67,080.10</td>
+                        <td>0.154703</td>
+                        <td class="loss">-0.05%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>195</td>
+                        <td>2026-02-18 01:10:00</td>
+                        <td>2026-02-18 01:15:00</td>
+                        <td>5.0</td>
+                        <td>$67,070.80</td>
+                        <td>$67,118.60</td>
+                        <td>0.154724</td>
+                        <td class="profit">0.07%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>196</td>
+                        <td>2026-02-18 01:25:00</td>
+                        <td>2026-02-18 01:30:00</td>
+                        <td>5.0</td>
+                        <td>$67,017.50</td>
+                        <td>$66,894.00</td>
+                        <td>0.154958</td>
+                        <td class="loss">-0.18%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>197</td>
+                        <td>2026-02-18 01:40:00</td>
+                        <td>2026-02-18 01:45:00</td>
+                        <td>5.0</td>
+                        <td>$67,142.80</td>
+                        <td>$67,079.60</td>
+                        <td>0.154384</td>
+                        <td class="loss">-0.09%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>198</td>
+                        <td>2026-02-18 10:40:00</td>
+                        <td>2026-02-18 10:45:00</td>
+                        <td>5.0</td>
+                        <td>$67,755.20</td>
+                        <td>$67,786.30</td>
+                        <td>0.152844</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>199</td>
+                        <td>2026-02-18 11:00:00</td>
+                        <td>2026-02-18 11:05:00</td>
+                        <td>5.0</td>
+                        <td>$67,745.10</td>
+                        <td>$67,147.80</td>
+                        <td>0.152937</td>
+                        <td class="loss">-0.88%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>200</td>
+                        <td>2026-02-18 11:10:00</td>
+                        <td>2026-02-18 11:15:00</td>
+                        <td>5.0</td>
+                        <td>$67,353.80</td>
+                        <td>$67,278.40</td>
+                        <td>0.152469</td>
+                        <td class="loss">-0.11%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>201</td>
+                        <td>2026-02-18 13:50:00</td>
+                        <td>2026-02-18 13:55:00</td>
+                        <td>5.0</td>
+                        <td>$67,071.90</td>
+                        <td>$67,208.60</td>
+                        <td>0.152939</td>
+                        <td class="profit">0.20%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>202</td>
+                        <td>2026-02-18 14:15:00</td>
+                        <td>2026-02-18 14:20:00</td>
+                        <td>5.0</td>
+                        <td>$67,112.00</td>
+                        <td>$67,112.90</td>
+                        <td>0.153159</td>
+                        <td class="profit">0.00%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>203</td>
+                        <td>2026-02-18 14:30:00</td>
+                        <td>2026-02-18 14:35:00</td>
+                        <td>5.0</td>
+                        <td>$67,036.60</td>
+                        <td>$67,133.80</td>
+                        <td>0.153333</td>
+                        <td class="profit">0.14%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>204</td>
+                        <td>2026-02-18 14:45:00</td>
+                        <td>2026-02-18 14:50:00</td>
+                        <td>5.0</td>
+                        <td>$66,743.50</td>
+                        <td>$67,180.10</td>
+                        <td>0.154230</td>
+                        <td class="profit">0.65%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>205</td>
+                        <td>2026-02-18 18:40:00</td>
+                        <td>2026-02-18 18:45:00</td>
+                        <td>5.0</td>
+                        <td>$66,309.10</td>
+                        <td>$66,489.90</td>
+                        <td>0.156256</td>
+                        <td class="profit">0.27%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>206</td>
+                        <td>2026-02-18 19:35:00</td>
+                        <td>2026-02-18 19:40:00</td>
+                        <td>5.0</td>
+                        <td>$65,941.40</td>
+                        <td>$66,123.10</td>
+                        <td>0.157556</td>
+                        <td class="profit">0.28%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>207</td>
+                        <td>2026-02-19 05:05:00</td>
+                        <td>2026-02-19 05:10:00</td>
+                        <td>5.0</td>
+                        <td>$66,712.90</td>
+                        <td>$66,746.80</td>
+                        <td>0.156163</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>208</td>
+                        <td>2026-02-19 08:25:00</td>
+                        <td>2026-02-19 08:30:00</td>
+                        <td>5.0</td>
+                        <td>$66,883.40</td>
+                        <td>$66,816.10</td>
+                        <td>0.155844</td>
+                        <td class="loss">-0.10%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>209</td>
+                        <td>2026-02-19 09:00:00</td>
+                        <td>2026-02-19 09:05:00</td>
+                        <td>5.0</td>
+                        <td>$66,845.30</td>
+                        <td>$66,979.40</td>
+                        <td>0.155776</td>
+                        <td class="profit">0.20%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>210</td>
+                        <td>2026-02-19 11:45:00</td>
+                        <td>2026-02-19 11:50:00</td>
+                        <td>5.0</td>
+                        <td>$66,652.40</td>
+                        <td>$66,482.10</td>
+                        <td>0.156540</td>
+                        <td class="loss">-0.26%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>211</td>
+                        <td>2026-02-19 11:55:00</td>
+                        <td>2026-02-19 12:00:00</td>
+                        <td>5.0</td>
+                        <td>$66,464.30</td>
+                        <td>$66,405.40</td>
+                        <td>0.156582</td>
+                        <td class="loss">-0.09%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>212</td>
+                        <td>2026-02-19 12:15:00</td>
+                        <td>2026-02-19 12:20:00</td>
+                        <td>5.0</td>
+                        <td>$66,485.10</td>
+                        <td>$66,606.40</td>
+                        <td>0.156394</td>
+                        <td class="profit">0.18%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>213</td>
+                        <td>2026-02-19 13:20:00</td>
+                        <td>2026-02-19 13:25:00</td>
+                        <td>5.0</td>
+                        <td>$66,150.00</td>
+                        <td>$66,150.40</td>
+                        <td>0.157473</td>
+                        <td class="profit">0.00%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>214</td>
+                        <td>2026-02-19 13:30:00</td>
+                        <td>2026-02-19 13:35:00</td>
+                        <td>5.0</td>
+                        <td>$66,227.00</td>
+                        <td>$66,081.60</td>
+                        <td>0.157291</td>
+                        <td class="loss">-0.22%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>215</td>
+                        <td>2026-02-19 13:40:00</td>
+                        <td>2026-02-19 13:45:00</td>
+                        <td>5.0</td>
+                        <td>$65,933.20</td>
+                        <td>$65,784.30</td>
+                        <td>0.157645</td>
+                        <td class="loss">-0.23%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>216</td>
+                        <td>2026-02-19 13:50:00</td>
+                        <td>2026-02-19 13:55:00</td>
+                        <td>5.0</td>
+                        <td>$65,950.90</td>
+                        <td>$65,890.00</td>
+                        <td>0.157247</td>
+                        <td class="loss">-0.09%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>217</td>
+                        <td>2026-02-19 22:00:00</td>
+                        <td>2026-02-19 22:05:00</td>
+                        <td>5.0</td>
+                        <td>$66,742.80</td>
+                        <td>$66,808.50</td>
+                        <td>0.155238</td>
+                        <td class="profit">0.10%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>218</td>
+                        <td>2026-02-19 22:30:00</td>
+                        <td>2026-02-19 22:35:00</td>
+                        <td>5.0</td>
+                        <td>$66,667.60</td>
+                        <td>$66,679.70</td>
+                        <td>0.155566</td>
+                        <td class="profit">0.02%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>219</td>
+                        <td>2026-02-20 08:30:00</td>
+                        <td>2026-02-20 08:35:00</td>
+                        <td>5.0</td>
+                        <td>$67,714.90</td>
+                        <td>$67,774.10</td>
+                        <td>0.153187</td>
+                        <td class="profit">0.09%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>220</td>
+                        <td>2026-02-20 11:15:00</td>
+                        <td>2026-02-20 11:20:00</td>
+                        <td>5.0</td>
+                        <td>$67,810.10</td>
+                        <td>$67,782.90</td>
+                        <td>0.153106</td>
+                        <td class="loss">-0.04%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>221</td>
+                        <td>2026-02-20 11:35:00</td>
+                        <td>2026-02-20 11:40:00</td>
+                        <td>5.0</td>
+                        <td>$67,683.70</td>
+                        <td>$67,426.10</td>
+                        <td>0.153330</td>
+                        <td class="loss">-0.38%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>222</td>
+                        <td>2026-02-20 11:45:00</td>
+                        <td>2026-02-20 11:50:00</td>
+                        <td>5.0</td>
+                        <td>$67,456.60</td>
+                        <td>$67,478.60</td>
+                        <td>0.153261</td>
+                        <td class="profit">0.03%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>223</td>
+                        <td>2026-02-20 11:55:00</td>
+                        <td>2026-02-20 12:00:00</td>
+                        <td>5.0</td>
+                        <td>$67,299.90</td>
+                        <td>$67,368.10</td>
+                        <td>0.153668</td>
+                        <td class="profit">0.10%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>224</td>
+                        <td>2026-02-20 13:35:00</td>
+                        <td>2026-02-20 13:40:00</td>
+                        <td>5.0</td>
+                        <td>$66,527.80</td>
+                        <td>$66,604.90</td>
+                        <td>0.155609</td>
+                        <td class="profit">0.12%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>225</td>
+                        <td>2026-02-21 03:05:00</td>
+                        <td>2026-02-21 03:10:00</td>
+                        <td>5.0</td>
+                        <td>$67,682.90</td>
+                        <td>$67,740.00</td>
+                        <td>0.153131</td>
+                        <td class="profit">0.08%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>226</td>
+                        <td>2026-02-21 03:40:00</td>
+                        <td>2026-02-21 03:45:00</td>
+                        <td>5.0</td>
+                        <td>$67,594.70</td>
+                        <td>$67,612.50</td>
+                        <td>0.153460</td>
+                        <td class="profit">0.03%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>227</td>
+                        <td>2026-02-21 12:05:00</td>
+                        <td>2026-02-21 12:10:00</td>
+                        <td>5.0</td>
+                        <td>$67,980.50</td>
+                        <td>$67,963.80</td>
+                        <td>0.152629</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>228</td>
+                        <td>2026-02-21 12:30:00</td>
+                        <td>2026-02-21 12:35:00</td>
+                        <td>5.0</td>
+                        <td>$67,930.20</td>
+                        <td>$68,003.80</td>
+                        <td>0.152705</td>
+                        <td class="profit">0.11%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>229</td>
+                        <td>2026-02-21 20:40:00</td>
+                        <td>2026-02-21 20:45:00</td>
+                        <td>5.0</td>
+                        <td>$68,368.30</td>
+                        <td>$68,373.50</td>
+                        <td>0.151890</td>
+                        <td class="profit">0.01%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>230</td>
+                        <td>2026-02-21 20:50:00</td>
+                        <td>2026-02-21 20:55:00</td>
+                        <td>5.0</td>
+                        <td>$68,321.30</td>
+                        <td>$68,190.60</td>
+                        <td>0.152006</td>
+                        <td class="loss">-0.19%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>231</td>
+                        <td>2026-02-21 21:00:00</td>
+                        <td>2026-02-21 21:05:00</td>
+                        <td>5.0</td>
+                        <td>$68,250.50</td>
+                        <td>$68,311.50</td>
+                        <td>0.151873</td>
+                        <td class="profit">0.09%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>232</td>
+                        <td>2026-02-21 22:55:00</td>
+                        <td>2026-02-21 23:00:00</td>
+                        <td>5.0</td>
+                        <td>$67,944.50</td>
+                        <td>$67,919.20</td>
+                        <td>0.152693</td>
+                        <td class="loss">-0.04%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>233</td>
+                        <td>2026-02-22 00:30:00</td>
+                        <td>2026-02-22 00:35:00</td>
+                        <td>5.0</td>
+                        <td>$67,822.80</td>
+                        <td>$67,857.20</td>
+                        <td>0.152910</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>234</td>
+                        <td>2026-02-22 03:15:00</td>
+                        <td>2026-02-22 03:20:00</td>
+                        <td>5.0</td>
+                        <td>$67,828.70</td>
+                        <td>$67,861.90</td>
+                        <td>0.152975</td>
+                        <td class="profit">0.05%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>235</td>
+                        <td>2026-02-22 05:10:00</td>
+                        <td>2026-02-22 05:15:00</td>
+                        <td>5.0</td>
+                        <td>$67,892.40</td>
+                        <td>$67,878.30</td>
+                        <td>0.152906</td>
+                        <td class="loss">-0.02%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>236</td>
+                        <td>2026-02-22 12:10:00</td>
+                        <td>2026-02-22 12:15:00</td>
+                        <td>5.0</td>
+                        <td>$67,983.30</td>
+                        <td>$68,000.10</td>
+                        <td>0.152670</td>
+                        <td class="profit">0.02%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>237</td>
+                        <td>2026-02-22 12:35:00</td>
+                        <td>2026-02-22 12:40:00</td>
+                        <td>5.0</td>
+                        <td>$67,883.90</td>
+                        <td>$67,862.80</td>
+                        <td>0.152931</td>
+                        <td class="loss">-0.03%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>238</td>
+                        <td>2026-02-22 12:45:00</td>
+                        <td>2026-02-22 12:50:00</td>
+                        <td>5.0</td>
+                        <td>$67,920.60</td>
+                        <td>$67,917.00</td>
+                        <td>0.152801</td>
+                        <td class="loss">-0.01%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>239</td>
+                        <td>2026-02-22 13:35:00</td>
+                        <td>2026-02-22 13:40:00</td>
+                        <td>5.0</td>
+                        <td>$67,615.10</td>
+                        <td>$67,612.60</td>
+                        <td>0.153483</td>
+                        <td class="loss">-0.00%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>240</td>
+                        <td>2026-02-22 14:00:00</td>
+                        <td>2026-02-22 14:05:00</td>
+                        <td>5.0</td>
+                        <td>$67,500.00</td>
+                        <td>$67,554.10</td>
+                        <td>0.153739</td>
+                        <td class="profit">0.08%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>241</td>
+                        <td>2026-02-22 14:40:00</td>
+                        <td>2026-02-22 14:45:00</td>
+                        <td>5.0</td>
+                        <td>$67,417.60</td>
+                        <td>$67,387.30</td>
+                        <td>0.154051</td>
+                        <td class="loss">-0.04%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>242</td>
+                        <td>2026-02-22 17:30:00</td>
+                        <td>2026-02-22 17:35:00</td>
+                        <td>5.0</td>
+                        <td>$67,263.30</td>
+                        <td>$67,242.40</td>
+                        <td>0.154335</td>
+                        <td class="loss">-0.03%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>243</td>
+                        <td>2026-02-23 00:30:00</td>
+                        <td>2026-02-23 00:35:00</td>
+                        <td>5.0</td>
+                        <td>$67,274.80</td>
+                        <td>$67,175.00</td>
+                        <td>0.154260</td>
+                        <td class="loss">-0.15%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>244</td>
+                        <td>2026-02-23 00:40:00</td>
+                        <td>2026-02-23 00:45:00</td>
+                        <td>5.0</td>
+                        <td>$67,161.00</td>
+                        <td>$67,060.50</td>
+                        <td>0.154292</td>
+                        <td class="loss">-0.15%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>245</td>
+                        <td>2026-02-23 00:50:00</td>
+                        <td>2026-02-23 00:55:00</td>
+                        <td>5.0</td>
+                        <td>$67,121.70</td>
+                        <td>$66,704.40</td>
+                        <td>0.154152</td>
+                        <td class="loss">-0.62%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>246</td>
+                        <td>2026-02-23 01:00:00</td>
+                        <td>2026-02-23 02:35:00</td>
+                        <td>95.0</td>
+                        <td>$66,416.80</td>
+                        <td>$64,729.60</td>
+                        <td>0.154819</td>
+                        <td class="loss">-2.54%</td>
+                        <td><span class="loss">●</span> 亏损</td>
+                    </tr>
+        
+                    <tr>
+                        <td>247</td>
+                        <td>2026-02-23 12:20:00</td>
+                        <td>2026-02-23 12:25:00</td>
+                        <td>5.0</td>
+                        <td>$66,087.60</td>
+                        <td>$66,110.80</td>
+                        <td>0.151638</td>
+                        <td class="profit">0.04%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>248</td>
+                        <td>2026-02-23 12:30:00</td>
+                        <td>2026-02-23 12:35:00</td>
+                        <td>5.0</td>
+                        <td>$65,920.80</td>
+                        <td>$66,212.90</td>
+                        <td>0.152075</td>
+                        <td class="profit">0.44%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                    <tr>
+                        <td>249</td>
+                        <td>2026-02-23 14:45:00</td>
+                        <td>2026-02-23 14:50:00</td>
+                        <td>5.0</td>
+                        <td>$65,621.90</td>
+                        <td>$65,915.00</td>
+                        <td>0.153445</td>
+                        <td class="profit">0.45%</td>
+                        <td><span class="profit">●</span> 盈利</td>
+                    </tr>
+        
+                </tbody>
+            </table>
+        </div>
+        
+        <script>
+            // 过滤功能
+            document.getElementById('filterResult').addEventListener('change', filterTable);
+            document.getElementById('minProfit').addEventListener('input', filterTable);
+            document.getElementById('maxProfit').addEventListener('input', filterTable);
+            
+            function filterTable() {
+                const filterResult = document.getElementById('filterResult').value;
+                const minProfit = parseFloat(document.getElementById('minProfit').value) || -Infinity;
+                const maxProfit = parseFloat(document.getElementById('maxProfit').value) || Infinity;
+                
+                const rows = document.querySelectorAll('#tradeTable tbody tr');
+                
+                rows.forEach(row => {
+                    const pnlCell = row.cells[7];
+                    const pnl = parseFloat(pnlCell.textContent);
+                    const isProfit = pnl > 0;
+                    
+                    let show = true;
+                    
+                    // 根据结果过滤
+                    if (filterResult === 'profit' && !isProfit) show = false;
+                    if (filterResult === 'loss' && isProfit) show = false;
+                    
+                    // 根据盈利范围过滤
+                    if (pnl < minProfit || pnl > maxProfit) show = false;
+                    
+                    row.style.display = show ? '' : 'none';
+                });
+            }
+            
+            function exportToCSV() {
+                const rows = document.querySelectorAll('#tradeTable tbody tr');
+                let csv = '序号,入场时间,出场时间,持仓时间(分钟),入场价格,出场价格,仓位大小,收益率%,结果\n';
+                
+                rows.forEach(row => {
+                    if (row.style.display !== 'none') {
+                        const cells = row.cells;
+                        const rowData = [
+                            cells[0].textContent,
+                            cells[1].textContent,
+                            cells[2].textContent,
+                            cells[3].textContent,
+                            cells[4].textContent.replace('$', '').replace(',', ''),
+                            cells[5].textContent.replace('$', '').replace(',', ''),
+                            cells[6].textContent,
+                            cells[7].textContent.replace('%', ''),
+                            cells[8].textContent.includes('盈利') ? '盈利' : '亏损'
+                        ];
+                        csv += rowData.join(',') + '\n';
+                    }
+                });
+                
+                const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'trade_history_' + new Date().toISOString().slice(0,10) + '.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+            
+            // 初始排序（按收益率降序）
+            let table = document.getElementById('tradeTable');
+            let tbody = table.querySelector('tbody');
+            let rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                let aPnl = parseFloat(a.cells[7].textContent);
+                let bPnl = parseFloat(b.cells[7].textContent);
+                return bPnl - aPnl;
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        </script>
+    </body>
+    </html>
+    
