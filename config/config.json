@@ -25,7 +25,7 @@
     "exchange": {
         "name": "binance",
         "key": "",
-        "secret": "",
+        "secret": "YOUR_SECRET",
         "ccxt_config": {
             "proxies": {
                 "http": "http://127.0.0.1:7897",

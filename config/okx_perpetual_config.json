@@ -18,7 +18,7 @@
     "exchange": {
         "name": "okx",
         "key": "",
-        "secret": "",
+        "secret": "YOUR_SECRET",
         "pair_whitelist": [
             "BTC/USDT:USDT"
         ],

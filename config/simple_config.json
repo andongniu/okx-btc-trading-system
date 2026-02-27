@@ -18,7 +18,7 @@
     "exchange": {
         "name": "binance",
         "key": "",
-        "secret": "",
+        "secret": "YOUR_SECRET",
         "pair_whitelist": [
             "BTC/USDT",
             "ETH/USDT"
