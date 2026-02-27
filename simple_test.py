@@ -6,9 +6,9 @@ print("Testing OKX API connection...")
 
 try:
     exchange = ccxt.okx({
-        'apiKey': '9b5ee84f-13fd-43f5-ae6f-b96b2b0ed70d',
-        'secret': 'A7EABBD3C6D49A92C5B542E0189F4BEC',
-        'password': 'Lhc@930720',
+        'apiKey': 'YOUR_API_KEY',
+        'secret': 'YOUR_SECRET',
+        'password': 'YOUR_PASSPHRASE',
         'enableRateLimit': True,
         'options': {'defaultType': 'swap'},
     })
